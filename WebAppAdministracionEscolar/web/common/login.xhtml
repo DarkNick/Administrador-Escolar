@@ -1,30 +1,34 @@
-<ui:composition 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
-    xmlns:p="http://primefaces.org/ui">
-    <b:row>
-        <b:panel title="Bienvenido" collapsible="false" style="width: 50%;" styleClass="container-login">
-            <h:form id="iniSesion" >
-                <p:graphicImage styleClass="ovalo ovalo-center" value="img/logo-login.jpeg" />
-                <h:panelGrid id="pgSesion" style="border-style: hidden; width: 100%; color: #000000;" >
-                    <h:outputLabel for="usuario" value="Usuario: "/>
-                    <b:inputText id="usuario"  required="true"/>
-                    <h:outputLabel for="password" value="Contraseña: "/>
-                    <b:inputSecret  id="password"  required="true"/>
-                </h:panelGrid>
-                <p:messages id="msgs" closable="true" autoUpdate="true"/>
-                <div class="div-center">
-                    <b:row>
-                        <p:link style="color: -webkit-link" outcome="index" value="Olvido su Contraseña?" />
-                    </b:row>
-                    <b:row>
-                        <p:commandButton icon="ui-icon-key" value="Login" action="#{login.loginControl()}" update="pgSesion"/>
-                    </b:row>
-                </div>
-            </h:form>
-        </b:panel>
-    </b:row>
+<ui:composition
+   xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:b="http://bootsfaces.net/ui"
+   xmlns:p="http://primefaces.org/ui">
+   <b:row>
+       <p:spacer height="50"/>
+   </b:row>
+   <b:row>
+       <b:panel title="Bienvenido" collapsible="false" style="width: 50%;" styleClass="container-login">
+           <h:form id="iniSesion" >
+               <p:graphicImage styleClass="ovalo ovalo-center" value="img/logo-login.jpeg" />
+               <h:panelGrid id="pgSesion" style="border-style: hidden; width: 100%; color: #000000;" >
+                   <h:outputLabel for="usuario" value="Usuario: "/>
+                   <b:inputText id="usuario"  required="true"/>
+                   <h:outputLabel for="password" value="Contraseña: "/>
+                   <b:inputSecret  id="password"  required="true"/>
+               </h:panelGrid>
+               <p:messages id="msgs" closable="true" autoUpdate="true"/>
+               <div class="div-center">
+                   <b:row>
+                       <p:link style="color: -webkit-link" outcome="index" value="Olvido su Contraseña?" />
+                   </b:row>
+                   <b:row>
+                       <p:commandButton icon="ui-icon-key" value="Login" action="#{login.loginControl()}" update="pgSesion"/>
+                   </b:row>
+               </div>
+           </h:form>
+       </b:panel>
+   </b:row>
 </ui:composition>
+ 
