@@ -1,0 +1,55 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+    <b:row>
+        <p:messages id="mensaje" autoUpdate="true" severity="info, fatal, warn" showSummary="false" showDetail="true"/>
+        <h:form id="iniSesion">
+            <p:panelGrid id="pgSesion" style="border-style: hidden">
+                <f:facet name="header">
+                    <p:row>
+                        <p:column colspan="4" style="text-align: left">
+                            Bienvenido
+                        </p:column>
+                    </p:row>
+                </f:facet>
+                <p:row >
+                    <p:column rowspan="2" style="border-style: hidden">
+                        <img  class="ovalo" src="imagenes/images.jpeg" />
+                    </p:column>
+                    <p:column style="border-style: hidden">
+                        <p:outputLabel value="Usuario"/>
+                    </p:column>
+                    <p:column style="border-style: hidden">
+                        <b:inputText id="usuario"  required="true"/>
+                    </p:column>
+                    <p:column style="border-style: hidden"><p:message for="usuario"/></p:column>
+                </p:row>
+                <p:row>
+                    <p:column style="border-style: hidden">
+                        <p:outputLabel for="password" value="Password"/>
+                    </p:column>
+                    <p:column style="border-style: hidden">
+                        <b:inputText  id="password"  required="true"/>
+                    </p:column>
+                    <p:column disabledSelection="" style="border-style: hidden"><p:message for="password"/></p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="4" style="text-align: center">
+                        <p:link style="color: -webkit-link" outcome="index" value="Olvido su Contraseña?" />
+                    </p:column>
+                </p:row>
+                <f:facet name="footer">
+                    <p:row>
+                        <p:column colspan="4" style="text-align: center">
+                            <p:commandButton icon="ui-icon-key" value="Login" action="#{login.loginControl()}" update="pgSesion"/>
+                        </p:column>
+                    </p:row>
+                </f:facet>
+            </p:panelGrid>
+        </h:form>
+    </b:row>
+</ui:composition>

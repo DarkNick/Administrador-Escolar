@@ -5,53 +5,10 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
+    <link href="css/LoginBox.css" rel="stylesheet" type="text/css"/>
     <h:head>
         <title>Administracion Escolar</title>
     </h:head>
-    <h:body>
-        <p:messages id="mensaje" autoUpdate="true" severity="info, fatal, warn" showSummary="false" showDetail="true"/>
-        <h:form id="iniSesion">
-            <p:panelGrid id="pgSesion" >
-                <f:facet name="header">
-                    <p:row>
-                        <p:column colspan="4">
-                            Iniciar Sesion
-                        </p:column>
-                    </p:row>
-                </f:facet>
-                <p:row>
-                    <p:column rowspan="2" > Imagen </p:column>
-                    <p:column>
-                        <p:outputLabel value="Usuario"/>
-                    </p:column>
-                    <p:column>
-                        <b:inputText id="usuario"  required="true"/>
-                    </p:column>
-                    <p:column><p:message for="usuario"/></p:column>
-                </p:row>
-                <p:row>
-                    <p:column>
-                        <p:outputLabel for="password" value="Password"/>
-                    </p:column>
-                    <p:column>
-                        <b:inputText  id="password"  required="true"/>
-                    </p:column>
-                    <p:column disabledSelection=""><p:message for="password"/></p:column>
-                </p:row>
-                <p:row>
-                    <p:column colspan="4" style="text-align: center">
-                        <p:link style="color: -webkit-link" outcome="index" value="Olvido su Contraseña?" />
-                    </p:column>
-                </p:row>
-                <f:facet name="footer">
-                    <p:row>
-                        <p:column colspan="4" style="text-align: center">
-                            <p:commandButton icon="ui-icon-key" value="Login" action="#{login.loginControl()}" update="pgSesion"/>
-                        </p:column>
-                    </p:row>
-                </f:facet>
-            </p:panelGrid>
-        </h:form>
-    </h:body>
+    
 </html>
 
