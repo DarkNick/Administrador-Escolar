@@ -20,7 +20,7 @@ import org.primefaces.model.TreeNode;
 @ViewScoped
 public class HomeConfigBean implements Serializable {
 
-    private TreeNode root;
+    private TreeNode root01;
     private TreeNode selectedNode;
     private String pathForwardMenu01 = "/modulos/admin-usuario/menu-administrador.xhtml";
 
@@ -29,11 +29,11 @@ public class HomeConfigBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        root = createDocuments();
+        root01 = createRelation01();
     }
 
     public TreeNode getRoot() {
-        return root;
+        return root01;
     }
 
     public TreeNode getSelectedNode() {
@@ -59,7 +59,7 @@ public class HomeConfigBean implements Serializable {
         selectedNode = null;
     }
 
-    private TreeNode createDocuments() {
+    private TreeNode createRelation01() {
         TreeNode root = new DefaultTreeNode(new Funcion("Funciones", null, null), null);
 
         TreeNode node01 = new DefaultTreeNode(new Funcion("Docente", null, null), root);
