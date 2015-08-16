@@ -32,3 +32,17 @@ and open the template in the editor.
     margin-left: auto;
     margin-right: auto;
 }
+
+.ovalo {
+    border: 2px solid grey;
+    margin: 0;
+    padding: 0;
+    border-radius: 800px;
+    overflow: hidden;
+}
+
+.datos {
+    width: 100%;
+    padding: 20px;
+    font-size: large;
+}

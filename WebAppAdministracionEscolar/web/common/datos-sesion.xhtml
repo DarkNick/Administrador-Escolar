@@ -1,0 +1,13 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <b:row>
+        <b:panelGrid colSpans="4,4,4" styleClass="datos">
+            <p:outputLabel style="text-align: left">Usuario: #{loginBean.usuario.nombreCompleto()}</p:outputLabel>
+            <p:outputLabel style="text-align: center"><script> horaActual();</script></p:outputLabel>
+            <p:outputLabel style="text-align: right">Perfil: #{loginBean.usuario.nombre_rol}</p:outputLabel>
+        </b:panelGrid>
+    </b:row>
+</ui:composition>
