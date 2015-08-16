@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lusadi.modelo;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  *
@@ -13,51 +9,38 @@ import java.io.Serializable;
  */
 public class Funcion implements Serializable, Comparable<Funcion> {
 
-    private String name;
+    private String nombreFuncion;
+    private String urlFuncion;
+    private String tipo;
 
-    private String size;
-
-    private String type;
-
-    public Funcion(String name, String size, String type) {
-        this.name = name;
-        this.size = size;
-        this.type = type;
+    public Funcion(String nombreFuncion, String urlFuncion, String tipo) {
+        this.nombreFuncion = nombreFuncion;
+        this.urlFuncion = urlFuncion;
+        this.tipo = (tipo == null) ? "FOLDER" : "DOC";
     }
 
-    public String getName() {
-        return name;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public String getSize() {
-        return size;
+    public String getNombreFuncion() {
+        return nombreFuncion;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setNombreFuncion(String nombreFuncion) {
+        this.nombreFuncion = nombreFuncion;
     }
 
-    public String getType() {
-        return type;
+    public String getUrlFuncion() {
+        return urlFuncion;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    //Eclipse Generated hashCode and equals
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((size == null) ? 0 : size.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        return result;
+    public void setUrlFuncion(String urlFuncion) {
+        this.urlFuncion = urlFuncion;
     }
 
     @Override
@@ -72,37 +55,39 @@ public class Funcion implements Serializable, Comparable<Funcion> {
             return false;
         }
         Funcion other = (Funcion) obj;
-        if (name == null) {
-            if (other.name != null) {
+        if (nombreFuncion == null) {
+            if (other.nombreFuncion != null) {
                 return false;
             }
-        } else if (!name.equals(other.name)) {
+        } else if (!nombreFuncion.equals(other.nombreFuncion)) {
             return false;
         }
-        if (size == null) {
-            if (other.size != null) {
+        if (tipo == null) {
+            if (other.tipo != null) {
                 return false;
             }
-        } else if (!size.equals(other.size)) {
-            return false;
-        }
-        if (type == null) {
-            if (other.type != null) {
-                return false;
-            }
-        } else if (!type.equals(other.type)) {
+        } else if (!tipo.equals(other.tipo)) {
             return false;
         }
         return true;
     }
 
     @Override
-    public String toString() {
-        return name;
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.nombreFuncion);
+        hash = 29 * hash + Objects.hashCode(this.urlFuncion);
+        hash = 29 * hash + Objects.hashCode(this.tipo);
+        return hash;
     }
 
     @Override
-    public int compareTo(Funcion document) {
-        return this.getName().compareTo(document.getName());
+    public String toString() {
+        return "[" + nombreFuncion + " " + urlFuncion + "]";
+    }
+
+    @Override
+    public int compareTo(Funcion funcion) {
+        return this.getNombreFuncion().compareTo(funcion.getNombreFuncion());
     }
 }
