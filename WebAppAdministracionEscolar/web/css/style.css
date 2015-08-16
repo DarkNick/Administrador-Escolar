@@ -105,4 +105,14 @@ label{
     border: inherit !important;
 }
 
+.imagenAux {
+    height: 100%;
+    width: 100%;
+        margin-left: auto;
+    margin-right: auto;
+}
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+    box-shadow: inherit !important;
+}
 /* END RENDER PRIME-BOOTSTRAP*/
