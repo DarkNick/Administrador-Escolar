@@ -9,37 +9,37 @@
         <p:spacer height="25"/>
     </b:row>
     <b:row>
-        <b:panelGrid colSpans="5,7" styleClass="menu-admin">
-            <b:column>
+        <b:panelGrid colSpans="5,7">
+            <b:column rendered="true">
                 <p:graphicImage value="img/estudiante-5.gif" />
             </b:column>
-            <b:column span="2" style="width: 100%; ">
-                <h:outputLabel><h1>TITULO</h1></h:outputLabel>
-                <h:outputLabel >Seleccione la actividad que desea realizar. A continuacion encontrara las funciones asociadas a este modulo Recuerde que este modulo esta netamente dedicado a los usuarios que interactuan con el sistema</h:outputLabel>
-                <h:form>
-                    <p:growl id="messages" showDetail="true" />
+            <b:panel title="Bienvenido" collapsible="false" style="width: 100%;">
+                <b:column span="2" style="width: 100%; ">
+                    <h:outputLabel >Seleccione la actividad que desea realizar. A continuacion encontrara las funciones asociadas a este modulo Recuerde que este modulo esta netamente dedicado a los usuarios que interactuan con el sistema</h:outputLabel>
+                    <h:form>
+                        <p:growl id="messages" showDetail="true" />
+                        <p:tree id="docs" value="#{adminUsuariosBean.root}" var="doc" selectionMode="single" selection="#{adminUsuariosBean.selectedNode}" style="width: 100%;">                    
+                            <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                                <h:outputText value="#{doc.name}"/>
+                            </p:treeNode>
+                            <p:treeNode type="document" icon="ui-icon-document">
+                                <h:outputText value="#{doc.name}" />
+                            </p:treeNode>
+                            <p:treeNode type="picture" icon="ui-icon-image">
+                                <h:outputText value="#{doc.name}" />
+                            </p:treeNode>
+                            <p:treeNode type="mp3" icon="ui-icon-video">
+                                <h:outputText value="#{doc.name}" />
+                            </p:treeNode>
+                        </p:tree>
 
-                    <p:tree id="docs" value="#{adminUsuariosBean.root}" var="doc" selectionMode="single" selection="#{adminUsuariosBean.selectedNode}" style="width: 100%;">                    
-                        <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
-                            <h:outputText value="#{doc.name}"/>
-                        </p:treeNode>
-                        <p:treeNode type="document" icon="ui-icon-document">
-                            <h:outputText value="#{doc.name}" />
-                        </p:treeNode>
-                        <p:treeNode type="picture" icon="ui-icon-image">
-                            <h:outputText value="#{doc.name}" />
-                        </p:treeNode>
-                        <p:treeNode type="mp3" icon="ui-icon-video">
-                            <h:outputText value="#{doc.name}" />
-                        </p:treeNode>
-                    </p:tree>
-
-                    <p:contextMenu for="docs">
-                        <p:menuitem value="View" update="messages" actionListener="#{adminUsuariosBean.displaySelectedSingle}" icon="ui-icon-search" />
-                        <p:menuitem value="Delete" update="docs" actionListener="#{adminUsuariosBean.deleteNode}" icon="ui-icon-close"/>
-                    </p:contextMenu>
-                </h:form>
-            </b:column>
+                        <p:contextMenu for="docs">
+                            <p:menuitem value="View" update="messages" actionListener="#{adminUsuariosBean.displaySelectedSingle}" icon="ui-icon-search" />
+                            <p:menuitem value="Delete" update="docs" actionListener="#{adminUsuariosBean.deleteNode}" icon="ui-icon-close"/>
+                        </p:contextMenu>
+                    </h:form>
+                </b:column>
+            </b:panel>
         </b:panelGrid>
     </b:row>
 </ui:composition>

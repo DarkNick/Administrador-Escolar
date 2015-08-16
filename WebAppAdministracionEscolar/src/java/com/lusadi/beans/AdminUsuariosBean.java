@@ -7,11 +7,11 @@ package com.lusadi.beans;
 
 import com.lusadi.modelo.Funcion;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
@@ -20,7 +20,7 @@ import org.primefaces.model.TreeNode;
  * @author andresfelipegarciaduran
  */
 @Named(value = "adminUsuariosBean")
-@Dependent
+@ViewScoped
 public class AdminUsuariosBean implements Serializable {
 
     private TreeNode root;
