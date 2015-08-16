@@ -62,34 +62,20 @@ public class AdminUsuariosBean implements Serializable {
     }
 
     private TreeNode createDocuments() {
-        TreeNode root = new DefaultTreeNode(new Funcion("Files", "-", "Folder"), null);
+        TreeNode root = new DefaultTreeNode(new Funcion("Funciones", null, null), null);
 
-        TreeNode documents = new DefaultTreeNode(new Funcion("Documents", "-", "Folder"), root);
-        TreeNode pictures = new DefaultTreeNode(new Funcion("Pictures", "-", "Folder"), root);
-        TreeNode movies = new DefaultTreeNode(new Funcion("Movies", "-", "Folder"), root);
+        TreeNode node01 = new DefaultTreeNode(new Funcion("Docente", null, null), root);
+        node01.setExpanded(true);
+        TreeNode node02 = new DefaultTreeNode(new Funcion("Alumno", null, null), root);
+        node02.setExpanded(true);
 
-        TreeNode work = new DefaultTreeNode(new Funcion("Work", "-", "Folder"), documents);
-        TreeNode primefaces = new DefaultTreeNode(new Funcion("PrimeFaces", "-", "Folder"), documents);
+        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Registrar Docente", "registro-docente.xhtml", "D"), node01);
+        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Busqueda Docente", "busqueda-docente.xhtml", "D"), node01);
+        TreeNode node01_03 = new DefaultTreeNode(new Funcion("Eliminar Docente", "busqueda-docente.xhtml", "D"), node01);
 
-        //Documents
-        TreeNode expenses = new DefaultTreeNode("document", new Funcion("Expenses.doc", "30 KB", "Word Document"), work);
-        TreeNode resume = new DefaultTreeNode("document", new Funcion("Resume.doc", "10 KB", "Word Document"), work);
-        TreeNode refdoc = new DefaultTreeNode("document", new Funcion("RefDoc.pages", "40 KB", "Pages Document"), primefaces);
-
-        //Pictures
-        TreeNode barca = new DefaultTreeNode("picture", new Funcion("barcelona.jpg", "30 KB", "JPEG Image"), pictures);
-        TreeNode primelogo = new DefaultTreeNode("picture", new Funcion("logo.jpg", "45 KB", "JPEG Image"), pictures);
-        TreeNode optimus = new DefaultTreeNode("picture", new Funcion("optimusprime.png", "96 KB", "PNG Image"), pictures);
-
-        //Movies
-        TreeNode pacino = new DefaultTreeNode(new Funcion("Al Pacino", "-", "Folder"), movies);
-        TreeNode deniro = new DefaultTreeNode(new Funcion("Robert De Niro", "-", "Folder"), movies);
-
-        TreeNode scarface = new DefaultTreeNode("mp3", new Funcion("Scarface", "15 GB", "Movie File"), pacino);
-        TreeNode carlitosWay = new DefaultTreeNode("mp3", new Funcion("Carlitos' Way", "24 GB", "Movie File"), pacino);
-
-        TreeNode goodfellas = new DefaultTreeNode("mp3", new Funcion("Goodfellas", "23 GB", "Movie File"), deniro);
-        TreeNode untouchables = new DefaultTreeNode("mp3", new Funcion("Untouchables", "17 GB", "Movie File"), deniro);
+        TreeNode node02_01 = new DefaultTreeNode(new Funcion("Registrar Alumno", "registro-docente.xhtml", "D"), node02);
+        TreeNode node02_02 = new DefaultTreeNode(new Funcion("Busqueda Alumno", "busqueda-docente.xhtml", "D"), node02);
+        TreeNode node02_03 = new DefaultTreeNode(new Funcion("Eliminar Alumno", "busqueda-docente.xhtml", "D"), node02);
 
         return root;
     }
