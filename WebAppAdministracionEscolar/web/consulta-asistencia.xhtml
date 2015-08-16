@@ -7,12 +7,17 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <f:view contentType="text/html">
-        <ui:include src="/common/header.xhtml"/>
+        <ui:include src="common/header.xhtml"/>
         <h:body id="main-body">
-            <a href="administracion-usuarios.xhtml">link</a>
             <b:container>
                 <ui:include src="common/banner.xhtml"/>
-                <ui:include src="common/login.xhtml"/>
+
+                <b:well>
+                    <h:form>
+                        <b:selectBooleanCheckbox value="#{asistenciaBean.allRegisters}" caption="Todos los registros"/>
+                        <b:selectBooleanCheckbox value="#{asistenciaBean.byNumeroIdentificacion}" caption="Por estudiante"/>
+                    </h:form>
+                </b:well>
             </b:container>
         </h:body>
     </f:view>

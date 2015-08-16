@@ -6,50 +6,25 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <b:row>
-        <p:messages id="mensaje" autoUpdate="true" severity="info, fatal, warn" showSummary="false" showDetail="true"/>
-        <h:form id="iniSesion">
-            <p:panelGrid id="pgSesion" style="border-style: hidden">
-                <f:facet name="header">
-                    <p:row>
-                        <p:column colspan="4" style="text-align: left">
-                            Bienvenido
-                        </p:column>
-                    </p:row>
-                </f:facet>
-                <p:row >
-                    <p:column rowspan="2" style="border-style: hidden">
-                        <p:graphicImage value="/img/logo-login.jpeg" styleClass="ovalo" />
-                    </p:column>
-                    <p:column style="border-style: hidden">
-                        <p:outputLabel value="Usuario"/>
-                    </p:column>
-                    <p:column style="border-style: hidden">
-                        <b:inputText id="usuario"  required="true"/>
-                    </p:column>
-                    <p:column style="border-style: hidden"><p:message for="usuario"/></p:column>
-                </p:row>
-                <p:row>
-                    <p:column style="border-style: hidden">
-                        <p:outputLabel for="password" value="Password"/>
-                    </p:column>
-                    <p:column style="border-style: hidden">
-                        <b:inputText  id="password"  required="true"/>
-                    </p:column>
-                    <p:column disabledSelection="" style="border-style: hidden"><p:message for="password"/></p:column>
-                </p:row>
-                <p:row>
-                    <p:column colspan="4" style="text-align: center">
+        <b:panel title="Bienvenido" collapsible="false" style="width: 50%;" styleClass="container-login">
+            <h:form id="iniSesion" >
+                <p:graphicImage styleClass="ovalo ovalo-center" value="img/logo-login.jpeg" />
+                <h:panelGrid id="pgSesion" style="border-style: hidden; width: 100%; color: #000000;" >
+                    <h:outputLabel for="usuario" value="Usuario: "/>
+                    <b:inputText id="usuario"  required="true"/>
+                    <h:outputLabel for="password" value="Contraseña: "/>
+                    <b:inputSecret  id="password"  required="true"/>
+                </h:panelGrid>
+                <p:messages id="msgs" closable="true" autoUpdate="true"/>
+                <div class="div-center">
+                    <b:row>
                         <p:link style="color: -webkit-link" outcome="index" value="Olvido su Contraseña?" />
-                    </p:column>
-                </p:row>
-                <f:facet name="footer">
-                    <p:row>
-                        <p:column colspan="4" style="text-align: center">
-                            <p:commandButton icon="ui-icon-key" value="Login" action="#{login.loginControl()}" update="pgSesion"/>
-                        </p:column>
-                    </p:row>
-                </f:facet>
-            </p:panelGrid>
-        </h:form>
+                    </b:row>
+                    <b:row>
+                        <p:commandButton icon="ui-icon-key" value="Login" action="#{login.loginControl()}" update="pgSesion"/>
+                    </b:row>
+                </div>
+            </h:form>
+        </b:panel>
     </b:row>
 </ui:composition>
