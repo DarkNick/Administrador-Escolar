@@ -1,23 +1,23 @@
-
 package com.lusadi.modelo;
 
 import java.util.Date;
 
 public class Usuario {
+
     private String tipo_id;
-    private int numero_id;
+    private String numero_id;
     private String primer_Apellido;
     private String segundo_Apellido;
-    private String nombre ;
+    private String nombre;
     private Date fecha_Nacimiento;
     private String tipo_Sangre;
     private int rol_id;
     private String nombre_rol;
     private String password;
-    
-    public Usuario() {        
+
+    public Usuario() {
     }
-    
+
     public String getTipo_id() {
         return tipo_id;
     }
@@ -26,11 +26,11 @@ public class Usuario {
         this.tipo_id = tipo_id;
     }
 
-    public int getNumero_id() {
+    public String getNumero_id() {
         return numero_id;
     }
 
-    public void setNumero_id(int numero_id) {
+    public void setNumero_id(String numero_id) {
         this.numero_id = numero_id;
     }
 
@@ -97,9 +97,9 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public String nombreCompleto()    {
-        return primer_Apellido+" "+segundo_Apellido+" "+nombre;
+
+    public String nombreCompleto() {
+        return primer_Apellido + " " + segundo_Apellido + " " + nombre;
     }
-    
+
 }
