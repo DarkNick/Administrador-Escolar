@@ -4,11 +4,15 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
-    <link href="css/LoginBox.css" rel="stylesheet" type="text/css"/>
-    <h:head>
-        <title>Administracion Escolar</title>
-    </h:head>
-    
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:view contentType="text/html">
+        <ui:include src="common/header.xhtml"/>
+        <h:body id="main-body">
+            <b:container>
+                <ui:include src="common/banner.xhtml"/>
+            </b:container>
+        </h:body>
+    </f:view>
 </html>
 
