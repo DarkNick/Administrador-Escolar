@@ -1,0 +1,52 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+    <b:row>
+        <h:form>
+            <b:panelGrid colSpans="6,6">
+                <b:column>
+                    <b:panel>
+                        <h:outputLabel value="Tipo de Documento"/>
+                        <b:selectOneMenu value="">
+                            <f:selectItem itemLabel="C.C." itemValue="cc"/>
+                        </b:selectOneMenu>
+                        <h:outputLabel value="Numero Del Documento"/>
+                        <b:inputText value="" />
+                        <h:outputLabel value="Primer Apellido"/>
+                        <b:inputText value=""/>
+                        <h:outputLabel value="Segundo Apellido"/>
+                        <b:inputText value=""/>
+                        <h:outputLabel value="Nombres"/>
+                        <b:inputText value=""/>
+                        <h:outputLabel value="Correo electronico"/>
+                        <b:inputText value=""/>
+                        <b:row>
+                            <b:column>
+                                <b:commandButton icon="ui-icon-check" value="Registrar Docente"/>
+                            </b:column>
+                        </b:row>
+                    </b:panel>
+                </b:column>
+                <b:column>
+                    <b:panel>
+                        <h:outputLabel value="Cargo"/>
+                        <b:selectOneMenu value="">
+                            <f:selectItem itemLabel="Docente Catedra" itemValue="dc"/>
+                        </b:selectOneMenu>
+                        <h:outputLabel value="Salario"/>
+                        <b:inputText value=""/>
+                        <h:outputLabel value="Fecha Ingreso"/>
+                        <b:datepicker/>
+                        <h:outputLabel value="Observaciones"/>
+                        <b:inputText type="text" value=""/>
+                    </b:panel>
+                </b:column>
+            </b:panelGrid>
+        </h:form>
+    </b:row>
+</ui:composition>
+

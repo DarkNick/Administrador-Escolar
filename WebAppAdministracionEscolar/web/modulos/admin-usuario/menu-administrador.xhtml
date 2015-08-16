@@ -12,11 +12,13 @@
                 <p:graphicImage value="img/estudiante-5.gif" />
             </b:column>
             <b:panel title="Bienvenido" collapsible="false" >
-                <h:outputLabel >Seleccione la actividad que desea realizar. A continuacion encontrara las funciones asociadas a este modulo Recuerde que este modulo esta netamente dedicado a los usuarios que interactuan con el sistema</h:outputLabel>
+                <h:outputLabel >Seleccione la actividad que desea realizar. A continuacion encontrara las funciones asociadas a este modulo Recuerde que este
+                    modulo esta netamente dedicado a los usuarios que interactuan con el sistema</h:outputLabel>
                 <h:form>
                     <p:growl id="messages" showDetail="true" />
-                    <p:tree id="docs" value="#{adminUsuariosBean.root}" var="doc" selectionMode="single" selection="#{adminUsuariosBean.selectedNode}" 
-                            style="width: 100%;"  >
+                    <p:tree id="docs" value="#{homeConfigBean.root}" var="doc" selectionMode="single" selection="#{homeConfigBean.selectedNode}"
+                            style="width: 100%;">
+                        <p:ajax event="select" listener="#{homeConfigBean.onFunctionSelectMenu01}" />
                         <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed" >
                             <h:outputText value="#{doc.nombreFuncion}"/>
                         </p:treeNode>
@@ -24,13 +26,7 @@
                             <h:outputText value="#{doc.nombreFuncion}" />
                         </p:treeNode>
                     </p:tree>
-
-                    <p:contextMenu for="docs">
-                        <p:menuitem value="View" update="messages" actionListener="#{adminUsuariosBean.displaySelectedSingle}" icon="ui-icon-search" />
-                        <p:menuitem value="Delete" update="docs" actionListener="#{adminUsuariosBean.deleteNode}" icon="ui-icon-close"/>
-                    </p:contextMenu>
                 </h:form>
-
             </b:panel>
         </b:panelGrid>
     </b:row>
