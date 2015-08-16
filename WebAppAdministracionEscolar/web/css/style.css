@@ -32,3 +32,33 @@ and open the template in the editor.
     margin-left: auto;
     margin-right: auto;
 }
+
+.container-login{
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ovalo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    background: url('img/logo-login.jpeg') no-repeat;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+.ovalo-center {
+    margin: auto;
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 40%;
+}
+
+.div-center{
+    text-align: center;
+    position: relative;   
+}
