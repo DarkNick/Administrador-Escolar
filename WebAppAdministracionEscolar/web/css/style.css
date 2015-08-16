@@ -15,9 +15,14 @@ html {
 }
 
 body{
-    background-color: rgba(100, 93, 80, 0.2) !important;
-    background: rgba(100, 93, 80, 0.2) !important;
-    color: #333333 !important;
+    background: rgba(98,125,77,1);
+    background: -moz-linear-gradient(left, rgba(98,125,77,1) 0%, rgba(86,115,62,1) 4%, rgba(47,82,14,1) 17%, rgba(47,82,14,1) 32%, rgba(47,82,14,1) 38%, rgba(47,82,14,1) 48%, rgba(47,82,14,1) 54%, rgba(47,82,14,1) 64%, rgba(47,82,14,1) 68%, rgba(47,82,14,1) 77%, rgba(47,82,14,1) 82%, rgba(47,82,14,1) 91%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(98,125,77,1)), color-stop(4%, rgba(86,115,62,1)), color-stop(17%, rgba(47,82,14,1)), color-stop(32%, rgba(47,82,14,1)), color-stop(38%, rgba(47,82,14,1)), color-stop(48%, rgba(47,82,14,1)), color-stop(54%, rgba(47,82,14,1)), color-stop(64%, rgba(47,82,14,1)), color-stop(68%, rgba(47,82,14,1)), color-stop(77%, rgba(47,82,14,1)), color-stop(82%, rgba(47,82,14,1)), color-stop(91%, rgba(47,82,14,1)));
+    background: -webkit-linear-gradient(left, rgba(98,125,77,1) 0%, rgba(86,115,62,1) 4%, rgba(47,82,14,1) 17%, rgba(47,82,14,1) 32%, rgba(47,82,14,1) 38%, rgba(47,82,14,1) 48%, rgba(47,82,14,1) 54%, rgba(47,82,14,1) 64%, rgba(47,82,14,1) 68%, rgba(47,82,14,1) 77%, rgba(47,82,14,1) 82%, rgba(47,82,14,1) 91%);
+    background: -o-linear-gradient(left, rgba(98,125,77,1) 0%, rgba(86,115,62,1) 4%, rgba(47,82,14,1) 17%, rgba(47,82,14,1) 32%, rgba(47,82,14,1) 38%, rgba(47,82,14,1) 48%, rgba(47,82,14,1) 54%, rgba(47,82,14,1) 64%, rgba(47,82,14,1) 68%, rgba(47,82,14,1) 77%, rgba(47,82,14,1) 82%, rgba(47,82,14,1) 91%);
+    background: -ms-linear-gradient(left, rgba(98,125,77,1) 0%, rgba(86,115,62,1) 4%, rgba(47,82,14,1) 17%, rgba(47,82,14,1) 32%, rgba(47,82,14,1) 38%, rgba(47,82,14,1) 48%, rgba(47,82,14,1) 54%, rgba(47,82,14,1) 64%, rgba(47,82,14,1) 68%, rgba(47,82,14,1) 77%, rgba(47,82,14,1) 82%, rgba(47,82,14,1) 91%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#627d4d', endColorstr='#2f520e', GradientType=1 );
+    color: #000000 !important; 
     font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif !important;
 }
 
@@ -80,6 +85,13 @@ body{
     position: relative;   
 }
 
+.render-img-responsive {
+    height: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* BEGIN RENDER PRIME-BOOTSTRAP */
 label{
     width: 100% !important;
@@ -87,6 +99,10 @@ label{
 
 .ui-widget {
     font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif !important;
+}
+.ui-widget-content {
+    background: inherit !important;
+    border: inherit !important;
 }
 
 /* END RENDER PRIME-BOOTSTRAP*/

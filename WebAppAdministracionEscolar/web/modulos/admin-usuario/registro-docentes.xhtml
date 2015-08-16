@@ -22,10 +22,8 @@
                         <b:inputText value=""/>
                         <h:outputLabel value="Nombres"/>
                         <b:inputText value=""/>
-                        <h:outputLabel value="Correo electronico"/>
-                        <b:inputText value=""/>
                         <b:row>
-                            <b:column>
+                            <b:column style="text-align: center;">
                                 <b:commandButton icon="ui-icon-check" value="Registrar Docente"/>
                             </b:column>
                         </b:row>
@@ -33,6 +31,8 @@
                 </b:column>
                 <b:column>
                     <b:panel>
+                        <h:outputLabel value="Correo electronico"/>
+                        <b:inputText value=""/>
                         <h:outputLabel value="Cargo"/>
                         <b:selectOneMenu value="">
                             <f:selectItem itemLabel="Docente Catedra" itemValue="dc"/>
