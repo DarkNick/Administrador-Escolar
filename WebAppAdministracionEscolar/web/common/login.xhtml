@@ -6,6 +6,9 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <b:row>
+        <p:spacer height="50"/>
+    </b:row>
+    <b:row>
         <b:panel title="Bienvenido" collapsible="false" style="width: 50%;" styleClass="container-login">
             <h:form id="iniSesion" >
                 <p:graphicImage styleClass="ovalo ovalo-center" value="img/logo-login.jpeg" />
@@ -18,10 +21,11 @@
                 <p:messages id="msgs" closable="true" autoUpdate="true"/>
                 <div class="div-center">
                     <b:row>
-                        <p:link style="color: -webkit-link" outcome="index" value="Olvido su Contraseña?" />
+                        <p:link style="color: -webkit-link" outcome="index" value="¿Olvido su Contraseña?" />
                     </b:row>
+                    <p:spacer/>
                     <b:row>
-                        <p:commandButton icon="ui-icon-key" value="Login" action="#{login.loginControl()}" update="pgSesion"/>
+                        <p:commandButton icon="ui-icon-key" value="Ingresar" action="#{login.loginControl()}" update="pgSesion"/>
                     </b:row>
                 </div>
             </h:form>

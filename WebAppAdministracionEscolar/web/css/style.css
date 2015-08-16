@@ -7,12 +7,18 @@ and open the template in the editor.
     Created on : 15-ago-2015, 21:14:41
     Author     : andresfelipegarciaduran
 */
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");
+html {
+    font-family: sans-serif !important;
+    -ms-text-size-adjust: 100% !important;
+    -webkit-text-size-adjust: 100% !important;
+}
 
 body{
     background-color: rgba(100, 93, 80, 0.2) !important;
     background: rgba(100, 93, 80, 0.2) !important;
-    color: #000000 !important;
-    font-family: sans-serif;
+    color: #333333 !important;
+    font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif !important;
 }
 
 .banner {
@@ -41,7 +47,6 @@ body{
 }
 
 .datos {
-    width: 100%;
     padding: 20px;
     font-size: large;
 }
@@ -74,3 +79,14 @@ body{
     text-align: center;
     position: relative;   
 }
+
+/* BEGIN RENDER PRIME-BOOTSTRAP */
+label{
+    width: 100% !important;
+}
+
+.ui-widget {
+    font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif !important;
+}
+
+/* END RENDER PRIME-BOOTSTRAP*/
