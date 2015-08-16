@@ -8,6 +8,13 @@ and open the template in the editor.
     Author     : andresfelipegarciaduran
 */
 
+body{
+    background-color: rgba(100, 93, 80, 0.2) !important;
+    background: rgba(100, 93, 80, 0.2) !important;
+    color: #000000 !important;
+    font-family: sans-serif;
+}
+
 .banner {
     display: inline-block;
     -webkit-box-sizing: content-box;
