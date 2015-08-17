@@ -6,12 +6,16 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <b:row>
-        <b:well>
+        <b:panel>
             <h:form>
-                <b:selectBooleanCheckbox value="#{asistenciaBean.allRegisters}" caption="Todos los registros"/>
-                <b:selectBooleanCheckbox value="#{asistenciaBean.byNumeroIdentificacion}" caption="Por estudiante"/>
+                <b:panelGrid colSpans="2,2,8">
+                    <b:selectBooleanCheckbox value="#{asistenciaBean.allRegisters}" caption="Todos los registros" />
+                    <b:selectBooleanCheckbox value="#{asistenciaBean.byNumeroIdentificacion}" caption="Por estudiante"/>
+                    <b:inputText />
+                    <b:datepicker />
+                </b:panelGrid>
             </h:form>
-        </b:well>
+        </b:panel>
     </b:row>
 </ui:composition>
 

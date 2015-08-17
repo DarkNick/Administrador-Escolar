@@ -5,104 +5,44 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <!--  <b:row>
-          <h:form>
-              <b:panelGrid colSpans="6,6">
-                  <b:column>
-                      <b:panel>
-                          <h:outputLabel value="Tipo de Documento"/>
-                          <b:selectOneMenu value="">
-                              <f:selectItem itemLabel="C.C." itemValue="cc"/>
-                          </b:selectOneMenu>
-                          <h:outputLabel value="Numero Del Documento"/>
-                          <b:inputText value="" />
-                          <h:outputLabel value="Primer Apellido"/>
-                          <b:inputText value=""/>
-                          <h:outputLabel value="Segundo Apellido"/>
-                          <b:inputText value=""/>
-                          <h:outputLabel value="Nombres"/>
-                          <b:inputText value=""/>
-                          <b:row>
-                              <b:column style="text-align: center;">
-                                  <b:commandButton icon="ui-icon-check" value="Registrar Docente"/>
-                              </b:column>
-                          </b:row>
-                      </b:panel>
-                  </b:column>
-                  <b:column>
-                      <b:panel>
-                          <h:outputLabel value="Correo electronico"/>
-                          <b:inputText value=""/>
-                          <h:outputLabel value="Cargo"/>
-                          <b:selectOneMenu value="">
-                              <f:selectItem itemLabel="Docente Catedra" itemValue="dc"/>
-                          </b:selectOneMenu>
-                          <h:outputLabel value="Salario"/>
-                          <b:inputText value=""/>
-                          <h:outputLabel value="Fecha Ingreso"/>
-                          <b:datepicker  />
-                          <h:outputLabel value="Observaciones"/>
-                          <p:inputTextarea rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
-                      </b:panel>
-                  </b:column>
-              </b:panelGrid>
-          </h:form>
-      </b:row>
-    -->
-    <!--
-        <b:row>
-            <b:panel>
-                <h:form>
-                    <p:dataTable value="#{adminNominaBean.listFuncionarios}" var="obj">
-                        <p:column headerText="Tipo Id">
-                            <h:outputText value="#{obj.tipoId}" />
-                        </p:column>
-                        <p:column headerText="Numero Id">
-                            <h:outputText value="#{obj.numeroId}" />
-                        </p:column>
-                        <p:column headerText="Primer Apellido">
-                            <h:outputText value="#{obj.primerApellido}" />
-                        </p:column>
-                        <p:column headerText="Segundo Apellido">
-                            <h:outputText value="#{obj.segundoApellido}" />
-                        </p:column>
-                        <p:column headerText="Nombre">
-                            <h:outputText value="#{obj.nombres}" />
-                        </p:column>
-                        <p:column headerText="Cargo">
-                            <h:outputText value="#{obj.nombreCargo}" />
-                        </p:column>
-                        <p:column headerText="">
-                            <b:commandButton value="Generar"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:form>
-            </b:panel>
-        </b:row>
-    -->
     <b:row>
         <h:form>
             <b:panelGrid colSpans="6,6">
                 <b:column>
                     <b:panel>
-                        <p:dataTable value="#{adminAsistenciaBean.listTemporalAsistencia}" var="obj">
-                            <p:column headerText="Numero Id">
-                                <h:outputText value="#{obj.numeroId}" />
-                            </p:column>
-                            <p:column headerText="Hora">
-                                <h:outputText value="#{obj.fecha}" />
-                            </p:column>
-                        </p:dataTable>
+                        <h:outputLabel value="Tipo de Documento"/>
+                        <b:selectOneMenu value="">
+                            <f:selectItem itemLabel="C.C." itemValue="cc"/>
+                        </b:selectOneMenu>
+                        <h:outputLabel value="Numero Del Documento"/>
+                        <b:inputText value="" />
+                        <h:outputLabel value="Primer Apellido"/>
+                        <b:inputText value=""/>
+                        <h:outputLabel value="Segundo Apellido"/>
+                        <b:inputText value=""/>
+                        <h:outputLabel value="Nombres"/>
+                        <b:inputText value=""/>
+                        <b:row>
+                            <b:column style="text-align: center;">
+                                <b:commandButton icon="ui-icon-check" value="Registrar Docente"/>
+                            </b:column>
+                        </b:row>
                     </b:panel>
                 </b:column>
                 <b:column>
                     <b:panel>
-                        <b:inputText />
-                        <b:row>
-                            <b:column style="text-align: center;">
-                                <b:commandButton value="Guardar" />
-                            </b:column>
-                        </b:row>
+                        <h:outputLabel value="Correo electronico"/>
+                        <b:inputText value=""/>
+                        <h:outputLabel value="Cargo"/>
+                        <b:selectOneMenu value="">
+                            <f:selectItem itemLabel="Docente Catedra" itemValue="dc"/>
+                        </b:selectOneMenu>
+                        <h:outputLabel value="Salario"/>
+                        <b:inputText value=""/>
+                        <h:outputLabel value="Fecha Ingreso"/>
+                        <b:datepicker  />
+                        <h:outputLabel value="Observaciones"/>
+                        <p:inputTextarea rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                     </b:panel>
                 </b:column>
             </b:panelGrid>

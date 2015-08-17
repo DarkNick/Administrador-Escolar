@@ -78,10 +78,10 @@ public class HomeConfigBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        root01 = createRelation01();
-        root02 = createRelation02();
-        root03 = createRelation03();
-        root04 = createRelation04();
+        root01 = createRelationAdministracionUsuario();
+        root02 = createRelationAdministracionAsistencia();
+        root03 = createRelatioAdministracionNomina();
+        root04 = createRelationAdministracionRegistroAcademico();
     }
 
     public TreeNode getRoot01() {
@@ -132,7 +132,7 @@ public class HomeConfigBean implements Serializable {
         this.pathForwardMenu02 = pathForwardMenu02;
     }
 
-    private TreeNode createRelation01() {
+    private TreeNode createRelationAdministracionUsuario() {
         TreeNode root = new DefaultTreeNode(new Funcion("Funciones", null, null), null);
 
         TreeNode node01 = new DefaultTreeNode(new Funcion("Docente", null, null), root);
@@ -151,30 +151,30 @@ public class HomeConfigBean implements Serializable {
         return root;
     }
 
-    private TreeNode createRelation02() {
+    private TreeNode createRelationAdministracionAsistencia() {
         TreeNode root = new DefaultTreeNode(new Funcion("Funciones", null, null), null);
 
         TreeNode node01 = new DefaultTreeNode(new Funcion("Asistencias", null, null), root);
         node01.setExpanded(true);
 
-        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Registro Asistencia", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
-        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Consulta Asistencia", "/modulos/admin-usuario/busqueda-docente.xhtml", "D"), node01);
+        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Registro Asistencia", "/modulos/admin-asistencia/registro-asistencia.xhtml", "D"), node01);
+        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Consulta Asistencia", "/modulos/admin-asistencia/consulta-asistencia.xhtml", "D"), node01);
         return root;
     }
-    
-    private TreeNode createRelation03() {
+
+    private TreeNode createRelatioAdministracionNomina() {
         TreeNode root = new DefaultTreeNode(new Funcion("Funciones", null, null), null);
 
         TreeNode node01 = new DefaultTreeNode(new Funcion("Nomina", null, null), root);
         node01.setExpanded(true);
 
-        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Consulta Pagos", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
+        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Consulta Pagos", "/modulos/admin-nomina/busqueda-nomina.xhtml", "D"), node01);
         TreeNode node01_02 = new DefaultTreeNode(new Funcion("Registro pago", "/modulos/admin-usuario/busqueda-docente.xhtml", "D"), node01);
 
         return root;
     }
-    
-    private TreeNode createRelation04() {
+
+    private TreeNode createRelationAdministracionRegistroAcademico() {
         TreeNode root = new DefaultTreeNode(new Funcion("Funciones", null, null), null);
 
         TreeNode node01 = new DefaultTreeNode(new Funcion("Horario", null, null), root);
@@ -188,14 +188,14 @@ public class HomeConfigBean implements Serializable {
         TreeNode node01_02 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Salon", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
         TreeNode node01_03 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Curso", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
         TreeNode node01_04 = new DefaultTreeNode(new Funcion("Crear - Registro Materias", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
-        
+
         TreeNode node02_01 = new DefaultTreeNode(new Funcion("Registro Estudiante", "/modulos/admin-usuario/registro-alumno.xhtml", "D"), node02);
 
         TreeNode node03_01 = new DefaultTreeNode(new Funcion("Consulta Historial Academico", "/modulos/admin-usuario/registro-alumno.xhtml", "D"), node03);
         TreeNode node03_02 = new DefaultTreeNode(new Funcion("Registro Notas", "/modulos/admin-usuario/registro-alumno.xhtml", "D"), node03);
-        
+
         return root;
-    }    
+    }
 
     public void onFunctionSelectMenu01(NodeSelectEvent event) {
         Funcion funcion = (Funcion) event.getTreeNode().getData();
@@ -208,13 +208,13 @@ public class HomeConfigBean implements Serializable {
         setPathForwardMenu02(funcion.getUrlFuncion());
         RequestContext.getCurrentInstance().update("center02");
     }
-    
+
     public void onFunctionSelectMenu03(NodeSelectEvent event) {
         Funcion funcion = (Funcion) event.getTreeNode().getData();
         setPathForwardMenu03(funcion.getUrlFuncion());
         RequestContext.getCurrentInstance().update("center03");
     }
-        
+
     public void onFunctionSelectMenu04(NodeSelectEvent event) {
         Funcion funcion = (Funcion) event.getTreeNode().getData();
         setPathForwardMenu04(funcion.getUrlFuncion());
