@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -27,7 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author andresfelipegarciaduran
+ * @author duran
+ * @version 1.0
  */
 @Entity
 @Table(name = "USUARIO")
@@ -61,15 +63,17 @@ public class Usuario implements Serializable {
     @Column(name = "TIPO_SANGRE")
     private String tipoSangre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Asistencia> asistenciaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Funcionario> funcionarioList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Estudiante> estudianteList;
-    @JoinColumn(name = "LOGIN_ID", referencedColumnName = "LOGIN_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Login loginId;
     @JoinColumn(name = "ROL_ID", referencedColumnName = "ROL_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Rol rolId;
+    @JoinColumn(name = "LOGIN_ID", referencedColumnName = "LOGIN_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Login loginId;
 
     public Usuario() {
     }
@@ -131,6 +135,15 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
+    public List<Asistencia> getAsistenciaList() {
+        return asistenciaList;
+    }
+
+    public void setAsistenciaList(List<Asistencia> asistenciaList) {
+        this.asistenciaList = asistenciaList;
+    }
+
+    @XmlTransient
     public List<Funcionario> getFuncionarioList() {
         return funcionarioList;
     }
@@ -148,20 +161,20 @@ public class Usuario implements Serializable {
         this.estudianteList = estudianteList;
     }
 
-    public Login getLoginId() {
-        return loginId;
-    }
-
-    public void setLoginId(Login loginId) {
-        this.loginId = loginId;
-    }
-
     public Rol getRolId() {
         return rolId;
     }
 
     public void setRolId(Rol rolId) {
         this.rolId = rolId;
+    }
+
+    public Login getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(Login loginId) {
+        this.loginId = loginId;
     }
 
     @Override
@@ -188,5 +201,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "com.lusadi.entities.Usuario[ usuarioPK=" + usuarioPK + " ]";
     }
-    
+
 }

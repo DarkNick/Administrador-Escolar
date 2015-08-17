@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -26,7 +27,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author andresfelipegarciaduran
+ * @author duran
+ * @version 1.0
  */
 @Entity
 @Table(name = "HORARIO")
@@ -55,15 +57,15 @@ public class Horario implements Serializable {
     private String horaFinClase;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "horarioId", fetch = FetchType.LAZY)
     private List<MatriculaEstudiante> matriculaEstudianteList;
+    @JoinColumn(name = "MATERIA_ID", referencedColumnName = "MATERIA_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Materia materiaId;
     @JoinColumn(name = "CURSO_ID", referencedColumnName = "CURSO_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Curso cursoId;
     @JoinColumn(name = "FUNCIONARIO_ID", referencedColumnName = "FUNCIONARIO_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Funcionario funcionarioId;
-    @JoinColumn(name = "MATERIA_ID", referencedColumnName = "MATERIA_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Materia materiaId;
     @JoinColumn(name = "RESULTADO_ACADEMICO_ID", referencedColumnName = "RESULTADO_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ResultadoAcademico resultadoAcademicoId;
@@ -116,6 +118,14 @@ public class Horario implements Serializable {
         this.matriculaEstudianteList = matriculaEstudianteList;
     }
 
+    public Materia getMateriaId() {
+        return materiaId;
+    }
+
+    public void setMateriaId(Materia materiaId) {
+        this.materiaId = materiaId;
+    }
+
     public Curso getCursoId() {
         return cursoId;
     }
@@ -130,14 +140,6 @@ public class Horario implements Serializable {
 
     public void setFuncionarioId(Funcionario funcionarioId) {
         this.funcionarioId = funcionarioId;
-    }
-
-    public Materia getMateriaId() {
-        return materiaId;
-    }
-
-    public void setMateriaId(Materia materiaId) {
-        this.materiaId = materiaId;
     }
 
     public ResultadoAcademico getResultadoAcademicoId() {
@@ -172,5 +174,5 @@ public class Horario implements Serializable {
     public String toString() {
         return "com.lusadi.entities.Horario[ horarioId=" + horarioId + " ]";
     }
-    
+
 }

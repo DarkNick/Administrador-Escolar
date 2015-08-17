@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -30,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author andresfelipegarciaduran
+ * @author duran
+ * @version 1.0
  */
 @Entity
 @Table(name = "ESTUDIANTE")
@@ -61,14 +63,14 @@ public class Estudiante implements Serializable {
     @Size(max = 45)
     @Column(name = "NOMBRES_ACUDIENTE")
     private String nombresAcudiente;
-    @JoinColumn(name = "PARENTESCO_FAMILIA_ID", referencedColumnName = "PARENTESCO_FAMILIA_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private ParentescoFamilia parentescoFamiliaId;
     @JoinColumns({
         @JoinColumn(name = "USUARIO_TIPO_ID", referencedColumnName = "TIPO_ID"),
         @JoinColumn(name = "USUARIO_NUMERO_ID", referencedColumnName = "NUMERO_ID")})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
+    @JoinColumn(name = "PARENTESCO_FAMILIA_ID", referencedColumnName = "PARENTESCO_FAMILIA_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private ParentescoFamilia parentescoFamiliaId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudianteId", fetch = FetchType.LAZY)
     private List<MatriculaEstudiante> matriculaEstudianteList;
 
@@ -119,20 +121,20 @@ public class Estudiante implements Serializable {
         this.nombresAcudiente = nombresAcudiente;
     }
 
-    public ParentescoFamilia getParentescoFamiliaId() {
-        return parentescoFamiliaId;
-    }
-
-    public void setParentescoFamiliaId(ParentescoFamilia parentescoFamiliaId) {
-        this.parentescoFamiliaId = parentescoFamiliaId;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public ParentescoFamilia getParentescoFamiliaId() {
+        return parentescoFamiliaId;
+    }
+
+    public void setParentescoFamiliaId(ParentescoFamilia parentescoFamiliaId) {
+        this.parentescoFamiliaId = parentescoFamiliaId;
     }
 
     @XmlTransient
@@ -168,5 +170,5 @@ public class Estudiante implements Serializable {
     public String toString() {
         return "com.lusadi.entities.Estudiante[ estudiateId=" + estudiateId + " ]";
     }
-    
+
 }
