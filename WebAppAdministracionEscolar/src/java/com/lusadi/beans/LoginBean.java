@@ -51,9 +51,7 @@ public class LoginBean implements Serializable {
     }
 
     public void loginOutControl() {
-        System.out.println("llego");
         try {
-            ;
             HttpSession session = UtilFaces.getFacesUtil().getSession();
             session.invalidate();
             UtilFaces.getFacesUtil().redirect("/edu/");
