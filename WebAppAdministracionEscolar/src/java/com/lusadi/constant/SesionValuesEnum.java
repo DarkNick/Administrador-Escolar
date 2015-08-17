@@ -11,6 +11,6 @@ package com.lusadi.constant;
  */
 public enum SesionValuesEnum {
 
-    NAME_USER,
+    FULLNAME_USER,
     ROL_USER,
 }

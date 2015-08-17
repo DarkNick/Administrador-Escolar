@@ -13,9 +13,11 @@
                 <b:navLink value="Administracion Nomina" href="http://localhost:8080/edu/administracion-nomina.xhtml"></b:navLink>
                 <b:navLink value="Control Asistencia" href="http://localhost:8080/edu/administracion-control-asistencia.xhtml"></b:navLink>
             </b:navbarLinks>
-            <b:navbarLinks pull="right">
-                <b:navLink tooltip-position="top" value="Cerrar Sesion" href="#"></b:navLink>
-            </b:navbarLinks>
+            <h:form>
+                <b:navbarLinks pull="right">
+                    <b:commandButton action="#{loginBean.loginOutControl()}" value="Cerrar Sesion" styleClass="button-navbar"/>
+                </b:navbarLinks>
+            </h:form>
         </b:navBar>
     </b:row>
 </ui:composition>

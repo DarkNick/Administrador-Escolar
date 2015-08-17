@@ -32,6 +32,11 @@ public class UtilFaces {
         return request.getSession(true);
     }
 
+    public void setAttributeSession(String key, Object value) {
+        HttpSession session = getSession();
+        session.setAttribute(key, value);
+    }
+
     public void redirect(String string) throws IOException {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.getExternalContext().redirect(string);

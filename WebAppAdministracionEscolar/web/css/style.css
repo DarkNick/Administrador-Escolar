@@ -121,3 +121,8 @@ textarea{
 }
 
 /* END RENDER PRIME-BOOTSTRAP*/
+
+.button-navbar{
+    display: block !important;
+    margin: 10px !important;
+}

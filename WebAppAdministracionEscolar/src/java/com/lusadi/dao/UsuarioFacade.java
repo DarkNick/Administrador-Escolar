@@ -38,7 +38,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
             Login find = em.find(Login.class, Integer.parseInt(String.valueOf(resultList.get(0))));
             if (find != null) {
                 if (find.getClave().compareTo(password) != 0) {
-                    throw new Exception("La clave no coincide con el sistema");
+                    throw new Exception("La clave no coincide con la registrada en el sistema.");
                 }
             } else {
                 throw new Exception("El número de identificación no se encontró en la base de datos");
