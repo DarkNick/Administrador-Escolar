@@ -13,7 +13,12 @@
                 <ui:include src="/common/banner.xhtml"/>
                 <ui:include src="/common/datos-sesion.xhtml"/>
                 <ui:include src="/common/menuBar.xhtml"/>
-                
+                <!-- Content -->
+                <p:layoutUnit id="center02" position="center">
+                    <h:panelGroup id="panelGroup" layout="block">
+                        <ui:include id="includeSrc" src="#{homeConfigBean.pathForwardMenu02}" />
+                    </h:panelGroup>
+                </p:layoutUnit>
             </b:container>
         </h:body>
     </f:view>
