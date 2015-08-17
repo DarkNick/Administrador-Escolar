@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -27,11 +26,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author duran
- * @version 1.0
+ * @author Personal
  */
 @Entity
-@Table(name = "HORARIO")
+@Table(name = "horario", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Horario.findAll", query = "SELECT h FROM Horario h"),
@@ -55,20 +53,20 @@ public class Horario implements Serializable {
     @Size(max = 45)
     @Column(name = "HORA_FIN_CLASE")
     private String horaFinClase;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "horarioId", fetch = FetchType.LAZY)
-    private List<MatriculaEstudiante> matriculaEstudianteList;
-    @JoinColumn(name = "MATERIA_ID", referencedColumnName = "MATERIA_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Materia materiaId;
     @JoinColumn(name = "CURSO_ID", referencedColumnName = "CURSO_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Curso cursoId;
     @JoinColumn(name = "FUNCIONARIO_ID", referencedColumnName = "FUNCIONARIO_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Funcionario funcionarioId;
+    @JoinColumn(name = "MATERIA_ID", referencedColumnName = "MATERIA_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Materia materiaId;
     @JoinColumn(name = "RESULTADO_ACADEMICO_ID", referencedColumnName = "RESULTADO_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ResultadoAcademico resultadoAcademicoId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "horarioId", fetch = FetchType.LAZY)
+    private List<MatriculaEstudiante> matriculaEstudianteList;
 
     public Horario() {
     }
@@ -109,23 +107,6 @@ public class Horario implements Serializable {
         this.horaFinClase = horaFinClase;
     }
 
-    @XmlTransient
-    public List<MatriculaEstudiante> getMatriculaEstudianteList() {
-        return matriculaEstudianteList;
-    }
-
-    public void setMatriculaEstudianteList(List<MatriculaEstudiante> matriculaEstudianteList) {
-        this.matriculaEstudianteList = matriculaEstudianteList;
-    }
-
-    public Materia getMateriaId() {
-        return materiaId;
-    }
-
-    public void setMateriaId(Materia materiaId) {
-        this.materiaId = materiaId;
-    }
-
     public Curso getCursoId() {
         return cursoId;
     }
@@ -142,12 +123,29 @@ public class Horario implements Serializable {
         this.funcionarioId = funcionarioId;
     }
 
+    public Materia getMateriaId() {
+        return materiaId;
+    }
+
+    public void setMateriaId(Materia materiaId) {
+        this.materiaId = materiaId;
+    }
+
     public ResultadoAcademico getResultadoAcademicoId() {
         return resultadoAcademicoId;
     }
 
     public void setResultadoAcademicoId(ResultadoAcademico resultadoAcademicoId) {
         this.resultadoAcademicoId = resultadoAcademicoId;
+    }
+
+    @XmlTransient
+    public List<MatriculaEstudiante> getMatriculaEstudianteList() {
+        return matriculaEstudianteList;
+    }
+
+    public void setMatriculaEstudianteList(List<MatriculaEstudiante> matriculaEstudianteList) {
+        this.matriculaEstudianteList = matriculaEstudianteList;
     }
 
     @Override
@@ -174,5 +172,5 @@ public class Horario implements Serializable {
     public String toString() {
         return "com.lusadi.entities.Horario[ horarioId=" + horarioId + " ]";
     }
-
+    
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -27,11 +26,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author duran
- * @version 1.0
+ * @author Personal
  */
 @Entity
-@Table(name = "MATERIA")
+@Table(name = "materia", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Materia.findAll", query = "SELECT m FROM Materia m"),
@@ -57,11 +55,11 @@ public class Materia implements Serializable {
     private String observacion;
     @Column(name = "NIVEL_ACADEMICO")
     private Integer nivelAcademico;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materiaId", fetch = FetchType.LAZY)
+    private List<Horario> horarioList;
     @JoinColumn(name = "SALON_SALON_ID", referencedColumnName = "SALON_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Salon salonSalonId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "materiaId", fetch = FetchType.LAZY)
-    private List<Horario> horarioList;
 
     public Materia() {
     }
@@ -110,14 +108,6 @@ public class Materia implements Serializable {
         this.nivelAcademico = nivelAcademico;
     }
 
-    public Salon getSalonSalonId() {
-        return salonSalonId;
-    }
-
-    public void setSalonSalonId(Salon salonSalonId) {
-        this.salonSalonId = salonSalonId;
-    }
-
     @XmlTransient
     public List<Horario> getHorarioList() {
         return horarioList;
@@ -125,6 +115,14 @@ public class Materia implements Serializable {
 
     public void setHorarioList(List<Horario> horarioList) {
         this.horarioList = horarioList;
+    }
+
+    public Salon getSalonSalonId() {
+        return salonSalonId;
+    }
+
+    public void setSalonSalonId(Salon salonSalonId) {
+        this.salonSalonId = salonSalonId;
     }
 
     @Override
@@ -151,5 +149,5 @@ public class Materia implements Serializable {
     public String toString() {
         return "com.lusadi.entities.Materia[ materiaId=" + materiaId + " ]";
     }
-
+    
 }

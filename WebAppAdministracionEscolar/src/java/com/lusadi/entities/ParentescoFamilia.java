@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -25,11 +24,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author duran
- * @version 1.0
+ * @author Personal
  */
 @Entity
-@Table(name = "PARENTESCO_FAMILIA")
+@Table(name = "parentesco_familia", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ParentescoFamilia.findAll", query = "SELECT p FROM ParentescoFamilia p"),
@@ -116,5 +114,5 @@ public class ParentescoFamilia implements Serializable {
     public String toString() {
         return "com.lusadi.entities.ParentescoFamilia[ parentescoFamiliaId=" + parentescoFamiliaId + " ]";
     }
-
+    
 }

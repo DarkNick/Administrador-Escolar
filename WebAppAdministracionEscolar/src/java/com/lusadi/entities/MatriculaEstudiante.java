@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -23,11 +22,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author duran
- * @version 1.0
+ * @author Personal
  */
 @Entity
-@Table(name = "MATRICULA_ESTUDIANTE")
+@Table(name = "matricula_estudiante", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "MatriculaEstudiante.findAll", query = "SELECT m FROM MatriculaEstudiante m"),
@@ -155,5 +153,5 @@ public class MatriculaEstudiante implements Serializable {
     public String toString() {
         return "com.lusadi.entities.MatriculaEstudiante[ matriculaId=" + matriculaId + " ]";
     }
-
+    
 }

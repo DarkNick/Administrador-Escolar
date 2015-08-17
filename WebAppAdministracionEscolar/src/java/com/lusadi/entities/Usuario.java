@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -28,11 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author duran
- * @version 1.0
+ * @author Personal
  */
 @Entity
-@Table(name = "USUARIO")
+@Table(name = "usuario", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
@@ -63,17 +61,17 @@ public class Usuario implements Serializable {
     @Column(name = "TIPO_SANGRE")
     private String tipoSangre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<Asistencia> asistenciaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<Funcionario> funcionarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Estudiante> estudianteList;
-    @JoinColumn(name = "ROL_ID", referencedColumnName = "ROL_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Rol rolId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Asistencia> asistenciaList;
     @JoinColumn(name = "LOGIN_ID", referencedColumnName = "LOGIN_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Login loginId;
+    @JoinColumn(name = "ROL_ID", referencedColumnName = "ROL_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Rol rolId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Funcionario> funcionarioList;
 
     public Usuario() {
     }
@@ -135,6 +133,15 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
+    public List<Estudiante> getEstudianteList() {
+        return estudianteList;
+    }
+
+    public void setEstudianteList(List<Estudiante> estudianteList) {
+        this.estudianteList = estudianteList;
+    }
+
+    @XmlTransient
     public List<Asistencia> getAsistenciaList() {
         return asistenciaList;
     }
@@ -143,22 +150,12 @@ public class Usuario implements Serializable {
         this.asistenciaList = asistenciaList;
     }
 
-    @XmlTransient
-    public List<Funcionario> getFuncionarioList() {
-        return funcionarioList;
+    public Login getLoginId() {
+        return loginId;
     }
 
-    public void setFuncionarioList(List<Funcionario> funcionarioList) {
-        this.funcionarioList = funcionarioList;
-    }
-
-    @XmlTransient
-    public List<Estudiante> getEstudianteList() {
-        return estudianteList;
-    }
-
-    public void setEstudianteList(List<Estudiante> estudianteList) {
-        this.estudianteList = estudianteList;
+    public void setLoginId(Login loginId) {
+        this.loginId = loginId;
     }
 
     public Rol getRolId() {
@@ -169,12 +166,13 @@ public class Usuario implements Serializable {
         this.rolId = rolId;
     }
 
-    public Login getLoginId() {
-        return loginId;
+    @XmlTransient
+    public List<Funcionario> getFuncionarioList() {
+        return funcionarioList;
     }
 
-    public void setLoginId(Login loginId) {
-        this.loginId = loginId;
+    public void setFuncionarioList(List<Funcionario> funcionarioList) {
+        this.funcionarioList = funcionarioList;
     }
 
     @Override
@@ -201,5 +199,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "com.lusadi.entities.Usuario[ usuarioPK=" + usuarioPK + " ]";
     }
-
+    
 }

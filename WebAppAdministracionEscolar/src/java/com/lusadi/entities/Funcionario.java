@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -27,11 +26,10 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author duran
- * @version 1.0
+ * @author Personal
  */
 @Entity
-@Table(name = "FUNCIONARIO")
+@Table(name = "funcionario", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Funcionario.findAll", query = "SELECT f FROM Funcionario f"),
@@ -46,18 +44,18 @@ public class Funcionario implements Serializable {
     private Integer funcionarioId;
     @Column(name = "SALDO_NETO")
     private Long saldoNeto;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
+    private List<Horario> horarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
+    private List<AdjuntoNomina> adjuntoNominaList;
+    @JoinColumn(name = "CARGO_CARGO_ID", referencedColumnName = "CARGO_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Cargo cargoCargoId;
     @JoinColumns({
         @JoinColumn(name = "USUARIO_TIPO_ID", referencedColumnName = "TIPO_ID"),
         @JoinColumn(name = "USUARIO_NUMERO_ID", referencedColumnName = "NUMERO_ID")})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
-    @JoinColumn(name = "CARGO_CARGO_ID", referencedColumnName = "CARGO_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Cargo cargoCargoId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
-    private List<Horario> horarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
-    private List<AdjuntoNomina> adjuntoNominaList;
 
     public Funcionario() {
     }
@@ -82,22 +80,6 @@ public class Funcionario implements Serializable {
         this.saldoNeto = saldoNeto;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Cargo getCargoCargoId() {
-        return cargoCargoId;
-    }
-
-    public void setCargoCargoId(Cargo cargoCargoId) {
-        this.cargoCargoId = cargoCargoId;
-    }
-
     @XmlTransient
     public List<Horario> getHorarioList() {
         return horarioList;
@@ -114,6 +96,22 @@ public class Funcionario implements Serializable {
 
     public void setAdjuntoNominaList(List<AdjuntoNomina> adjuntoNominaList) {
         this.adjuntoNominaList = adjuntoNominaList;
+    }
+
+    public Cargo getCargoCargoId() {
+        return cargoCargoId;
+    }
+
+    public void setCargoCargoId(Cargo cargoCargoId) {
+        this.cargoCargoId = cargoCargoId;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -140,5 +138,5 @@ public class Funcionario implements Serializable {
     public String toString() {
         return "com.lusadi.entities.Funcionario[ funcionarioId=" + funcionarioId + " ]";
     }
-
+    
 }

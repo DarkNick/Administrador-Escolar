@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.lusadi.entities;
 
 import java.io.Serializable;
@@ -15,8 +14,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author duran
- * @version 1.0
+ * @author Personal
  */
 @Embeddable
 public class UsuarioPK implements Serializable {
@@ -82,5 +80,5 @@ public class UsuarioPK implements Serializable {
     public String toString() {
         return "com.lusadi.entities.UsuarioPK[ tipoId=" + tipoId + ", numeroId=" + numeroId + " ]";
     }
-
+    
 }
