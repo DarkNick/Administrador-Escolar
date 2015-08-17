@@ -15,48 +15,121 @@ import org.primefaces.model.TreeNode;
 /**
  *
  * @author andresfelipegarciaduran
+ * @modificado Diego Pineda =)
  */
 @Named(value = "homeConfigBean")
 @ViewScoped
 public class HomeConfigBean implements Serializable {
 
-    private TreeNode root01;
-    private TreeNode selectedNode;
+    private TreeNode root01, root02, root03, root04;
+    private TreeNode selectedNode01, selectedNode02, selectedNode03, selectedNode04;
     private String pathForwardMenu01 = "/modulos/admin-usuario/menu-administrador.xhtml";
+    private String pathForwardMenu02 = "/modulos/admin-asistencia/menu-control-asistencia.xhtml";
+    private String pathForwardMenu03 = "/modulos/admin-nomina/menu-nomina.xhtml";
+    private String pathForwardMenu04 = "/modulos/admin-registro/menu-registro.xhtml";
 
-    public HomeConfigBean() {
+    public TreeNode getRoot04() {
+        return root04;
+    }
+
+    public void setRoot04(TreeNode root04) {
+        this.root04 = root04;
+    }
+
+    public TreeNode getSelectedNode04() {
+        return selectedNode04;
+    }
+
+    public void setSelectedNode04(TreeNode selectedNode04) {
+        this.selectedNode04 = selectedNode04;
+    }
+
+    public String getPathForwardMenu04() {
+        return pathForwardMenu04;
+    }
+
+    public void setPathForwardMenu04(String pathForwardMenu04) {
+        this.pathForwardMenu04 = pathForwardMenu04;
+    }
+
+    public TreeNode getRoot03() {
+        return root03;
+    }
+
+    public void setRoot03(TreeNode root03) {
+        this.root03 = root03;
+    }
+
+    public TreeNode getSelectedNode03() {
+        return selectedNode03;
+    }
+
+    public void setSelectedNode03(TreeNode selectedNode03) {
+        this.selectedNode03 = selectedNode03;
+    }
+
+    public String getPathForwardMenu03() {
+        return pathForwardMenu03;
+    }
+
+    public void setPathForwardMenu03(String pathForwardMenu03) {
+        this.pathForwardMenu03 = pathForwardMenu03;
     }
 
     @PostConstruct
     public void init() {
         root01 = createRelation01();
+        root02 = createRelation02();
+        root03 = createRelation03();
+        root04 = createRelation04();
     }
 
-    public TreeNode getRoot() {
+    public TreeNode getRoot01() {
         return root01;
     }
 
-    public TreeNode getSelectedNode() {
-        return selectedNode;
+    public void setRoot01(TreeNode root01) {
+        this.root01 = root01;
     }
 
-    public void setSelectedNode(TreeNode selectedNode) {
-        this.selectedNode = selectedNode;
+    public TreeNode getRoot02() {
+        return root02;
     }
 
-    public void displaySelectedSingle() {
-        if (selectedNode != null) {
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", selectedNode.getData().toString());
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
+    public void setRoot02(TreeNode root02) {
+        this.root02 = root02;
     }
 
-    public void deleteNode() {
-        selectedNode.getChildren().clear();
-        selectedNode.getParent().getChildren().remove(selectedNode);
-        selectedNode.setParent(null);
+    public TreeNode getSelectedNode01() {
+        return selectedNode01;
+    }
 
-        selectedNode = null;
+    public void setSelectedNode01(TreeNode selectedNode01) {
+        this.selectedNode01 = selectedNode01;
+    }
+
+    public TreeNode getSelectedNode02() {
+        return selectedNode02;
+    }
+
+    public void setSelectedNode02(TreeNode selectedNode02) {
+        this.selectedNode02 = selectedNode02;
+    }
+
+    public String getPathForwardMenu01() {
+        return pathForwardMenu01;
+    }
+
+    public void setPathForwardMenu01(String pathForwardMenu01) {
+        this.pathForwardMenu01 = pathForwardMenu01;
+    }
+
+    public String getPathForwardMenu02() {
+        return pathForwardMenu02;
+    }
+
+    public void setPathForwardMenu02(String pathForwardMenu02) {
+        this.pathForwardMenu02 = pathForwardMenu02;
     }
 
     private TreeNode createRelation01() {
@@ -78,18 +151,73 @@ public class HomeConfigBean implements Serializable {
         return root;
     }
 
+    private TreeNode createRelation02() {
+        TreeNode root = new DefaultTreeNode(new Funcion("Funciones", null, null), null);
+
+        TreeNode node01 = new DefaultTreeNode(new Funcion("Asistencias", null, null), root);
+        node01.setExpanded(true);
+
+        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Registro Asistencia", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
+        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Consulta Asistencia", "/modulos/admin-usuario/busqueda-docente.xhtml", "D"), node01);
+        return root;
+    }
+    
+    private TreeNode createRelation03() {
+        TreeNode root = new DefaultTreeNode(new Funcion("Funciones", null, null), null);
+
+        TreeNode node01 = new DefaultTreeNode(new Funcion("Nomina", null, null), root);
+        node01.setExpanded(true);
+
+        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Consulta Pagos", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
+        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Registro pago", "/modulos/admin-usuario/busqueda-docente.xhtml", "D"), node01);
+
+        return root;
+    }
+    
+    private TreeNode createRelation04() {
+        TreeNode root = new DefaultTreeNode(new Funcion("Funciones", null, null), null);
+
+        TreeNode node01 = new DefaultTreeNode(new Funcion("Horario", null, null), root);
+        node01.setExpanded(true);
+        TreeNode node02 = new DefaultTreeNode(new Funcion("Matricula Estudiante", null, null), root);
+        node02.setExpanded(true);
+        TreeNode node03 = new DefaultTreeNode(new Funcion("Registro Notas", null, null), root);
+        node03.setExpanded(true);
+
+        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Materia", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
+        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Salon", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
+        TreeNode node01_03 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Curso", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
+        TreeNode node01_04 = new DefaultTreeNode(new Funcion("Crear - Registro Materias", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
+        
+        TreeNode node02_01 = new DefaultTreeNode(new Funcion("Registro Estudiante", "/modulos/admin-usuario/registro-alumno.xhtml", "D"), node02);
+
+        TreeNode node03_01 = new DefaultTreeNode(new Funcion("Consulta Historial Academico", "/modulos/admin-usuario/registro-alumno.xhtml", "D"), node03);
+        TreeNode node03_02 = new DefaultTreeNode(new Funcion("Registro Notas", "/modulos/admin-usuario/registro-alumno.xhtml", "D"), node03);
+        
+        return root;
+    }    
+
     public void onFunctionSelectMenu01(NodeSelectEvent event) {
         Funcion funcion = (Funcion) event.getTreeNode().getData();
         setPathForwardMenu01(funcion.getUrlFuncion());
-        RequestContext.getCurrentInstance().update("center");
+        RequestContext.getCurrentInstance().update("center01");
     }
 
-    public String getPathForwardMenu01() {
-        return pathForwardMenu01;
+    public void onFunctionSelectMenu02(NodeSelectEvent event) {
+        Funcion funcion = (Funcion) event.getTreeNode().getData();
+        setPathForwardMenu02(funcion.getUrlFuncion());
+        RequestContext.getCurrentInstance().update("center02");
     }
-
-    public void setPathForwardMenu01(String pathForwardMenu01) {
-        this.pathForwardMenu01 = pathForwardMenu01;
+    
+    public void onFunctionSelectMenu03(NodeSelectEvent event) {
+        Funcion funcion = (Funcion) event.getTreeNode().getData();
+        setPathForwardMenu03(funcion.getUrlFuncion());
+        RequestContext.getCurrentInstance().update("center03");
     }
-
+        
+    public void onFunctionSelectMenu04(NodeSelectEvent event) {
+        Funcion funcion = (Funcion) event.getTreeNode().getData();
+        setPathForwardMenu04(funcion.getUrlFuncion());
+        RequestContext.getCurrentInstance().update("center04");
+    }
 }
