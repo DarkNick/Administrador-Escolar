@@ -1,8 +1,9 @@
 package com.lusadi.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Usuario {
+public class Usuario implements Serializable {
 
     private String tipo_id;
     private String numero_id;

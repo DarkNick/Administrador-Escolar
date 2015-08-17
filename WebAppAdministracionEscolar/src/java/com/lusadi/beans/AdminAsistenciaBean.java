@@ -5,7 +5,9 @@
  */
 package com.lusadi.beans;
 
+import com.lusadi.modelo.Asistencia;
 import java.io.Serializable;
+import java.util.List;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 
@@ -13,14 +15,24 @@ import javax.faces.view.ViewScoped;
  *
  * @author andresfelipegarciaduran
  */
-@Named(value = "asistenciaBean")
+@Named(value = "adminAsistenciaBean")
 @ViewScoped
-public class AsistenciaBean implements Serializable {
+public class AdminAsistenciaBean implements Serializable {
 
     private boolean allRegisters;
     private boolean byNumeroIdentificacion;
 
-    public AsistenciaBean() {
+    private List<Asistencia> listTemporalAsistencia;
+
+    public AdminAsistenciaBean() {
+    }
+
+    public List<Asistencia> getListTemporalAsistencia() {
+        return listTemporalAsistencia;
+    }
+
+    public void setListTemporalAsistencia(List<Asistencia> listTemporalAsistencia) {
+        this.listTemporalAsistencia = listTemporalAsistencia;
     }
 
     public boolean isAllRegisters() {
