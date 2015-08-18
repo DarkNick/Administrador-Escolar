@@ -184,10 +184,10 @@ public class HomeConfigBean implements Serializable {
         TreeNode node03 = new DefaultTreeNode(new Funcion("Registro Notas", null, null), root);
         node03.setExpanded(true);
 
-        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Materia", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
-        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Salon", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
-        TreeNode node01_03 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Curso", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
-        TreeNode node01_04 = new DefaultTreeNode(new Funcion("Crear - Registro Materias", "/modulos/admin-usuario/registro-docentes.xhtml", "D"), node01);
+        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Materia", "/modulos/admin-usuario/registro-materia.xhtml", "D"), node01);
+        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Salon", "/modulos/admin-usuario/registro-salon.xhtml", "D"), node01);
+        TreeNode node01_03 = new DefaultTreeNode(new Funcion("Crear / Modificar / Eliminar - Curso", "/modulos/admin-usuario/registro-curso.xhtml", "D"), node01);
+        TreeNode node01_04 = new DefaultTreeNode(new Funcion("Crear - Registro Materias", "/modulos/admin-usuario/registro-materias.xhtml", "D"), node01);
 
         TreeNode node02_01 = new DefaultTreeNode(new Funcion("Registro Estudiante", "/modulos/admin-usuario/registro-alumno.xhtml", "D"), node02);
 

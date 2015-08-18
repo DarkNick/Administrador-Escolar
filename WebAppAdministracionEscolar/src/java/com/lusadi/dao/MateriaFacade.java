@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class MateriaFacade extends AbstractFacade<Materia> {
+
     @PersistenceContext(unitName = "WebAppAdministracionEscolarPU")
     private EntityManager em;
 
@@ -27,5 +28,12 @@ public class MateriaFacade extends AbstractFacade<Materia> {
     public MateriaFacade() {
         super(Materia.class);
     }
-    
+
+    public void createCourse(Materia materia) throws Exception {
+        try {
+            em.persist(materia);
+        } catch (Exception e) {
+            throw new Exception("Error al intentar crear la materia");
+        }
+    }
 }

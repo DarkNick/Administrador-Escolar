@@ -6,6 +6,7 @@
 package com.lusadi.dao;
 
 import com.lusadi.entities.Estudiante;
+import com.lusadi.entities.Usuario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class EstudianteFacade extends AbstractFacade<Estudiante> {
+
     @PersistenceContext(unitName = "WebAppAdministracionEscolarPU")
     private EntityManager em;
 
@@ -24,8 +26,16 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
         return em;
     }
 
+    public void createEstudiante(Usuario usuario) throws Exception {
+        try {
+            em.persist(usuario);
+        } catch (Exception ex) {
+            throw new Exception("Error al intentar crear el estudiante");
+        }
+    }
+
     public EstudianteFacade() {
         super(Estudiante.class);
     }
-    
+
 }

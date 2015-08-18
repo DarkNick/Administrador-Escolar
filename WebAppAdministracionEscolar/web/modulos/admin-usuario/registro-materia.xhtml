@@ -1,0 +1,53 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+    <b:row>
+        <h:form>
+            <b:panelGrid colSpans="6,6">
+                <b:column>
+                    <b:panel>
+                        <h:outputLabel value="Nombre Materia"/>
+                        <b:inputText value="#{adminMateriaBean.materia.nombreMateria}" title="Nombre Materia" maxlength="20" required="true"/>
+                        <h:outputLabel value="Horas a la Semana"/>
+                        <b:inputText value="#{adminMateriaBean.materia.horasSemana}" title="Horas" required="true">
+                            <f:validateDoubleRange minimum="0" maximum="10" />
+                        </b:inputText>
+                        <h:outputLabel value="Observaciones"/>
+                        <p:inputTextarea value="#{adminMateriaBean.materia.observacion}" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
+                        <h:outputLabel value="Nivel Academico"/>
+                        <b:inputText value="#{adminMateriaBean.materia.nivelAcademico}" title="Nivel Academico" required="true">
+                            <f:validateDoubleRange minimum="1" maximum="10" />
+                        </b:inputText>
+                        <b:row>
+                            <b:column style="text-align: center;">
+                                <b:commandButton icon="ui-icon-check" value="Registrar Materia" action="#{adminMateriaBean.createCourse()}"/>
+                            </b:column>
+                        </b:row>
+                    </b:panel>
+                </b:column>
+                <b:column>
+                    <b:panel>
+                        <p:dataTable var="materia" value="">
+                            <p:column headerText="Nombre">
+                                <h:outputText value="" />
+                            </p:column>
+                            <p:column headerText="Horas">
+                                <h:outputText value="" />
+                            </p:column>
+                            <p:column headerText="Observaciones">
+                                <h:outputText value="" />
+                            </p:column>
+                            <p:column headerText="Nivel">
+                                <h:outputText value="" />
+                            </p:column>
+                        </p:dataTable>
+                    </b:panel>
+                </b:column>
+            </b:panelGrid>
+        </h:form>
+    </b:row>
+</ui:composition>

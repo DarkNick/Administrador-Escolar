@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class SalonFacade extends AbstractFacade<Salon> {
+
     @PersistenceContext(unitName = "WebAppAdministracionEscolarPU")
     private EntityManager em;
 
@@ -24,8 +25,16 @@ public class SalonFacade extends AbstractFacade<Salon> {
         return em;
     }
 
+    public void createSalon(Salon salon) throws Exception {
+        try {
+            em.persist(salon);
+        } catch (Exception ex) {
+            throw new Exception("Error al intertar crear el salon");
+        }
+    }
+
     public SalonFacade() {
         super(Salon.class);
     }
-    
+
 }

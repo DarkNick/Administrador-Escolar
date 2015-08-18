@@ -1,0 +1,42 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+    <b:row>
+        <h:form>
+            <b:panelGrid colSpans="6,6">
+                <b:column>
+                    <b:panel>
+                        <h:outputLabel value="Ubicacion del Salon"/>
+                        <b:inputText value="#{adminSalonBean.salon.ubicacionSalon}" title="Ubicacion" maxlength="50" required="true"/>
+                        <h:outputLabel value="Capacidad del Salon"/>
+                        <b:inputText value="#{adminSalonBean.salon.capacidad}" title="Capacidad" required="true">
+                            <f:validateDoubleRange minimum="1" maximum="60" />
+                        </b:inputText>
+                        <b:row>
+                            <b:column style="text-align: center;">
+                                <b:commandButton icon="ui-icon-check" value="Registrar Salon" action="#{adminSalonBean.createSalon()}"/>
+                            </b:column>
+                        </b:row>
+                    </b:panel>
+                </b:column>
+                <b:column>
+                    <b:panel>
+                        <p:dataTable var="salon" value="">
+                            <p:column headerText="Ubicacion">
+                                <h:outputText value="" />
+                            </p:column>
+                            <p:column headerText="Capacidad">
+                                <h:outputText value="" />
+                            </p:column>
+                        </p:dataTable>
+                    </b:panel>
+                </b:column>
+            </b:panelGrid>
+        </h:form>
+    </b:row>
+</ui:composition>
+

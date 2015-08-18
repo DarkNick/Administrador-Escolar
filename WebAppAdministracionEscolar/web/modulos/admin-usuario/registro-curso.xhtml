@@ -1,0 +1,44 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+    <b:row>
+        <h:form>
+            <b:panelGrid colSpans="6,6">
+                <b:column>
+                    <b:panel title="Curso" collapsible="false">
+                        <h:outputLabel value="Cursos"/>
+                        <b:selectOneMenu value="#{adminCursoBean.curso.salonAsignado}">
+                            <f:selectItem itemLabel="Seleccione un Curso" itemValue="--"/>
+                        </b:selectOneMenu>
+                        <h:outputLabel value="Salones"/>
+                        <b:selectOneMenu value="#{adminCursoBean.curso.salonAsignado}">
+                            <f:selectItem itemLabel="Seleccione un Salon" itemValue="--"/>
+                        </b:selectOneMenu>
+                        <b:row>
+                            <b:column style="text-align: center;">
+                                <b:commandButton icon="ui-icon-check" value="Registrar Curso" action="#{adminCursoBean.createCurso()}"/>
+                            </b:column>
+                        </b:row>
+                    </b:panel>
+                </b:column>
+                <b:column>
+                    <b:panel title="Cursos Registrados" collapsible="false">
+                        <p:dataTable var="curso" value="">
+                            <p:column headerText="ID">
+                                <h:outputText value="" />
+                            </p:column>
+                            <p:column headerText="Curso">
+                                <h:outputText value="" />
+                            </p:column>
+                        </p:dataTable>
+                    </b:panel>
+                </b:column>
+            </b:panelGrid>
+        </h:form>
+    </b:row>
+</ui:composition>
+
