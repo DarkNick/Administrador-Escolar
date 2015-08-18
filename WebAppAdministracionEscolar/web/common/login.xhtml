@@ -14,7 +14,9 @@
                 <p:graphicImage styleClass="ovalo ovalo-center" value="img/logo-login.jpeg" />
                 <h:panelGrid id="pgSesion" style="border-style: hidden; width: 100%; color: #000000;" >
                     <h:outputLabel for="usuario" value="Usuario: "/>
-                    <b:inputText id="usuario"  required="true" value="#{loginBean.usuario.numero_id}"/>
+                    <b:inputText id="usuario"  required="true" value="#{loginBean.usuario.numero_id}">
+                        <f:convertNumber integerOnly="true" type="number"/>
+                    </b:inputText>
                     <h:outputLabel for="password" value="Contraseña: "/>
                     <b:inputSecret  id="password"  required="true" value="#{loginBean.usuario.password}"/>
                 </h:panelGrid>

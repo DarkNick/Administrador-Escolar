@@ -1,6 +1,8 @@
 package com.lusadi.beans;
 
+import com.lusadi.constant.SesionValuesEnum;
 import com.lusadi.dao.UsuarioFacade;
+import com.lusadi.entities.UsuarioPK;
 import com.lusadi.modelo.Usuario;
 import com.lusadi.utils.UtilFaces;
 import java.io.IOException;
@@ -9,6 +11,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
@@ -33,7 +36,12 @@ public class LoginBean implements Serializable {
 
     public void loginControl() {
         try {
-            usuarioFacade.validateLogin(Integer.parseInt(usuario.getNumero_id()), usuario.getPassword());
+            int numeroId = Integer.parseInt(usuario.getNumero_id());
+            usuarioFacade.validateLogin(numeroId, usuario.getPassword());
+            com.lusadi.entities.Usuario find = usuarioFacade.find(new UsuarioPK("CC", numeroId));
+            String fullName = find.getPrimerApellido() + "" + find.getSegundoApellido() + "" + find.getNombres();
+            UtilFaces.getFacesUtil().getSession().setAttribute(SesionValuesEnum.FULLNAME_USER.name(), fullName);
+            UtilFaces.getFacesUtil().getSession().setAttribute(SesionValuesEnum.ROL_USER.name(), find.getRolId().getNombreRol());
             UtilFaces.getFacesUtil().redirect("/edu/administracion-usuarios.xhtml");
         } catch (IOException ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
@@ -41,4 +49,27 @@ public class LoginBean implements Serializable {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
+
+    public void loginOutControl() {
+        try {
+            HttpSession session = UtilFaces.getFacesUtil().getSession();
+            session.invalidate();
+            UtilFaces.getFacesUtil().redirect("/edu/");
+        } catch (IOException ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
+    }
+
+    public String getNombreUsuario() {
+        HttpSession session = UtilFaces.getFacesUtil().getSession();
+        return (String) session.getAttribute(SesionValuesEnum.FULLNAME_USER.name());
+    }
+
+    public String getRolUsuario() {
+        HttpSession session = UtilFaces.getFacesUtil().getSession();
+        return (String) session.getAttribute(SesionValuesEnum.ROL_USER.name());
+    }
+
 }
