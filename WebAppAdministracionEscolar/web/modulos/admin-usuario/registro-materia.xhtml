@@ -9,7 +9,7 @@
         <h:form>
             <b:panelGrid colSpans="6,6">
                 <b:column>
-                    <b:panel>
+                    <b:panel title="Materia" collapsible="false">
                         <h:outputLabel value="Nombre Materia"/>
                         <b:inputText value="#{adminMateriaBean.materia.nombreMateria}" title="Nombre Materia" maxlength="20" required="true"/>
                         <h:outputLabel value="Horas a la Semana"/>
@@ -22,6 +22,10 @@
                         <b:inputText value="#{adminMateriaBean.materia.nivelAcademico}" title="Nivel Academico" required="true">
                             <f:validateDoubleRange minimum="1" maximum="10" />
                         </b:inputText>
+                        <h:outputLabel value="Salones"/>
+                        <b:selectOneMenu value="">
+                            <f:selectItem itemLabel="Seleccione un Salon" itemValue="--"/>
+                        </b:selectOneMenu>
                         <b:row>
                             <b:column style="text-align: center;">
                                 <b:commandButton icon="ui-icon-check" value="Registrar Materia" action="#{adminMateriaBean.createCourse()}"/>
@@ -30,7 +34,7 @@
                     </b:panel>
                 </b:column>
                 <b:column>
-                    <b:panel>
+                    <b:panel title="Materias Registradas" collapsible="false">
                         <p:dataTable var="materia" value="">
                             <p:column headerText="Nombre">
                                 <h:outputText value="" />

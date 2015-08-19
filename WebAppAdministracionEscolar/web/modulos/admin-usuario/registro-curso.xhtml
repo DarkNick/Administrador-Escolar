@@ -10,14 +10,10 @@
             <b:panelGrid colSpans="6,6">
                 <b:column>
                     <b:panel title="Curso" collapsible="false">
-                        <h:outputLabel value="Cursos"/>
-                        <b:selectOneMenu value="#{adminCursoBean.curso.salonAsignado}">
-                            <f:selectItem itemLabel="Seleccione un Curso" itemValue="--"/>
-                        </b:selectOneMenu>
-                        <h:outputLabel value="Salones"/>
-                        <b:selectOneMenu value="#{adminCursoBean.curso.salonAsignado}">
-                            <f:selectItem itemLabel="Seleccione un Salon" itemValue="--"/>
-                        </b:selectOneMenu>
+                        <h:outputLabel value="Numero Curso"/>
+                        <b:inputText value="" title="Numero Curso" maxlength="20" required="true"/>
+                        <h:outputLabel value="Observaciones"/>
+                        <p:inputTextarea value="" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                         <b:row>
                             <b:column style="text-align: center;">
                                 <b:commandButton icon="ui-icon-check" value="Registrar Curso" action="#{adminCursoBean.createCurso()}"/>

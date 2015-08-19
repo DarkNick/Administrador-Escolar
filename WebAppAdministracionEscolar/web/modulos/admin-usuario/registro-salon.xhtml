@@ -9,7 +9,7 @@
         <h:form>
             <b:panelGrid colSpans="6,6">
                 <b:column>
-                    <b:panel>
+                    <b:panel title="Salon" collapsible="false">
                         <h:outputLabel value="Ubicacion del Salon"/>
                         <b:inputText value="#{adminSalonBean.salon.ubicacionSalon}" title="Ubicacion" maxlength="50" required="true"/>
                         <h:outputLabel value="Capacidad del Salon"/>
@@ -24,7 +24,7 @@
                     </b:panel>
                 </b:column>
                 <b:column>
-                    <b:panel>
+                    <b:panel title="Salones Registrados" collapsible="false">
                         <p:dataTable var="salon" value="">
                             <p:column headerText="Ubicacion">
                                 <h:outputText value="" />
