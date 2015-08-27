@@ -29,13 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Personal
  */
 @Entity
-@Table(name = "asistencia", catalog = "prueba", schema = "")
+@Table(name = "asistencia")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Asistencia.findAll", query = "SELECT a FROM Asistencia a"),
-    @NamedQuery(name = "Asistencia.findByAsistenciaId", query = "SELECT a FROM Asistencia a WHERE a.asistenciaId = :asistenciaId"),
-    @NamedQuery(name = "Asistencia.findByFechaHoraIngreso", query = "SELECT a FROM Asistencia a WHERE a.fechaHoraIngreso = :fechaHoraIngreso"),
-    @NamedQuery(name = "Asistencia.findByFechaHoraSalida", query = "SELECT a FROM Asistencia a WHERE a.fechaHoraSalida = :fechaHoraSalida")})
+    @NamedQuery(name = "Asistencia.findAll", query = "SELECT a FROM Asistencia a")})
 public class Asistencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -54,8 +51,8 @@ public class Asistencia implements Serializable {
     @Column(name = "FECHA_HORA_SALIDA")
     private String fechaHoraSalida;
     @JoinColumns({
-        @JoinColumn(name = "USUARIO_TIPO_ID", referencedColumnName = "TIPO_ID"),
-        @JoinColumn(name = "USUARIO_NUMERO_ID", referencedColumnName = "NUMERO_ID")})
+        @JoinColumn(name = "TIPO_ID", referencedColumnName = "TIPO_ID"),
+        @JoinColumn(name = "NUMERO_ID", referencedColumnName = "NUMERO_ID")})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
 

@@ -30,17 +30,10 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Personal
  */
 @Entity
-@Table(name = "usuario", catalog = "prueba", schema = "")
+@Table(name = "usuario")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByTipoId", query = "SELECT u FROM Usuario u WHERE u.usuarioPK.tipoId = :tipoId"),
-    @NamedQuery(name = "Usuario.findByNumeroId", query = "SELECT u FROM Usuario u WHERE u.usuarioPK.numeroId = :numeroId"),
-    @NamedQuery(name = "Usuario.findByPrimerApellido", query = "SELECT u FROM Usuario u WHERE u.primerApellido = :primerApellido"),
-    @NamedQuery(name = "Usuario.findBySegundoApellido", query = "SELECT u FROM Usuario u WHERE u.segundoApellido = :segundoApellido"),
-    @NamedQuery(name = "Usuario.findByNombres", query = "SELECT u FROM Usuario u WHERE u.nombres = :nombres"),
-    @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento"),
-    @NamedQuery(name = "Usuario.findByTipoSangre", query = "SELECT u FROM Usuario u WHERE u.tipoSangre = :tipoSangre")})
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -60,13 +53,15 @@ public class Usuario implements Serializable {
     @Size(max = 10)
     @Column(name = "TIPO_SANGRE")
     private String tipoSangre;
+    @Size(max = 255)
+    @Column(name = "CORREO_ELECTRONICO1")
+    private String correoElectronico1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Estudiante> estudianteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Login> loginList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Asistencia> asistenciaList;
-    @JoinColumn(name = "LOGIN_ID", referencedColumnName = "LOGIN_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Login loginId;
     @JoinColumn(name = "ROL_ID", referencedColumnName = "ROL_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Rol rolId;
@@ -132,6 +127,14 @@ public class Usuario implements Serializable {
         this.tipoSangre = tipoSangre;
     }
 
+    public String getCorreoElectronico1() {
+        return correoElectronico1;
+    }
+
+    public void setCorreoElectronico1(String correoElectronico1) {
+        this.correoElectronico1 = correoElectronico1;
+    }
+
     @XmlTransient
     public List<Estudiante> getEstudianteList() {
         return estudianteList;
@@ -142,20 +145,21 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
+    public List<Login> getLoginList() {
+        return loginList;
+    }
+
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
+    }
+
+    @XmlTransient
     public List<Asistencia> getAsistenciaList() {
         return asistenciaList;
     }
 
     public void setAsistenciaList(List<Asistencia> asistenciaList) {
         this.asistenciaList = asistenciaList;
-    }
-
-    public Login getLoginId() {
-        return loginId;
-    }
-
-    public void setLoginId(Login loginId) {
-        this.loginId = loginId;
     }
 
     public Rol getRolId() {

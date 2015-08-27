@@ -6,9 +6,13 @@
 package com.lusadi.dao;
 
 import com.lusadi.entities.Salon;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -25,11 +29,20 @@ public class SalonFacade extends AbstractFacade<Salon> {
         return em;
     }
 
-    public void createSalon(Salon salon) throws Exception {
+    public void createSalon(Salon salon){
+        salon.setSalonId(2);
+        em.persist(salon);
+    }
+
+    public ArrayList<Salon> findAllSalon() {
         try {
-            em.persist(salon);
-        } catch (Exception ex) {
-            throw new Exception("Error al intertar crear el salon");
+            StringBuilder sql = new StringBuilder();
+            sql.append("SELECT * FROM PRUEBA.SALON");
+            Query q = em.createNativeQuery(sql.toString());
+            return new ArrayList<Salon>(q.getResultList());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

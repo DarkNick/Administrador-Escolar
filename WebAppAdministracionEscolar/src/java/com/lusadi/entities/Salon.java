@@ -7,6 +7,7 @@ package com.lusadi.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.sql.DataSourceDefinition;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,13 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Personal
  */
 @Entity
-@Table(name = "salon", catalog = "prueba", schema = "")
+@Table(name = "salon")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Salon.findAll", query = "SELECT s FROM Salon s"),
-    @NamedQuery(name = "Salon.findBySalonId", query = "SELECT s FROM Salon s WHERE s.salonId = :salonId"),
-    @NamedQuery(name = "Salon.findByUbicacionSalon", query = "SELECT s FROM Salon s WHERE s.ubicacionSalon = :ubicacionSalon"),
-    @NamedQuery(name = "Salon.findByCapacidad", query = "SELECT s FROM Salon s WHERE s.capacidad = :capacidad")})
+    @NamedQuery(name = "Salon.findAll", query = "SELECT s FROM Salon s")})
 public class Salon implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,7 +44,7 @@ public class Salon implements Serializable {
     private String ubicacionSalon;
     @Column(name = "CAPACIDAD")
     private Integer capacidad;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salonSalonId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salonId", fetch = FetchType.LAZY)
     private List<Materia> materiaList;
 
     public Salon() {

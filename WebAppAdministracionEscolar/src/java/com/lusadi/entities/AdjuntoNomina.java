@@ -28,12 +28,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Personal
  */
 @Entity
-@Table(name = "adjunto_nomina", catalog = "prueba", schema = "")
+@Table(name = "adjunto_nomina")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AdjuntoNomina.findAll", query = "SELECT a FROM AdjuntoNomina a"),
-    @NamedQuery(name = "AdjuntoNomina.findByAdjuntoId", query = "SELECT a FROM AdjuntoNomina a WHERE a.adjuntoId = :adjuntoId"),
-    @NamedQuery(name = "AdjuntoNomina.findByFechaGeneracionRecibo", query = "SELECT a FROM AdjuntoNomina a WHERE a.fechaGeneracionRecibo = :fechaGeneracionRecibo")})
+    @NamedQuery(name = "AdjuntoNomina.findAll", query = "SELECT a FROM AdjuntoNomina a")})
 public class AdjuntoNomina implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

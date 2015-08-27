@@ -27,13 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Personal
  */
 @Entity
-@Table(name = "parentesco_familia", catalog = "prueba", schema = "")
+@Table(name = "parentesco_familia")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ParentescoFamilia.findAll", query = "SELECT p FROM ParentescoFamilia p"),
-    @NamedQuery(name = "ParentescoFamilia.findByParentescoFamiliaId", query = "SELECT p FROM ParentescoFamilia p WHERE p.parentescoFamiliaId = :parentescoFamiliaId"),
-    @NamedQuery(name = "ParentescoFamilia.findByParentesco", query = "SELECT p FROM ParentescoFamilia p WHERE p.parentesco = :parentesco"),
-    @NamedQuery(name = "ParentescoFamilia.findByObservaciones", query = "SELECT p FROM ParentescoFamilia p WHERE p.observaciones = :observaciones")})
+    @NamedQuery(name = "ParentescoFamilia.findAll", query = "SELECT p FROM ParentescoFamilia p")})
 public class ParentescoFamilia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

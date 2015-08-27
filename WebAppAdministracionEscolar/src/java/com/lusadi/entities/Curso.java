@@ -27,12 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Personal
  */
 @Entity
-@Table(name = "curso", catalog = "prueba", schema = "")
+@Table(name = "curso")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Curso.findAll", query = "SELECT c FROM Curso c"),
-    @NamedQuery(name = "Curso.findByCursoId", query = "SELECT c FROM Curso c WHERE c.cursoId = :cursoId"),
-    @NamedQuery(name = "Curso.findBySalonAsignado", query = "SELECT c FROM Curso c WHERE c.salonAsignado = :salonAsignado")})
+    @NamedQuery(name = "Curso.findAll", query = "SELECT c FROM Curso c")})
 public class Curso implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,11 +38,13 @@ public class Curso implements Serializable {
     @NotNull
     @Column(name = "CURSO_ID")
     private Integer cursoId;
-    @Size(max = 45)
-    @Column(name = "SALON_ASIGNADO")
-    private String salonAsignado;
+    @Size(max = 255)
+    @Column(name = "OBSERVACIONES")
+    private String observaciones;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursoId", fetch = FetchType.LAZY)
     private List<Horario> horarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursoId", fetch = FetchType.LAZY)
+    private List<MatriculaEstudiante> matriculaEstudianteList;
 
     public Curso() {
     }
@@ -61,12 +61,12 @@ public class Curso implements Serializable {
         this.cursoId = cursoId;
     }
 
-    public String getSalonAsignado() {
-        return salonAsignado;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    public void setSalonAsignado(String salonAsignado) {
-        this.salonAsignado = salonAsignado;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 
     @XmlTransient
@@ -76,6 +76,15 @@ public class Curso implements Serializable {
 
     public void setHorarioList(List<Horario> horarioList) {
         this.horarioList = horarioList;
+    }
+
+    @XmlTransient
+    public List<MatriculaEstudiante> getMatriculaEstudianteList() {
+        return matriculaEstudianteList;
+    }
+
+    public void setMatriculaEstudianteList(List<MatriculaEstudiante> matriculaEstudianteList) {
+        this.matriculaEstudianteList = matriculaEstudianteList;
     }
 
     @Override

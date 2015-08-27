@@ -33,15 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Personal
  */
 @Entity
-@Table(name = "estudiante", catalog = "prueba", schema = "")
+@Table(name = "estudiante")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Estudiante.findAll", query = "SELECT e FROM Estudiante e"),
-    @NamedQuery(name = "Estudiante.findByEstudiateId", query = "SELECT e FROM Estudiante e WHERE e.estudiateId = :estudiateId"),
-    @NamedQuery(name = "Estudiante.findByFechaIngreso", query = "SELECT e FROM Estudiante e WHERE e.fechaIngreso = :fechaIngreso"),
-    @NamedQuery(name = "Estudiante.findByCorreoElectronico", query = "SELECT e FROM Estudiante e WHERE e.correoElectronico = :correoElectronico"),
-    @NamedQuery(name = "Estudiante.findByApellidosAcudiente", query = "SELECT e FROM Estudiante e WHERE e.apellidosAcudiente = :apellidosAcudiente"),
-    @NamedQuery(name = "Estudiante.findByNombresAcudiente", query = "SELECT e FROM Estudiante e WHERE e.nombresAcudiente = :nombresAcudiente")})
+    @NamedQuery(name = "Estudiante.findAll", query = "SELECT e FROM Estudiante e")})
 public class Estudiante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -65,8 +60,8 @@ public class Estudiante implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ParentescoFamilia parentescoFamiliaId;
     @JoinColumns({
-        @JoinColumn(name = "USUARIO_TIPO_ID", referencedColumnName = "TIPO_ID"),
-        @JoinColumn(name = "USUARIO_NUMERO_ID", referencedColumnName = "NUMERO_ID")})
+        @JoinColumn(name = "TIPO_ID", referencedColumnName = "TIPO_ID"),
+        @JoinColumn(name = "NUMERO_ID", referencedColumnName = "NUMERO_ID")})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudianteId", fetch = FetchType.LAZY)
