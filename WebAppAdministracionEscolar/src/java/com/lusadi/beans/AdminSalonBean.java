@@ -42,9 +42,13 @@ public class AdminSalonBean implements Serializable {
     }
 
     public void findAllSalon() {
-        ArrayList<Salon> result = salonFacade.findAllSalon();
-        if (result != null) {
-            salones = result;
+        try {
+            ArrayList<Salon> result = salonFacade.findAllSalon();
+            if (result != null) {
+                salones = result;
+            }
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 

@@ -34,16 +34,11 @@ public class SalonFacade extends AbstractFacade<Salon> {
         em.persist(salon);
     }
 
-    public ArrayList<Salon> findAllSalon() {
-        try {
-            StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * FROM PRUEBA.SALON");
-            Query q = em.createNativeQuery(sql.toString());
-            return new ArrayList<Salon>(q.getResultList());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public ArrayList<Salon> findAllSalon() throws Exception{
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM PRUEBA.SALON");
+        Query q = em.createNativeQuery(sql.toString(), Salon.class);
+        return new ArrayList<Salon>(q.getResultList());
     }
 
     public SalonFacade() {

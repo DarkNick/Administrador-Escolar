@@ -30,7 +30,7 @@
                     <b:panel id="pgSalones" title="Salones Registrados" collapsible="false">
                         <p:dataTable var="varSalon" value="#{adminSalonBean.salones}">
                             <p:column headerText="Ubicacion">
-                                <h:outputText value="#{varSalon.capacidad}" />
+                                <h:outputText value="#{varSalon.ubicacionSalon}" />
                             </p:column>
                             <p:column headerText="Capacidad">
                                 <h:outputText value="#{varSalon.capacidad}" />
