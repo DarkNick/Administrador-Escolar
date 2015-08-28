@@ -29,7 +29,7 @@ public class SalonFacade extends AbstractFacade<Salon> {
         return em;
     }
 
-    public void createSalon(Salon salon){
+    public void createSalon(Salon salon) {
         salon.setSalonId(2);
         em.persist(salon);
     }

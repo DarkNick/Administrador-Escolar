@@ -8,6 +8,8 @@ package com.lusadi.beans;
 import com.lusadi.dao.CursoFacade;
 import com.lusadi.entities.Curso;
 import com.lusadi.utils.UtilFaces;
+import java.io.Serializable;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -19,12 +21,13 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class AdminCursoBean {
+public class AdminCursoBean implements Serializable {
 
     @EJB
     private CursoFacade cursoFacade;
 
-    private Curso curso;
+    private Curso curso = new Curso();
+    private ArrayList<Curso> cursos = new ArrayList<Curso>();
 
     public AdminCursoBean() {
     }
@@ -38,12 +41,28 @@ public class AdminCursoBean {
         }
     }
 
+    public void findAllCursos() {
+        ArrayList<Curso> resultAll = new ArrayList<Curso>();
+        resultAll = cursoFacade.findAllCursos();
+        if (resultAll != null) {
+            cursos = resultAll;
+        }
+    }
+
     public Curso getCurso() {
         return curso;
     }
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public ArrayList<Curso> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(ArrayList<Curso> cursos) {
+        this.cursos = cursos;
     }
 
 }

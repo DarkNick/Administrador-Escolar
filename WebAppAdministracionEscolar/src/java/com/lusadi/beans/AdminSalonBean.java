@@ -19,9 +19,9 @@ import javax.faces.bean.RequestScoped;
  *
  * @author Personal
  */
-@ManagedBean (name = "adminSalonBean")
+@ManagedBean
 @RequestScoped
-public class AdminSalonBean implements Serializable{
+public class AdminSalonBean implements Serializable {
 
     @EJB
     private SalonFacade salonFacade;
@@ -34,7 +34,6 @@ public class AdminSalonBean implements Serializable{
 
     public void createSalon() {
         try {
-            System.out.println("Error");
             salonFacade.createSalon(salon);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
@@ -43,11 +42,9 @@ public class AdminSalonBean implements Serializable{
     }
 
     public void findAllSalon() {
-        try {
-            salones = salonFacade.findAllSalon();
-            System.out.println("tamaño:::::::::: " + salones.size());
-        } catch (Exception ex) {
-            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        ArrayList<Salon> result = salonFacade.findAllSalon();
+        if (result != null) {
+            salones = result;
         }
     }
 

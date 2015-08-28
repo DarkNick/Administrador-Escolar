@@ -6,9 +6,10 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <b:row>
-        <h:form id="registerSalon">
-            <b:panelGrid colSpans="6,6">
-                <b:column>
+
+        <b:panelGrid colSpans="6,6">
+            <b:column>
+                <h:form id="registerSalon">
                     <b:panel title="Salon" collapsible="false">
                         <h:outputLabel value="Ubicacion del Salon"/>
                         <b:inputText value="#{adminSalonBean.salon.ubicacionSalon}" title="Ubicacion" maxlength="50" required="true"/>
@@ -22,12 +23,14 @@
                             </b:column>
                         </b:row>
                     </b:panel>
-                </b:column>
-                <b:column>
+                </h:form>
+            </b:column>
+            <b:column>
+                <h:form id="registerSalon1">
                     <b:panel id="pgSalones" title="Salones Registrados" collapsible="false">
                         <p:dataTable var="varSalon" value="#{adminSalonBean.salones}">
                             <p:column headerText="Ubicacion">
-                                <h:outputText value="#{varSalon.ubicacionSalon}" />
+                                <h:outputText value="#{varSalon.capacidad}" />
                             </p:column>
                             <p:column headerText="Capacidad">
                                 <h:outputText value="#{varSalon.capacidad}" />
@@ -40,9 +43,10 @@
                             </b:column>
                         </b:row>
                     </b:panel>
-                </b:column>
-            </b:panelGrid>
-        </h:form>
+                </h:form>
+            </b:column>
+        </b:panelGrid>
+
     </b:row>
 </ui:composition>
 

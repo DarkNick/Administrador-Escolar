@@ -6,35 +6,44 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <b:row>
-        <h:form>
-            <b:panelGrid colSpans="6,6">
-                <b:column>
+        <b:panelGrid colSpans="6,6">
+            <b:column>
+                <h:form>
                     <b:panel title="Curso" collapsible="false">
                         <h:outputLabel value="Numero Curso"/>
-                        <b:inputText value="" title="Numero Curso" maxlength="20" required="true"/>
+                        <b:inputText value="#{adminCursoBean.curso.cursoId}" title="Numero Curso" maxlength="20" required="true"/>
                         <h:outputLabel value="Observaciones"/>
-                        <p:inputTextarea value="" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
+                        <p:inputTextarea value="#{adminCursoBean.curso.observaciones}" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                         <b:row>
                             <b:column style="text-align: center;">
                                 <b:commandButton icon="ui-icon-check" value="Registrar Curso" action="#{adminCursoBean.createCurso()}"/>
                             </b:column>
                         </b:row>
                     </b:panel>
-                </b:column>
-                <b:column>
+                </h:form>
+            </b:column>
+            <b:column>
+                <h:form>
                     <b:panel title="Cursos Registrados" collapsible="false">
-                        <p:dataTable var="curso" value="">
+                        <p:dataTable var="varCurso" value="#{adminCursoBean.cursos}">
                             <p:column headerText="ID">
-                                <h:outputText value="" />
+                                <h:outputText value="#{varCurso.cursoId}" />
                             </p:column>
-                            <p:column headerText="Curso">
-                                <h:outputText value="" />
+                            <p:column headerText="Observaciones">
+                                <h:outputText value="#{varCurso.observaciones}" />
                             </p:column>
                         </p:dataTable>
+                        <p:spacer/>
+                        <b:row>
+                            <b:column style="text-align: center;">
+                                <b:commandButton icon="ui-icon-check" value="Mostrar Cursos" action="#{adminCursoBean.findAllCursos()}" />
+                            </b:column>
+                        </b:row>
                     </b:panel>
-                </b:column>
-            </b:panelGrid>
-        </h:form>
+                </h:form>
+            </b:column>
+        </b:panelGrid>
+
     </b:row>
 </ui:composition>
 
