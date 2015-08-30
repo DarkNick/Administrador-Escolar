@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,30 +21,24 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "materia", catalog = "prueba", schema = "")
+@Table(name = "MATERIA", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Materia.findAll", query = "SELECT m FROM Materia m"),
-    @NamedQuery(name = "Materia.findByMateriaId", query = "SELECT m FROM Materia m WHERE m.materiaId = :materiaId"),
-    @NamedQuery(name = "Materia.findByNombreMateria", query = "SELECT m FROM Materia m WHERE m.nombreMateria = :nombreMateria"),
-    @NamedQuery(name = "Materia.findByHorasSemana", query = "SELECT m FROM Materia m WHERE m.horasSemana = :horasSemana"),
-    @NamedQuery(name = "Materia.findByObservacion", query = "SELECT m FROM Materia m WHERE m.observacion = :observacion"),
-    @NamedQuery(name = "Materia.findByNivelAcademico", query = "SELECT m FROM Materia m WHERE m.nivelAcademico = :nivelAcademico")})
+    @NamedQuery(name = "Materia.findAll", query = "SELECT m FROM Materia m")})
 public class Materia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "MATERIA_ID")
     private Integer materiaId;
     @Size(max = 255)
@@ -55,11 +51,11 @@ public class Materia implements Serializable {
     private String observacion;
     @Column(name = "NIVEL_ACADEMICO")
     private Integer nivelAcademico;
+    @JoinColumn(name = "SALON_ID", referencedColumnName = "SALON_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Salon salonId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "materiaId", fetch = FetchType.LAZY)
     private List<Horario> horarioList;
-    @JoinColumn(name = "SALON_SALON_ID", referencedColumnName = "SALON_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Salon salonSalonId;
 
     public Materia() {
     }
@@ -108,6 +104,14 @@ public class Materia implements Serializable {
         this.nivelAcademico = nivelAcademico;
     }
 
+    public Salon getSalonId() {
+        return salonId;
+    }
+
+    public void setSalonId(Salon salonId) {
+        this.salonId = salonId;
+    }
+
     @XmlTransient
     public List<Horario> getHorarioList() {
         return horarioList;
@@ -115,14 +119,6 @@ public class Materia implements Serializable {
 
     public void setHorarioList(List<Horario> horarioList) {
         this.horarioList = horarioList;
-    }
-
-    public Salon getSalonSalonId() {
-        return salonSalonId;
-    }
-
-    public void setSalonSalonId(Salon salonSalonId) {
-        this.salonSalonId = salonSalonId;
     }
 
     @Override

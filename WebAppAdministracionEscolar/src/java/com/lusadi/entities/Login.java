@@ -6,38 +6,37 @@
 package com.lusadi.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "login", catalog = "prueba", schema = "")
+@Table(name = "LOGIN", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l"),
-    @NamedQuery(name = "Login.findByLoginId", query = "SELECT l FROM Login l WHERE l.loginId = :loginId"),
-    @NamedQuery(name = "Login.findByClave", query = "SELECT l FROM Login l WHERE l.clave = :clave")})
+    @NamedQuery(name = "Login.findAll", query = "SELECT l FROM Login l")})
 public class Login implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "LOGIN_ID")
     private Integer loginId;
     @Basic(optional = false)
@@ -45,8 +44,11 @@ public class Login implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "CLAVE")
     private String clave;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loginId", fetch = FetchType.LAZY)
-    private List<Usuario> usuarioList;
+    @JoinColumns({
+        @JoinColumn(name = "TIPO_ID", referencedColumnName = "TIPO_ID"),
+        @JoinColumn(name = "NUMERO_ID", referencedColumnName = "NUMERO_ID")})
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Usuario usuario;
 
     public Login() {
     }
@@ -76,13 +78,12 @@ public class Login implements Serializable {
         this.clave = clave;
     }
 
-    @XmlTransient
-    public List<Usuario> getUsuarioList() {
-        return usuarioList;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioList(List<Usuario> usuarioList) {
-        this.usuarioList = usuarioList;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

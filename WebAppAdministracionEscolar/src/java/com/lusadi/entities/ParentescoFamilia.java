@@ -12,33 +12,31 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "parentesco_familia", catalog = "prueba", schema = "")
+@Table(name = "PARENTESCO_FAMILIA", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ParentescoFamilia.findAll", query = "SELECT p FROM ParentescoFamilia p"),
-    @NamedQuery(name = "ParentescoFamilia.findByParentescoFamiliaId", query = "SELECT p FROM ParentescoFamilia p WHERE p.parentescoFamiliaId = :parentescoFamiliaId"),
-    @NamedQuery(name = "ParentescoFamilia.findByParentesco", query = "SELECT p FROM ParentescoFamilia p WHERE p.parentesco = :parentesco"),
-    @NamedQuery(name = "ParentescoFamilia.findByObservaciones", query = "SELECT p FROM ParentescoFamilia p WHERE p.observaciones = :observaciones")})
+    @NamedQuery(name = "ParentescoFamilia.findAll", query = "SELECT p FROM ParentescoFamilia p")})
 public class ParentescoFamilia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "PARENTESCO_FAMILIA_ID")
     private Integer parentescoFamiliaId;
     @Size(max = 45)

@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -20,25 +22,22 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "adjunto_nomina", catalog = "prueba", schema = "")
+@Table(name = "ADJUNTO_NOMINA", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AdjuntoNomina.findAll", query = "SELECT a FROM AdjuntoNomina a"),
-    @NamedQuery(name = "AdjuntoNomina.findByAdjuntoId", query = "SELECT a FROM AdjuntoNomina a WHERE a.adjuntoId = :adjuntoId"),
-    @NamedQuery(name = "AdjuntoNomina.findByFechaGeneracionRecibo", query = "SELECT a FROM AdjuntoNomina a WHERE a.fechaGeneracionRecibo = :fechaGeneracionRecibo")})
+    @NamedQuery(name = "AdjuntoNomina.findAll", query = "SELECT a FROM AdjuntoNomina a")})
 public class AdjuntoNomina implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ADJUNTO_ID")
     private Integer adjuntoId;
     @Column(name = "FECHA_GENERACION_RECIBO")

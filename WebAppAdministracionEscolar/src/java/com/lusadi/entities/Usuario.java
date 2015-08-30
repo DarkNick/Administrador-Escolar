@@ -27,20 +27,13 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "usuario", catalog = "prueba", schema = "")
+@Table(name = "USUARIO", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByTipoId", query = "SELECT u FROM Usuario u WHERE u.usuarioPK.tipoId = :tipoId"),
-    @NamedQuery(name = "Usuario.findByNumeroId", query = "SELECT u FROM Usuario u WHERE u.usuarioPK.numeroId = :numeroId"),
-    @NamedQuery(name = "Usuario.findByPrimerApellido", query = "SELECT u FROM Usuario u WHERE u.primerApellido = :primerApellido"),
-    @NamedQuery(name = "Usuario.findBySegundoApellido", query = "SELECT u FROM Usuario u WHERE u.segundoApellido = :segundoApellido"),
-    @NamedQuery(name = "Usuario.findByNombres", query = "SELECT u FROM Usuario u WHERE u.nombres = :nombres"),
-    @NamedQuery(name = "Usuario.findByFechaNacimiento", query = "SELECT u FROM Usuario u WHERE u.fechaNacimiento = :fechaNacimiento"),
-    @NamedQuery(name = "Usuario.findByTipoSangre", query = "SELECT u FROM Usuario u WHERE u.tipoSangre = :tipoSangre")})
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -60,18 +53,20 @@ public class Usuario implements Serializable {
     @Size(max = 10)
     @Column(name = "TIPO_SANGRE")
     private String tipoSangre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<Estudiante> estudianteList;
+    @Size(max = 255)
+    @Column(name = "CORREO_ELECTRONICO")
+    private String correoElectronico;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Asistencia> asistenciaList;
-    @JoinColumn(name = "LOGIN_ID", referencedColumnName = "LOGIN_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Login loginId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Funcionario> funcionarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Estudiante> estudianteList;
     @JoinColumn(name = "ROL_ID", referencedColumnName = "ROL_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Rol rolId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.LAZY)
-    private List<Funcionario> funcionarioList;
+    private List<Login> loginList;
 
     public Usuario() {
     }
@@ -132,13 +127,12 @@ public class Usuario implements Serializable {
         this.tipoSangre = tipoSangre;
     }
 
-    @XmlTransient
-    public List<Estudiante> getEstudianteList() {
-        return estudianteList;
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
 
-    public void setEstudianteList(List<Estudiante> estudianteList) {
-        this.estudianteList = estudianteList;
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
     }
 
     @XmlTransient
@@ -150,12 +144,22 @@ public class Usuario implements Serializable {
         this.asistenciaList = asistenciaList;
     }
 
-    public Login getLoginId() {
-        return loginId;
+    @XmlTransient
+    public List<Funcionario> getFuncionarioList() {
+        return funcionarioList;
     }
 
-    public void setLoginId(Login loginId) {
-        this.loginId = loginId;
+    public void setFuncionarioList(List<Funcionario> funcionarioList) {
+        this.funcionarioList = funcionarioList;
+    }
+
+    @XmlTransient
+    public List<Estudiante> getEstudianteList() {
+        return estudianteList;
+    }
+
+    public void setEstudianteList(List<Estudiante> estudianteList) {
+        this.estudianteList = estudianteList;
     }
 
     public Rol getRolId() {
@@ -167,12 +171,12 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public List<Funcionario> getFuncionarioList() {
-        return funcionarioList;
+    public List<Login> getLoginList() {
+        return loginList;
     }
 
-    public void setFuncionarioList(List<Funcionario> funcionarioList) {
-        this.funcionarioList = funcionarioList;
+    public void setLoginList(List<Login> loginList) {
+        this.loginList = loginList;
     }
 
     @Override

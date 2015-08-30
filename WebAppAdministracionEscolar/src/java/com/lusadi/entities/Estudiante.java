@@ -13,6 +13,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -23,38 +25,29 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "estudiante", catalog = "prueba", schema = "")
+@Table(name = "ESTUDIANTE", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Estudiante.findAll", query = "SELECT e FROM Estudiante e"),
-    @NamedQuery(name = "Estudiante.findByEstudiateId", query = "SELECT e FROM Estudiante e WHERE e.estudiateId = :estudiateId"),
-    @NamedQuery(name = "Estudiante.findByFechaIngreso", query = "SELECT e FROM Estudiante e WHERE e.fechaIngreso = :fechaIngreso"),
-    @NamedQuery(name = "Estudiante.findByCorreoElectronico", query = "SELECT e FROM Estudiante e WHERE e.correoElectronico = :correoElectronico"),
-    @NamedQuery(name = "Estudiante.findByApellidosAcudiente", query = "SELECT e FROM Estudiante e WHERE e.apellidosAcudiente = :apellidosAcudiente"),
-    @NamedQuery(name = "Estudiante.findByNombresAcudiente", query = "SELECT e FROM Estudiante e WHERE e.nombresAcudiente = :nombresAcudiente")})
+    @NamedQuery(name = "Estudiante.findAll", query = "SELECT e FROM Estudiante e")})
 public class Estudiante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ESTUDIATE_ID")
     private Integer estudiateId;
     @Column(name = "FECHA_INGRESO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaIngreso;
-    @Size(max = 45)
-    @Column(name = "CORREO_ELECTRONICO")
-    private String correoElectronico;
     @Size(max = 45)
     @Column(name = "APELLIDOS_ACUDIENTE")
     private String apellidosAcudiente;
@@ -65,8 +58,8 @@ public class Estudiante implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ParentescoFamilia parentescoFamiliaId;
     @JoinColumns({
-        @JoinColumn(name = "USUARIO_TIPO_ID", referencedColumnName = "TIPO_ID"),
-        @JoinColumn(name = "USUARIO_NUMERO_ID", referencedColumnName = "NUMERO_ID")})
+        @JoinColumn(name = "TIPO_ID", referencedColumnName = "TIPO_ID"),
+        @JoinColumn(name = "NUMERO_ID", referencedColumnName = "NUMERO_ID")})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudianteId", fetch = FetchType.LAZY)
@@ -93,14 +86,6 @@ public class Estudiante implements Serializable {
 
     public void setFechaIngreso(Date fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
-    }
-
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
     }
 
     public String getApellidosAcudiente() {

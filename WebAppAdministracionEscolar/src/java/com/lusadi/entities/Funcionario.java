@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
@@ -20,42 +22,39 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "funcionario", catalog = "prueba", schema = "")
+@Table(name = "FUNCIONARIO", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Funcionario.findAll", query = "SELECT f FROM Funcionario f"),
-    @NamedQuery(name = "Funcionario.findByFuncionarioId", query = "SELECT f FROM Funcionario f WHERE f.funcionarioId = :funcionarioId"),
-    @NamedQuery(name = "Funcionario.findBySaldoNeto", query = "SELECT f FROM Funcionario f WHERE f.saldoNeto = :saldoNeto")})
+    @NamedQuery(name = "Funcionario.findAll", query = "SELECT f FROM Funcionario f")})
 public class Funcionario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "FUNCIONARIO_ID")
     private Integer funcionarioId;
     @Column(name = "SALDO_NETO")
     private Long saldoNeto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
-    private List<Horario> horarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
-    private List<AdjuntoNomina> adjuntoNominaList;
-    @JoinColumn(name = "CARGO_CARGO_ID", referencedColumnName = "CARGO_ID")
+    @JoinColumn(name = "CARGO_ID", referencedColumnName = "CARGO_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Cargo cargoCargoId;
+    private Cargo cargoId;
     @JoinColumns({
         @JoinColumn(name = "USUARIO_TIPO_ID", referencedColumnName = "TIPO_ID"),
         @JoinColumn(name = "USUARIO_NUMERO_ID", referencedColumnName = "NUMERO_ID")})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
+    private List<Horario> horarioList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
+    private List<AdjuntoNomina> adjuntoNominaList;
 
     public Funcionario() {
     }
@@ -80,6 +79,22 @@ public class Funcionario implements Serializable {
         this.saldoNeto = saldoNeto;
     }
 
+    public Cargo getCargoId() {
+        return cargoId;
+    }
+
+    public void setCargoId(Cargo cargoId) {
+        this.cargoId = cargoId;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @XmlTransient
     public List<Horario> getHorarioList() {
         return horarioList;
@@ -96,22 +111,6 @@ public class Funcionario implements Serializable {
 
     public void setAdjuntoNominaList(List<AdjuntoNomina> adjuntoNominaList) {
         this.adjuntoNominaList = adjuntoNominaList;
-    }
-
-    public Cargo getCargoCargoId() {
-        return cargoCargoId;
-    }
-
-    public void setCargoCargoId(Cargo cargoCargoId) {
-        this.cargoCargoId = cargoCargoId;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     @Override

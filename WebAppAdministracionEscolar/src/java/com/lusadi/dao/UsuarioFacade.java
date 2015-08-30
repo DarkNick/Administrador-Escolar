@@ -28,11 +28,16 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return em;
     }
 
+    public UsuarioFacade() {
+        super(Usuario.class);
+    }
+
     public void validateLogin(int numero_id, String password) throws Exception {
+        em.clear();
         StringBuilder sql = new StringBuilder();
-        sql.append(" SELECT LOGIN_ID FROM PRUEBA.").append(Usuario.class.getSimpleName());
-        sql.append(" WHERE TIPO_ID = ? AND NUMERO_ID = ? ");
-        Query createNativeQuery = em.createNativeQuery(sql.toString()).setParameter(1, "CC").setParameter(2, numero_id);
+        sql.append(" SELECT p.loginId FROM ").append(Login.class.getSimpleName()).append(" p ");
+        sql.append(" WHERE p.usuario.usuarioPK.tipoId = :tipoId AND p.usuario.usuarioPK.numeroId = :numeroId ");
+        Query createNativeQuery = em.createQuery(sql.toString()).setParameter("tipoId", "CC").setParameter("numeroId", numero_id);
         List resultList = createNativeQuery.getResultList();
         if (resultList != null && !resultList.isEmpty()) {
             Login find = em.find(Login.class, Integer.parseInt(String.valueOf(resultList.get(0))));
@@ -46,10 +51,6 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         } else {
             throw new Exception("El número de identificación no se encontró en la base de datos");
         }
-    }
-
-    public UsuarioFacade() {
-        super(Usuario.class);
     }
 
 }

@@ -12,33 +12,31 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "salon", catalog = "prueba", schema = "")
+@Table(name = "SALON", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Salon.findAll", query = "SELECT s FROM Salon s"),
-    @NamedQuery(name = "Salon.findBySalonId", query = "SELECT s FROM Salon s WHERE s.salonId = :salonId"),
-    @NamedQuery(name = "Salon.findByUbicacionSalon", query = "SELECT s FROM Salon s WHERE s.ubicacionSalon = :ubicacionSalon"),
-    @NamedQuery(name = "Salon.findByCapacidad", query = "SELECT s FROM Salon s WHERE s.capacidad = :capacidad")})
+    @NamedQuery(name = "Salon.findAll", query = "SELECT s FROM Salon s")})
 public class Salon implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "SALON_ID")
     private Integer salonId;
     @Size(max = 255)
@@ -46,7 +44,7 @@ public class Salon implements Serializable {
     private String ubicacionSalon;
     @Column(name = "CAPACIDAD")
     private Integer capacidad;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salonSalonId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "salonId", fetch = FetchType.LAZY)
     private List<Materia> materiaList;
 
     public Salon() {

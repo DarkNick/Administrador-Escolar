@@ -10,67 +10,51 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "matricula_estudiante", catalog = "prueba", schema = "")
+@Table(name = "MATRICULA_ESTUDIANTE", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "MatriculaEstudiante.findAll", query = "SELECT m FROM MatriculaEstudiante m"),
-    @NamedQuery(name = "MatriculaEstudiante.findByMatriculaId", query = "SELECT m FROM MatriculaEstudiante m WHERE m.matriculaId = :matriculaId"),
-    @NamedQuery(name = "MatriculaEstudiante.findByFechaMatricula", query = "SELECT m FROM MatriculaEstudiante m WHERE m.fechaMatricula = :fechaMatricula"),
-    @NamedQuery(name = "MatriculaEstudiante.findByCursoMatricula", query = "SELECT m FROM MatriculaEstudiante m WHERE m.cursoMatricula = :cursoMatricula"),
-    @NamedQuery(name = "MatriculaEstudiante.findByValorMatricula", query = "SELECT m FROM MatriculaEstudiante m WHERE m.valorMatricula = :valorMatricula"),
-    @NamedQuery(name = "MatriculaEstudiante.findByResultadoAcademicoId", query = "SELECT m FROM MatriculaEstudiante m WHERE m.resultadoAcademicoId = :resultadoAcademicoId")})
+    @NamedQuery(name = "MatriculaEstudiante.findAll", query = "SELECT m FROM MatriculaEstudiante m")})
 public class MatriculaEstudiante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "MATRICULA_ID")
     private Integer matriculaId;
     @Size(max = 45)
     @Column(name = "FECHA_MATRICULA")
     private String fechaMatricula;
     @Size(max = 45)
-    @Column(name = "CURSO_MATRICULA")
-    private String cursoMatricula;
-    @Size(max = 45)
     @Column(name = "VALOR_MATRICULA")
     private String valorMatricula;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "RESULTADO_ACADEMICO_ID")
-    private int resultadoAcademicoId;
+    @JoinColumn(name = "CURSO_ID", referencedColumnName = "CURSO_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Curso cursoId;
     @JoinColumn(name = "ESTUDIANTE_ID", referencedColumnName = "ESTUDIATE_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Estudiante estudianteId;
-    @JoinColumn(name = "HORARIO_ID", referencedColumnName = "HORARIO_ID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Horario horarioId;
 
     public MatriculaEstudiante() {
     }
 
     public MatriculaEstudiante(Integer matriculaId) {
         this.matriculaId = matriculaId;
-    }
-
-    public MatriculaEstudiante(Integer matriculaId, int resultadoAcademicoId) {
-        this.matriculaId = matriculaId;
-        this.resultadoAcademicoId = resultadoAcademicoId;
     }
 
     public Integer getMatriculaId() {
@@ -89,14 +73,6 @@ public class MatriculaEstudiante implements Serializable {
         this.fechaMatricula = fechaMatricula;
     }
 
-    public String getCursoMatricula() {
-        return cursoMatricula;
-    }
-
-    public void setCursoMatricula(String cursoMatricula) {
-        this.cursoMatricula = cursoMatricula;
-    }
-
     public String getValorMatricula() {
         return valorMatricula;
     }
@@ -105,12 +81,12 @@ public class MatriculaEstudiante implements Serializable {
         this.valorMatricula = valorMatricula;
     }
 
-    public int getResultadoAcademicoId() {
-        return resultadoAcademicoId;
+    public Curso getCursoId() {
+        return cursoId;
     }
 
-    public void setResultadoAcademicoId(int resultadoAcademicoId) {
-        this.resultadoAcademicoId = resultadoAcademicoId;
+    public void setCursoId(Curso cursoId) {
+        this.cursoId = cursoId;
     }
 
     public Estudiante getEstudianteId() {
@@ -119,14 +95,6 @@ public class MatriculaEstudiante implements Serializable {
 
     public void setEstudianteId(Estudiante estudianteId) {
         this.estudianteId = estudianteId;
-    }
-
-    public Horario getHorarioId() {
-        return horarioId;
-    }
-
-    public void setHorarioId(Horario horarioId) {
-        this.horarioId = horarioId;
     }
 
     @Override

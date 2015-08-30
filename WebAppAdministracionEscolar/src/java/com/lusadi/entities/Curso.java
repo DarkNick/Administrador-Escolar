@@ -12,37 +12,38 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "curso", catalog = "prueba", schema = "")
+@Table(name = "CURSO", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Curso.findAll", query = "SELECT c FROM Curso c"),
-    @NamedQuery(name = "Curso.findByCursoId", query = "SELECT c FROM Curso c WHERE c.cursoId = :cursoId"),
-    @NamedQuery(name = "Curso.findBySalonAsignado", query = "SELECT c FROM Curso c WHERE c.salonAsignado = :salonAsignado")})
+    @NamedQuery(name = "Curso.findAll", query = "SELECT c FROM Curso c")})
 public class Curso implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CURSO_ID")
     private Integer cursoId;
-    @Size(max = 45)
-    @Column(name = "SALON_ASIGNADO")
-    private String salonAsignado;
+    @Size(max = 255)
+    @Column(name = "OBSERVACIONES")
+    private String observaciones;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursoId", fetch = FetchType.LAZY)
+    private List<MatriculaEstudiante> matriculaEstudianteList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cursoId", fetch = FetchType.LAZY)
     private List<Horario> horarioList;
 
@@ -61,12 +62,21 @@ public class Curso implements Serializable {
         this.cursoId = cursoId;
     }
 
-    public String getSalonAsignado() {
-        return salonAsignado;
+    public String getObservaciones() {
+        return observaciones;
     }
 
-    public void setSalonAsignado(String salonAsignado) {
-        this.salonAsignado = salonAsignado;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    @XmlTransient
+    public List<MatriculaEstudiante> getMatriculaEstudianteList() {
+        return matriculaEstudianteList;
+    }
+
+    public void setMatriculaEstudianteList(List<MatriculaEstudiante> matriculaEstudianteList) {
+        this.matriculaEstudianteList = matriculaEstudianteList;
     }
 
     @XmlTransient

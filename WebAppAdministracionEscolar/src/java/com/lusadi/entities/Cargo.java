@@ -12,34 +12,31 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Personal
+ * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "cargo", catalog = "prueba", schema = "")
+@Table(name = "CARGO", catalog = "prueba", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c"),
-    @NamedQuery(name = "Cargo.findByCargoId", query = "SELECT c FROM Cargo c WHERE c.cargoId = :cargoId"),
-    @NamedQuery(name = "Cargo.findByNombreCargo", query = "SELECT c FROM Cargo c WHERE c.nombreCargo = :nombreCargo"),
-    @NamedQuery(name = "Cargo.findBySalarioTopeMin", query = "SELECT c FROM Cargo c WHERE c.salarioTopeMin = :salarioTopeMin"),
-    @NamedQuery(name = "Cargo.findBySalarioTopeMax", query = "SELECT c FROM Cargo c WHERE c.salarioTopeMax = :salarioTopeMax")})
+    @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c")})
 public class Cargo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CARGO_ID")
     private Integer cargoId;
     @Size(max = 45)
@@ -51,7 +48,7 @@ public class Cargo implements Serializable {
     @Size(max = 45)
     @Column(name = "SALARIO_TOPE_MAX")
     private String salarioTopeMax;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cargoCargoId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cargoId", fetch = FetchType.LAZY)
     private List<Funcionario> funcionarioList;
 
     public Cargo() {
