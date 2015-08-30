@@ -31,16 +31,11 @@ public class CursoFacade extends AbstractFacade<Curso> {
         em.persist(curso);
     }
 
-    public ArrayList<Curso> findAllCursos() {
-        try {
-            StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * FROM PRUEBA.CURSO");
-            Query q = em.createNativeQuery(sql.toString());
-            return new ArrayList<Curso>(q.getResultList());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public ArrayList<Curso> findAllCursos() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM PRUEBA.CURSO");
+        Query q = em.createNativeQuery(sql.toString(), Curso.class);
+        return new ArrayList<Curso>(q.getResultList());
     }
 
     public CursoFacade() {

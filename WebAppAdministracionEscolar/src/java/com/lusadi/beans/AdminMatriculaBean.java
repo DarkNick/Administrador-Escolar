@@ -5,10 +5,9 @@
  */
 package com.lusadi.beans;
 
-import com.lusadi.dao.SalonFacade;
-import com.lusadi.entities.Salon;
+import com.lusadi.dao.MatriculaEstudianteFacade;
+import com.lusadi.entities.MatriculaEstudiante;
 import com.lusadi.utils.UtilFaces;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,35 +22,35 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class AdminSalonBean implements Serializable {
+public class AdminMatriculaBean {
 
     @EJB
-    private SalonFacade salonFacade;
+    private MatriculaEstudianteFacade matriculaEstudianteFacade;
 
-    private Salon salon = new Salon();
-    private ArrayList<Salon> salones = new ArrayList<Salon>();
+    private MatriculaEstudiante matricula = new MatriculaEstudiante();
+    private ArrayList<MatriculaEstudiante> matriculas = new ArrayList<MatriculaEstudiante>();
 
-    public AdminSalonBean() {
+    public AdminMatriculaBean() {
     }
 
-    public void createSalon() {
+    public void createMatricula() {
         try {
-            salonFacade.createSalon(salon);
+            matriculaEstudianteFacade.createMatricula(matricula);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 
-    public void findAllSalon() {
+    public void findAllMatriculas() {
         try {
-            ArrayList<Salon> result = salonFacade.findAllSalon();
+            ArrayList<MatriculaEstudiante> result = matriculaEstudianteFacade.findAllMAtriculas();
             if (result != null) {
-                salones = result;
-                Collections.sort(salones, new Comparator<Salon>() {
+                matriculas = result;
+                Collections.sort(matriculas, new Comparator<MatriculaEstudiante>() {
                     @Override
-                    public int compare(Salon p1, Salon p2) {
-                        return new Integer(p1.getCapacidad()).compareTo(p2.getCapacidad());
+                    public int compare(MatriculaEstudiante p1, MatriculaEstudiante p2) {
+                        return new String(p1.getFechaMatricula()).compareTo(p2.getFechaMatricula());
                     }
                 });
             }
@@ -59,21 +58,4 @@ public class AdminSalonBean implements Serializable {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
-
-    public Salon getSalon() {
-        return salon;
-    }
-
-    public void setSalon(Salon salon) {
-        this.salon = salon;
-    }
-
-    public ArrayList<Salon> getSalones() {
-        return salones;
-    }
-
-    public void setSalones(ArrayList<Salon> salones) {
-        this.salones = salones;
-    }
-
 }

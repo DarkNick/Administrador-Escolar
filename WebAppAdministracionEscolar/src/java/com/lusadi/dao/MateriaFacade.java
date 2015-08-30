@@ -36,14 +36,9 @@ public class MateriaFacade extends AbstractFacade<Materia> {
     }
 
     public ArrayList<Materia> findAllMateria() {
-        try {
-            StringBuilder sql = new StringBuilder();
-            sql.append("SELECT * FROM PRUEBA.MATERIA");
-            Query q = em.createNativeQuery(sql.toString());
-            return new ArrayList<Materia>(q.getResultList());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM PRUEBA.MATERIA");
+        Query q = em.createNativeQuery(sql.toString(), Materia.class);
+        return new ArrayList<Materia>(q.getResultList());
     }
 }

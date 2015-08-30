@@ -12,6 +12,8 @@ import com.lusadi.entities.Salon;
 import com.lusadi.utils.UtilFaces;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -49,19 +51,39 @@ public class AdminMateriaBean implements Serializable {
     }
 
     public void findAllSalones() {
-        ArrayList<Salon> salonesAdd = new ArrayList<Salon>();
-        salonesAdd = salonFacade.findAllSalon();
-        if (salonesAdd != null) {
-            for (Salon varSalon : salonesAdd) {
-                salones.put(varSalon.getSalonId(), varSalon.getSalonId());
+        try {
+            ArrayList<Salon> salonesAdd = new ArrayList<Salon>();
+            salonesAdd = salonFacade.findAllSalon();
+            if (salonesAdd != null) {
+                Collections.sort(salonesAdd, new Comparator<Salon>() {
+                    @Override
+                    public int compare(Salon p1, Salon p2) {
+                        return new Integer(p1.getCapacidad()).compareTo(p2.getCapacidad());
+                    }
+                });
+                for (Salon varSalon : salonesAdd) {
+                    salones.put(varSalon.getSalonId(), varSalon.getSalonId());
+                }
             }
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 
     public void findAllMaterias() {
-        ArrayList<Materia> result = materiaFacade.findAllMateria();
-        if (result != null) {
-            materias = result;
+        try {
+            ArrayList<Materia> result = materiaFacade.findAllMateria();
+            if (result != null) {
+                materias = result;
+                Collections.sort(materias, new Comparator<Materia>() {
+                    @Override
+                    public int compare(Materia p1, Materia p2) {
+                        return new String(p1.getNombreMateria()).compareTo(p2.getNombreMateria());
+                    }
+                });
+            }
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 

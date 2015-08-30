@@ -10,6 +10,8 @@ import com.lusadi.entities.Curso;
 import com.lusadi.utils.UtilFaces;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -42,10 +44,20 @@ public class AdminCursoBean implements Serializable {
     }
 
     public void findAllCursos() {
-        ArrayList<Curso> resultAll = new ArrayList<Curso>();
-        resultAll = cursoFacade.findAllCursos();
-        if (resultAll != null) {
-            cursos = resultAll;
+        try {
+            ArrayList<Curso> resultAll = new ArrayList<Curso>();
+            resultAll = cursoFacade.findAllCursos();
+            if (resultAll != null) {
+                cursos = resultAll;
+                Collections.sort(cursos, new Comparator<Curso>() {
+                    @Override
+                    public int compare(Curso p1, Curso p2) {
+                        return new Integer(p1.getCursoId()).compareTo(p2.getCursoId());
+                    }
+                });
+            }
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 

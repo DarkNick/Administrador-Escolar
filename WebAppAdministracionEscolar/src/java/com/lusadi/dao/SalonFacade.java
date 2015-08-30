@@ -7,10 +7,8 @@ package com.lusadi.dao;
 
 import com.lusadi.entities.Salon;
 import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -34,7 +32,7 @@ public class SalonFacade extends AbstractFacade<Salon> {
         em.persist(salon);
     }
 
-    public ArrayList<Salon> findAllSalon() throws Exception{
+    public ArrayList<Salon> findAllSalon() throws Exception {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM PRUEBA.SALON");
         Query q = em.createNativeQuery(sql.toString(), Salon.class);
