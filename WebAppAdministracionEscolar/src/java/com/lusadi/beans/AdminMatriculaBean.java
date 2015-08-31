@@ -73,7 +73,7 @@ public class AdminMatriculaBean {
     public void findAllCursos() {
         try {
             ArrayList<Curso> cursosAdd = new ArrayList<Curso>();
-            cursosAdd = cursoFacade.findAllCursos();
+            cursosAdd = (ArrayList<Curso>) cursoFacade.findAll();
             if (cursosAdd != null) {
                 Collections.sort(cursosAdd, new Comparator<Curso>() {
                     @Override

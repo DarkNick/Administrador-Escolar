@@ -49,8 +49,9 @@ public class Materia implements Serializable {
     @Size(max = 255)
     @Column(name = "OBSERVACION")
     private String observacion;
-    @Column(name = "NIVEL_ACADEMICO")
-    private Integer nivelAcademico;
+    @JoinColumn(name = "NIVEL_ACADEMICO_ID", referencedColumnName = "NIVEL_ACADEMICO_ID")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private NivelAcademico nivelAcademicoId;
     @JoinColumn(name = "SALON_ID", referencedColumnName = "SALON_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Salon salonId;
@@ -96,12 +97,12 @@ public class Materia implements Serializable {
         this.observacion = observacion;
     }
 
-    public Integer getNivelAcademico() {
-        return nivelAcademico;
+    public NivelAcademico getNivelAcademicoId() {
+        return nivelAcademicoId;
     }
 
-    public void setNivelAcademico(Integer nivelAcademico) {
-        this.nivelAcademico = nivelAcademico;
+    public void setNivelAcademicoId(NivelAcademico nivelAcademicoId) {
+        this.nivelAcademicoId = nivelAcademicoId;
     }
 
     public Salon getSalonId() {

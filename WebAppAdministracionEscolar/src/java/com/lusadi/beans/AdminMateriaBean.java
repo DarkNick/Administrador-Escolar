@@ -6,15 +6,20 @@
 package com.lusadi.beans;
 
 import com.lusadi.dao.MateriaFacade;
+import com.lusadi.dao.NivelAcademicoFacade;
 import com.lusadi.dao.SalonFacade;
 import com.lusadi.entities.Materia;
+import com.lusadi.entities.NivelAcademico;
 import com.lusadi.entities.Salon;
 import com.lusadi.utils.UtilFaces;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -32,42 +37,29 @@ public class AdminMateriaBean implements Serializable {
     private SalonFacade salonFacade;
     @EJB
     private MateriaFacade materiaFacade;
+    @EJB
+    private NivelAcademicoFacade nivelAcademicoFacade;
 
     private Materia materia = new Materia();
-    private HashMap<Integer, Integer> salones = new HashMap<Integer, Integer>();
-    private ArrayList<Materia> materias = new ArrayList<Materia>();
+    private ArrayList<Materia> materias;
+
+    private Map<String, Salon> salones;
+    private Map<String, NivelAcademico> nivelesAcademicos;
 
     public AdminMateriaBean() {
-        //findAllSalones();
+    }
+
+    @PostConstruct
+    public void init() {
+        salones = parseSalonesToMap(salonFacade.findAll());
+        nivelesAcademicos = parseMatriculaEstudianteToMap(nivelAcademicoFacade.findAll());
+        materias = new ArrayList<Materia>(materiaFacade.findAll());
     }
 
     public void createCourse() {
-        try {
-            materiaFacade.createCourse(materia);
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
-        } catch (Exception ex) {
-            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
-        }
-    }
-
-    public void findAllSalones() {
-        try {
-            ArrayList<Salon> salonesAdd = new ArrayList<Salon>();
-            salonesAdd = salonFacade.findAllSalon();
-            if (salonesAdd != null) {
-                Collections.sort(salonesAdd, new Comparator<Salon>() {
-                    @Override
-                    public int compare(Salon p1, Salon p2) {
-                        return new Integer(p1.getCapacidad()).compareTo(p2.getCapacidad());
-                    }
-                });
-                for (Salon varSalon : salonesAdd) {
-                    salones.put(varSalon.getSalonId(), varSalon.getSalonId());
-                }
-            }
-        } catch (Exception ex) {
-            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
-        }
+        materiaFacade.create(materia);
+        materias = new ArrayList<Materia>(materiaFacade.findAll());
+        materia = new Materia();
     }
 
     public void findAllMaterias() {
@@ -87,6 +79,14 @@ public class AdminMateriaBean implements Serializable {
         }
     }
 
+    public Map<String, NivelAcademico> getNivelesAcademicos() {
+        return nivelesAcademicos;
+    }
+
+    public void setNivelesAcademicos(Map<String, NivelAcademico> nivelesAcademicos) {
+        this.nivelesAcademicos = nivelesAcademicos;
+    }
+
     public Materia getMateria() {
         return materia;
     }
@@ -95,20 +95,38 @@ public class AdminMateriaBean implements Serializable {
         this.materia = materia;
     }
 
-    public HashMap<Integer, Integer> getSalones() {
-        return salones;
-    }
-
-    public void setSalones(HashMap<Integer, Integer> salones) {
-        this.salones = salones;
-    }
-
     public ArrayList<Materia> getMaterias() {
         return materias;
     }
 
     public void setMaterias(ArrayList<Materia> materias) {
         this.materias = materias;
+    }
+
+    public Map<String, Salon> getSalones() {
+        return salones;
+    }
+
+    public void setSalones(Map<String, Salon> salones) {
+        this.salones = salones;
+    }
+
+    private Map<String, Salon> parseSalonesToMap(List<Salon> findAll) {
+        Map<String, Salon> outcome = new LinkedHashMap<String, Salon>();
+        for (Salon s : findAll) {
+            String key = s.getUbicacionSalon() + "/" + s.getCapacidad();
+            outcome.put(key.toUpperCase(), s);
+        }
+        return outcome;
+    }
+
+    private Map<String, NivelAcademico> parseMatriculaEstudianteToMap(List<NivelAcademico> findAll) {
+        Map<String, NivelAcademico> outcome = new LinkedHashMap<String, NivelAcademico>();
+        for (NivelAcademico s : findAll) {
+            String key = s.getNombreNivel();
+            outcome.put(key.toUpperCase(), s);
+        }
+        return outcome;
     }
 
 }

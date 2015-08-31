@@ -10,22 +10,24 @@
             <b:column>
                 <h:form>
                     <b:panel title="Curso" collapsible="false">
+                        <p:messages autoUpdate="true" closable="true"/>
                         <h:outputLabel value="Numero Curso"/>
                         <b:inputText value="#{adminCursoBean.curso.cursoId}" title="Numero Curso" maxlength="20" required="true"/>
                         <h:outputLabel value="Observaciones"/>
                         <p:inputTextarea value="#{adminCursoBean.curso.observaciones}" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Curso" action="#{adminCursoBean.createCurso()}"/>
+                                <b:commandButton icon="ui-icon-check" value="Registrar Curso" action="#{adminCursoBean.createCurso()}" 
+                                                 update=":form-tab-cours:panel-01:tab-cours"/>
                             </b:column>
                         </b:row>
                     </b:panel>
                 </h:form>
             </b:column>
             <b:column>
-                <h:form>
-                    <b:panel title="Cursos Registrados" collapsible="false">
-                        <p:dataTable var="varCurso" value="#{adminCursoBean.cursos}">
+                <h:form id="form-tab-cours">
+                    <b:panel id="panel-01" title="Cursos Registrados" collapsible="false">
+                        <p:dataTable id="tab-cours" var="varCurso" value="#{adminCursoBean.cursos}" rows="10" paginator="true" paginatorPosition="bottom">
                             <p:column headerText="ID">
                                 <h:outputText value="#{varCurso.cursoId}" />
                             </p:column>

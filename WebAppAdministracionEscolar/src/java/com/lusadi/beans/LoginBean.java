@@ -10,11 +10,11 @@ import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.servlet.http.HttpSession;
 
 @ManagedBean(name = "loginBean")
-@SessionScoped
+@RequestScoped
 public class LoginBean implements Serializable {
 
     @EJB

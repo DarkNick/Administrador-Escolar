@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,29 +30,31 @@ public class AdminSalonBean implements Serializable {
     private SalonFacade salonFacade;
 
     private Salon salon = new Salon();
-    private ArrayList<Salon> salones = new ArrayList<Salon>();
+    private ArrayList<Salon> salones;
 
     public AdminSalonBean() {
     }
 
+    @PostConstruct
+    public void init() {
+        salones = new ArrayList<Salon>(salonFacade.findAll());
+    }
+
     public void createSalon() {
-        try {
-            salonFacade.createSalon(salon);
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
-        } catch (Exception ex) {
-            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
-        }
+        salonFacade.createSalon(salon);
+        salones = new ArrayList<Salon>(salonFacade.findAll());
+        salon = new Salon();
     }
 
     public void findAllSalon() {
         try {
-            ArrayList<Salon> result = salonFacade.findAllSalon();
+            ArrayList<Salon> result = new ArrayList<Salon>(salonFacade.findAll());
             if (result != null) {
                 salones = result;
                 Collections.sort(salones, new Comparator<Salon>() {
                     @Override
                     public int compare(Salon p1, Salon p2) {
-                        return new Integer(p1.getCapacidad()).compareTo(p2.getCapacidad());
+                        return p1.getCapacidad().compareTo(p2.getCapacidad());
                     }
                 });
             }

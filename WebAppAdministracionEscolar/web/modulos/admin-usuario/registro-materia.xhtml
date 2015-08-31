@@ -10,6 +10,7 @@
             <b:column>
                 <h:form>
                     <b:panel title="Materia" collapsible="false">
+                        <p:messages autoUpdate="true" closable="true"/>
                         <h:outputLabel value="Nombre Materia"/>
                         <b:inputText value="#{adminMateriaBean.materia.nombreMateria}" title="Nombre Materia" maxlength="20" required="true"/>
                         <h:outputLabel value="Horas a la Semana"/>
@@ -19,14 +20,17 @@
                         <h:outputLabel value="Observaciones"/>
                         <p:inputTextarea value="#{adminMateriaBean.materia.observacion}" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                         <h:outputLabel value="Nivel Academico"/>
-                        <b:inputText value="#{adminMateriaBean.materia.nivelAcademico}" title="Nivel Academico" required="true">
-                            <f:validateDoubleRange minimum="1" maximum="10" />
-                        </b:inputText>
-                        <p:outputLabel for="city" value="Salon: " />
-                        <p:selectOneMenu id="city" value="#{adminMateriaBean.materia.salonId}" effect="fold" editable="true">
-                            <f:selectItem itemLabel="Seleccione un Salon" itemValue="" />
-                            <f:selectItems value="#{adminMateriaBean.salones}"/>
-                        </p:selectOneMenu>
+                        <b:selectOneMenu value="#{adminMateriaBean.materia.nivelAcademicoId}" >
+                            <f:selectItem  itemLabel="Seleccione un Salon" itemValue="" />
+                            <f:selectItems value="#{adminMateriaBean.nivelesAcademicos.entrySet()}" var="entry"
+                                           itemValue="#{entry.value}" itemLabel="#{entry.key}" />
+                        </b:selectOneMenu>
+                        <p:outputLabel value="Salon: " />
+                        <b:selectOneMenu value="#{adminMateriaBean.materia.salonId}" >
+                            <f:selectItem  itemLabel="Seleccione un Salon" itemValue="" />
+                            <f:selectItems value="#{adminMateriaBean.salones.entrySet()}" var="entry"
+                                           itemValue="#{entry.value}" itemLabel="#{entry.key}" />
+                        </b:selectOneMenu>
                         <b:row>
                             <b:column style="text-align: center;">
                                 <b:commandButton icon="ui-icon-check" value="Registrar Materia" action="#{adminMateriaBean.createCourse()}"/>
@@ -49,7 +53,7 @@
                                 <h:outputText value="#{varMateria.observacion}" />
                             </p:column>
                             <p:column headerText="Nivel">
-                                <h:outputText value="#{varMateria.nivelAcademico}" />
+                                <h:outputText value="#{varMateria.nivelAcademicoId.nombreNivel}" />
                             </p:column>
                         </p:dataTable>
                         <p:spacer/>

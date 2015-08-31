@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,30 +31,31 @@ public class AdminCursoBean implements Serializable {
     private CursoFacade cursoFacade;
 
     private Curso curso = new Curso();
-    private ArrayList<Curso> cursos = new ArrayList<Curso>();
+    private ArrayList<Curso> cursos;
 
     public AdminCursoBean() {
     }
 
+    @PostConstruct
+    public void init() {
+        cursos = new ArrayList<Curso>(cursoFacade.findAll());
+    }
+
     public void createCurso() {
-        try {
-            cursoFacade.createCurso(curso);
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
-        } catch (Exception ex) {
-            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
-        }
+        cursoFacade.create(curso);
+        cursos = new ArrayList<Curso>(cursoFacade.findAll());
+        curso = new Curso();
     }
 
     public void findAllCursos() {
         try {
-            ArrayList<Curso> resultAll = new ArrayList<Curso>();
-            resultAll = cursoFacade.findAllCursos();
+            ArrayList<Curso> resultAll = new ArrayList<Curso>(cursoFacade.findAll());
             if (resultAll != null) {
                 cursos = resultAll;
                 Collections.sort(cursos, new Comparator<Curso>() {
                     @Override
                     public int compare(Curso p1, Curso p2) {
-                        return new Integer(p1.getCursoId()).compareTo(p2.getCursoId());
+                        return p1.getCursoId().compareTo(p2.getCursoId());
                     }
                 });
             }
