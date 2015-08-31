@@ -18,14 +18,14 @@
                         <h:outputLabel value="Numero Del Documento"/>
                         <b:inputText value="" />
                         <h:outputLabel value="Primer Apellido"/>
-                        <b:inputText value="#{adminEstudianteBean.usuario.primerApellido}"/>
+                        <b:inputText value=""/>
                         <h:outputLabel value="Segundo Apellido"/>
-                        <b:inputText value="#{adminEstudianteBean.usuario.segundoApellido}"/>
+                        <b:inputText value=""/>
                         <h:outputLabel value="Nombres"/>
-                        <b:inputText value="#{adminEstudianteBean.usuario.nombres}"/>                      
+                        <b:inputText value=""/>                      
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Estudiante" action="#{adminEstudianteBean.createEstudiante()}"/>
+                                <b:commandButton icon="ui-icon-check" value="Registrar Estudiante" action=""/>
                             </b:column>
                         </b:row>
                     </b:panel>
@@ -37,7 +37,7 @@
                             <f:selectItem itemLabel="1 Bachillerato / Sesto" itemValue="1B"/>
                         </b:selectOneMenu>
                         <h:outputLabel value="Tipo De Sangre"/>
-                        <b:inputText value="#{adminEstudianteBean.usuario.tipoSangre}"/>
+                        <b:inputText value=""/>
                         <h:outputLabel value="Fecha de Nacimiento"/>
                         <b:datepicker  />
                         <h:outputLabel value="Correo electronico"/>

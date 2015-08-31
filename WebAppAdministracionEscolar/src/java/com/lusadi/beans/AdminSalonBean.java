@@ -8,6 +8,10 @@ package com.lusadi.beans;
 import com.lusadi.dao.SalonFacade;
 import com.lusadi.entities.Salon;
 import com.lusadi.utils.UtilFaces;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -19,12 +23,13 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class AdminSalonBean {
+public class AdminSalonBean implements Serializable {
 
     @EJB
     private SalonFacade salonFacade;
 
-    private Salon salon;
+    private Salon salon = new Salon();
+    private ArrayList<Salon> salones = new ArrayList<Salon>();
 
     public AdminSalonBean() {
     }
@@ -38,12 +43,37 @@ public class AdminSalonBean {
         }
     }
 
+    public void findAllSalon() {
+        try {
+            ArrayList<Salon> result = salonFacade.findAllSalon();
+            if (result != null) {
+                salones = result;
+                Collections.sort(salones, new Comparator<Salon>() {
+                    @Override
+                    public int compare(Salon p1, Salon p2) {
+                        return new Integer(p1.getCapacidad()).compareTo(p2.getCapacidad());
+                    }
+                });
+            }
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
+    }
+
     public Salon getSalon() {
         return salon;
     }
 
     public void setSalon(Salon salon) {
         this.salon = salon;
+    }
+
+    public ArrayList<Salon> getSalones() {
+        return salones;
+    }
+
+    public void setSalones(ArrayList<Salon> salones) {
+        this.salones = salones;
     }
 
 }

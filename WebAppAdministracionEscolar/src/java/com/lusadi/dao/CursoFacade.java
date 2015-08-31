@@ -6,9 +6,11 @@
 package com.lusadi.dao;
 
 import com.lusadi.entities.Curso;
+import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,11 +28,14 @@ public class CursoFacade extends AbstractFacade<Curso> {
     }
 
     public void createCurso(Curso curso) throws Exception {
-        try {
-            em.persist(curso);
-        } catch (Exception ex) {
-            throw new Exception("Error al intentar crear el curso");
-        }
+        em.persist(curso);
+    }
+
+    public ArrayList<Curso> findAllCursos() throws Exception {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT * FROM PRUEBA.CURSO");
+        Query q = em.createNativeQuery(sql.toString(), Curso.class);
+        return new ArrayList<Curso>(q.getResultList());
     }
 
     public CursoFacade() {

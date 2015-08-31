@@ -6,10 +6,10 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <b:row>
-        <h:form>
-            <b:panelGrid colSpans="6,6">
-                <b:column>
-                    <b:panel>
+        <b:panelGrid id="pgMaterias" colSpans="6,6">
+            <b:column>
+                <h:form>
+                    <b:panel title="Materia" collapsible="false">
                         <h:outputLabel value="Nombre Materia"/>
                         <b:inputText value="#{adminMateriaBean.materia.nombreMateria}" title="Nombre Materia" maxlength="20" required="true"/>
                         <h:outputLabel value="Horas a la Semana"/>
@@ -22,32 +22,46 @@
                         <b:inputText value="#{adminMateriaBean.materia.nivelAcademico}" title="Nivel Academico" required="true">
                             <f:validateDoubleRange minimum="1" maximum="10" />
                         </b:inputText>
+                        <p:outputLabel for="city" value="Salon: " />
+                        <p:selectOneMenu id="city" value="#{adminMateriaBean.materia.salonId}" effect="fold" editable="true">
+                            <f:selectItem itemLabel="Seleccione un Salon" itemValue="" />
+                            <f:selectItems value="#{adminMateriaBean.salones}"/>
+                        </p:selectOneMenu>
                         <b:row>
                             <b:column style="text-align: center;">
                                 <b:commandButton icon="ui-icon-check" value="Registrar Materia" action="#{adminMateriaBean.createCourse()}"/>
                             </b:column>
                         </b:row>
                     </b:panel>
-                </b:column>
-                <b:column>
-                    <b:panel>
-                        <p:dataTable var="materia" value="">
+                </h:form>
+            </b:column>
+            <b:column>
+                <h:form>
+                    <b:panel title="Materias Registradas" collapsible="false">
+                        <p:dataTable var="varMateria" value="#{adminMateriaBean.materias}">
                             <p:column headerText="Nombre">
-                                <h:outputText value="" />
+                                <h:outputText value="#{varMateria.nombreMateria}" />
                             </p:column>
                             <p:column headerText="Horas">
-                                <h:outputText value="" />
+                                <h:outputText value="#{varMateria.horasSemana}" />
                             </p:column>
                             <p:column headerText="Observaciones">
-                                <h:outputText value="" />
+                                <h:outputText value="#{varMateria.observacion}" />
                             </p:column>
                             <p:column headerText="Nivel">
-                                <h:outputText value="" />
+                                <h:outputText value="#{varMateria.nivelAcademico}" />
                             </p:column>
                         </p:dataTable>
+                        <p:spacer/>
+                        <b:row>
+                            <b:column style="text-align: center;">
+                                <b:commandButton icon="ui-icon-check" value="Mostrar Materias" action="#{adminMateriaBean.findAllMaterias()}" update="pgMaterias"/>
+                            </b:column>
+                        </b:row>
                     </b:panel>
-                </b:column>
-            </b:panelGrid>
-        </h:form>
+                </h:form>
+            </b:column>
+        </b:panelGrid>
+
     </b:row>
 </ui:composition>

@@ -6,10 +6,11 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <b:row>
-        <h:form>
-            <b:panelGrid colSpans="6,6">
-                <b:column>
-                    <b:panel>
+
+        <b:panelGrid colSpans="6,6">
+            <b:column>
+                <h:form id="registerSalon">
+                    <b:panel title="Salon" collapsible="false">
                         <h:outputLabel value="Ubicacion del Salon"/>
                         <b:inputText value="#{adminSalonBean.salon.ubicacionSalon}" title="Ubicacion" maxlength="50" required="true"/>
                         <h:outputLabel value="Capacidad del Salon"/>
@@ -22,21 +23,30 @@
                             </b:column>
                         </b:row>
                     </b:panel>
-                </b:column>
-                <b:column>
-                    <b:panel>
-                        <p:dataTable var="salon" value="">
+                </h:form>
+            </b:column>
+            <b:column>
+                <h:form id="registerSalon1">
+                    <b:panel id="pgSalones" title="Salones Registrados" collapsible="false">
+                        <p:dataTable var="varSalon" value="#{adminSalonBean.salones}">
                             <p:column headerText="Ubicacion">
-                                <h:outputText value="" />
+                                <h:outputText value="#{varSalon.ubicacionSalon}" />
                             </p:column>
                             <p:column headerText="Capacidad">
-                                <h:outputText value="" />
+                                <h:outputText value="#{varSalon.capacidad}" />
                             </p:column>
                         </p:dataTable>
+                        <p:spacer/>
+                        <b:row>
+                            <b:column style="text-align: center;">
+                                <b:commandButton icon="ui-icon-check" value="Mostrar Salones" action="#{adminSalonBean.findAllSalon()}" update="pgSalones"/>
+                            </b:column>
+                        </b:row>
                     </b:panel>
-                </b:column>
-            </b:panelGrid>
-        </h:form>
+                </h:form>
+            </b:column>
+        </b:panelGrid>
+
     </b:row>
 </ui:composition>
 
