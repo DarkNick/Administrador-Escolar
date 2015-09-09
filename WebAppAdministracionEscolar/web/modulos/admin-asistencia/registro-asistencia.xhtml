@@ -24,17 +24,20 @@
                     <b:column>
                         <b:panel>
                             <h:outputLabel >Por favor diriga la salida de datos de la maquina lectora de codigos, sobre el siguiente campo.</h:outputLabel>
-                            <b:inputText />
-                            <b:row>
-                                <b:column style="text-align: center;">
-                                    <b:commandButton value="Guardar" />
-                                </b:column>
-                            </b:row>
+                            <b:inputText onchange="test()"/>
                         </b:panel>
                     </b:column>
                 </b:panelGrid>
             </h:form>
         </b:panel>
     </b:row>
+    <script>
+        /**
+        * Comment
+        */
+        function test() {
+            console.log('hola mund');
+        }
+    </script>
 </ui:composition>
 

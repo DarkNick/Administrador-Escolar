@@ -1,6 +1,6 @@
 package com.lusadi.beans;
 
-import com.lusadi.constant.SesionValuesEnum;
+import com.lusadi.constant.SessionValuesEnum;
 import com.lusadi.dao.UsuarioFacade;
 import com.lusadi.entities.UsuarioPK;
 import com.lusadi.modelo.Usuario;
@@ -39,9 +39,9 @@ public class LoginBean implements Serializable {
             int numeroId = Integer.parseInt(usuario.getNumero_id());
             usuarioFacade.validateLogin(numeroId, usuario.getPassword());
             com.lusadi.entities.Usuario find = usuarioFacade.find(new UsuarioPK("CC", numeroId));
-            String fullName = find.getPrimerApellido() + "" + find.getSegundoApellido() + "" + find.getNombres();
-            UtilFaces.getFacesUtil().getSession().setAttribute(SesionValuesEnum.FULLNAME_USER.name(), fullName);
-            UtilFaces.getFacesUtil().getSession().setAttribute(SesionValuesEnum.ROL_USER.name(), find.getRolId().getNombreRol());
+            String fullName = find.getPrimerApellido() + " " + find.getSegundoApellido() + " " + find.getNombres();
+            UtilFaces.getFacesUtil().getSession().setAttribute(SessionValuesEnum.FULLNAME_USER.name(), fullName);
+            UtilFaces.getFacesUtil().getSession().setAttribute(SessionValuesEnum.ROL_USER.name(), find.getRolId().getNombreRol());
             UtilFaces.getFacesUtil().redirect("/edu/administracion-usuarios.xhtml");
         } catch (IOException ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
@@ -64,12 +64,12 @@ public class LoginBean implements Serializable {
 
     public String getNombreUsuario() {
         HttpSession session = UtilFaces.getFacesUtil().getSession();
-        return (String) session.getAttribute(SesionValuesEnum.FULLNAME_USER.name());
+        return (String) session.getAttribute(SessionValuesEnum.FULLNAME_USER.name());
     }
 
     public String getRolUsuario() {
         HttpSession session = UtilFaces.getFacesUtil().getSession();
-        return (String) session.getAttribute(SesionValuesEnum.ROL_USER.name());
+        return (String) session.getAttribute(SessionValuesEnum.ROL_USER.name());
     }
 
 }
