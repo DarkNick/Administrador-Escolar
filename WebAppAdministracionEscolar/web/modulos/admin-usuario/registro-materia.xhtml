@@ -20,20 +20,21 @@
                         <h:outputLabel value="Observaciones"/>
                         <p:inputTextarea value="#{adminMateriaBean.materia.observacion}" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                         <h:outputLabel value="Nivel Academico"/>
-                        <b:selectOneMenu value="#{adminMateriaBean.materia.nivelAcademicoId}" >
+                        <b:selectOneMenu value="#{adminMateriaBean.materia.nivelAcademicoId}" required="true">
                             <f:selectItem  itemLabel="Seleccione un Salon" itemValue="" />
                             <f:selectItems value="#{adminMateriaBean.nivelesAcademicos.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}" />
                         </b:selectOneMenu>
                         <p:outputLabel value="Salon: " />
-                        <b:selectOneMenu value="#{adminMateriaBean.materia.salonId}" >
+                        <b:selectOneMenu value="#{adminMateriaBean.materia.salonId}" required="true">
                             <f:selectItem  itemLabel="Seleccione un Salon" itemValue="" />
                             <f:selectItems value="#{adminMateriaBean.salones.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}" />
                         </b:selectOneMenu>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Materia" action="#{adminMateriaBean.createCourse()}"/>
+                                <b:commandButton icon="ui-icon-check" value="Registrar Materia" action="#{adminMateriaBean.createCourse()}"
+                                                 update=":form-tab-cours:panel-01:tab-cours"/>
                             </b:column>
                         </b:row>
                     </b:panel>
@@ -42,7 +43,7 @@
             <b:column>
                 <h:form>
                     <b:panel title="Materias Registradas" collapsible="false">
-                        <p:dataTable var="varMateria" value="#{adminMateriaBean.materias}">
+                        <p:dataTable var="varMateria" value="#{adminMateriaBean.materias}" paginator="true" rows="5" paginatorPosition="bottom">
                             <p:column headerText="Nombre">
                                 <h:outputText value="#{varMateria.nombreMateria}" />
                             </p:column>

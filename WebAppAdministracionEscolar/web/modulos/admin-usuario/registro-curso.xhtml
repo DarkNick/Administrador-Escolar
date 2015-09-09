@@ -27,7 +27,7 @@
             <b:column>
                 <h:form id="form-tab-cours">
                     <b:panel id="panel-01" title="Cursos Registrados" collapsible="false">
-                        <p:dataTable id="tab-cours" var="varCurso" value="#{adminCursoBean.cursos}" rows="10" paginator="true" paginatorPosition="bottom">
+                        <p:dataTable id="tab-cours" var="varCurso" value="#{adminCursoBean.cursos}" rows="5" paginator="true" paginatorPosition="bottom">
                             <p:column headerText="ID">
                                 <h:outputText value="#{varCurso.cursoId}" />
                             </p:column>

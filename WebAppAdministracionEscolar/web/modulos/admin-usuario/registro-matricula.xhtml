@@ -12,33 +12,34 @@
                     <b:panel title="Matricula" collapsible="false">
                         <p:messages autoUpdate="true" closable="true"/>
                         <h:outputLabel value="Fecha de Matricula"/>
-                        <b:datepicker  />
+                        <p:calendar id="effect" value="#{adminMatriculaBean.matricula.fechaMatricula}" effect="fold" mindate="1/1/15" required="true"/>
                         <h:outputLabel value="Costo Matricula"/>
-                        <b:inputText value="" required="true">
+                        <b:inputText value="#{adminMatriculaBean.matricula.valorMatricula}" required="true">
                             <f:validateDoubleRange minimum="5000" maximum="1000000" />
                         </b:inputText>
                         <p:outputLabel for="estudent" value="Estudiante: " />
-                        <p:selectOneMenu id="varEstudiante" value="" effect="fold" editable="true">
+                        <p:selectOneMenu id="varEstudiante" value="#{adminMatriculaBean.matricula.estudianteId}" effect="fold" editable="true">
                             <f:selectItem itemLabel="Seleccione un Estudiante" itemValue="" />
-                            <f:selectItems value=""/>
+                            <f:selectItems value="#{adminMatriculaBean.estudiantes.entrySet()}"
+                                           itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
                         </p:selectOneMenu>
                         <p:outputLabel for="course" value="Curso: " />
-                        <p:selectOneMenu id="varCurso" value="" effect="fold" editable="true">
+                        <p:selectOneMenu id="varCurso" value="#{adminMatriculaBean.matricula.cursoId}" effect="fold" editable="true">
                             <f:selectItem itemLabel="Seleccione un Curso" itemValue="" />
-                            <f:selectItems value=""/>
+                            <f:selectItems value="#{adminMatriculaBean.cursos.entrySet()}"
+                                           itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
                         </p:selectOneMenu>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Matricula" />
+                                <b:commandButton icon="ui-icon-check" value="Registrar Matricula" action="#{adminMatriculaBean.createMatricula()}"
+                                                 update=":form-tab-cours:panel-01:tab-cours"/>
                             </b:column>
                         </b:row>
                     </b:panel>
                 </h:form>
             </b:column>
             <b:column>
-
             </b:column>
         </b:panelGrid>
-
     </b:row>
 </ui:composition>

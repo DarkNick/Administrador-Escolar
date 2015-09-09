@@ -16,16 +16,20 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class HorarioFacade extends AbstractFacade<Horario> {
+
     @PersistenceContext(unitName = "WebAppAdministracionEscolarPU")
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public HorarioFacade() {
         super(Horario.class);
     }
     
+    public void createHorario(Horario horario) {
+        em.persist(horario);
+    }
 }
