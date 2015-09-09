@@ -5,6 +5,7 @@
  */
 package com.lusadi.beans;
 
+import com.lusadi.constant.CommonInterface;
 import com.lusadi.dao.EstudianteFacade;
 import com.lusadi.dao.LoginFacade;
 import com.lusadi.dao.ParentescoFamiliaFacade;
@@ -38,7 +39,7 @@ public class AdminEstudianteBean {
     private UsuarioFacade usuarioFacade;
     @EJB
     private ParentescoFamiliaFacade parentescoFamiliaFacade;
-    
+
     private Usuario usuario = new Usuario();
     private UsuarioPK usuarioPk = new UsuarioPK();
     private Login login = new Login();
@@ -120,17 +121,17 @@ public class AdminEstudianteBean {
     public AdminEstudianteBean() {
     }
 
-    public void createCourse() {
+    public void createStudent() {
         try {
             System.out.println("EMPEZO LA CUESTION");
-            com.lusadi.entities.Rol rol = rolFacade.find(3);
-            estudiante.getUsuario().setRolId(rol);
+            com.lusadi.entities.Rol rol = rolFacade.find(CommonInterface.ROL_ID_ESTUDIANTE);
+            estudiante. getUsuario().setRolId(rol);
             com.lusadi.entities.ParentescoFamilia parentesco = parentescoFamiliaFacade.find(idParent);
             estudiante.setParentescoFamiliaId(parentesco);
             usuario.setUsuarioPK(usuarioPk);
             estudiante.setUsuario(usuario);
-            LoginFacade.createCourse(login);            
-            estudianteFacade.createEstudiante(estudiante);
+            LoginFacade.create(login);
+            estudianteFacade.create(estudiante);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());

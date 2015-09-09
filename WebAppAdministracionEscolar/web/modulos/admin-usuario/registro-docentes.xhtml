@@ -10,21 +10,22 @@
             <b:panelGrid colSpans="6,6">
                 <b:column>
                     <b:panel>
+                        <p:messages/>
                         <h:outputLabel value="Tipo de Documento"/>
-                        <b:selectOneMenu value="">
-                            <f:selectItem itemLabel="C.C." itemValue="cc"/>
+                        <b:selectOneMenu value="#{adminDocenteBean.usuarioPk.tipoId}" required="true">
+                            <f:selectItem itemLabel="C.C." itemValue="CC"/>
                         </b:selectOneMenu>
                         <h:outputLabel value="Numero Del Documento"/>
-                        <b:inputText value="" />
+                        <b:inputText value="#{adminDocenteBean.usuarioPk.numeroId}" required="true"/>
                         <h:outputLabel value="Primer Apellido"/>
-                        <b:inputText value=""/>
+                        <b:inputText value="#{adminDocenteBean.usuario.primerApellido}" required="true"/>
                         <h:outputLabel value="Segundo Apellido"/>
-                        <b:inputText value=""/>
+                        <b:inputText value="#{adminDocenteBean.usuario.segundoApellido}" required="true"/>
                         <h:outputLabel value="Nombres"/>
-                        <b:inputText value=""/>
+                        <b:inputText value="#{adminDocenteBean.usuario.nombres}" required="true"/>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Docente"/>
+                                <b:commandButton icon="ui-icon-check" value="Registrar Docente" action="#{adminDocenteBean.createCourse}"/>
                             </b:column>
                         </b:row>
                     </b:panel>
@@ -32,13 +33,15 @@
                 <b:column>
                     <b:panel>
                         <h:outputLabel value="Correo electronico"/>
-                        <b:inputText value=""/>
+                        <b:inputText value="#{adminDocenteBean.usuario.correoElectronico}" required="true"/>
                         <h:outputLabel value="Cargo"/>
-                        <b:selectOneMenu value="">
-                            <f:selectItem itemLabel="Docente Catedra" itemValue="dc"/>
+                        <b:selectOneMenu value="#{adminDocenteBean.cargo}" required="true" >
+                            <f:selectItem  itemLabel="Seleccione un Salon" itemValue="" />
+                            <f:selectItems value="#{adminDocenteBean.cargos.entrySet()}" var="entry"
+                                           itemValue="#{entry.value}" itemLabel="#{entry.key}" />
                         </b:selectOneMenu>
                         <h:outputLabel value="Salario"/>
-                        <b:inputText value=""/>
+                        <b:inputText value="#{adminDocenteBean.funcionario.saldoNeto}"/>
                         <h:outputLabel value="Fecha Ingreso"/>
                         <b:datepicker  />
                         <h:outputLabel value="Observaciones"/>

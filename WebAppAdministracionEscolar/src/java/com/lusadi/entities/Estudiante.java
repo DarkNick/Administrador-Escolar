@@ -6,10 +6,7 @@
 package com.lusadi.entities;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,20 +18,16 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author andresfelipegarciaduran
  */
 @Entity
-@Table(name = "ESTUDIANTE", catalog = "prueba", schema = "")
+@Table(name = "ESTUDIANTE", catalog = "colegio_lusadi", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estudiante.findAll", query = "SELECT e FROM Estudiante e")})
@@ -45,9 +38,6 @@ public class Estudiante implements Serializable {
     @Basic(optional = false)
     @Column(name = "ESTUDIATE_ID")
     private Integer estudiateId;
-    @Column(name = "FECHA_INGRESO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaIngreso;
     @Size(max = 45)
     @Column(name = "APELLIDOS_ACUDIENTE")
     private String apellidosAcudiente;
@@ -62,8 +52,6 @@ public class Estudiante implements Serializable {
         @JoinColumn(name = "NUMERO_ID", referencedColumnName = "NUMERO_ID")})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudianteId", fetch = FetchType.LAZY)
-    private List<MatriculaEstudiante> matriculaEstudianteList;
 
     public Estudiante() {
     }
@@ -78,14 +66,6 @@ public class Estudiante implements Serializable {
 
     public void setEstudiateId(Integer estudiateId) {
         this.estudiateId = estudiateId;
-    }
-
-    public Date getFechaIngreso() {
-        return fechaIngreso;
-    }
-
-    public void setFechaIngreso(Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
     }
 
     public String getApellidosAcudiente() {
@@ -118,15 +98,6 @@ public class Estudiante implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    @XmlTransient
-    public List<MatriculaEstudiante> getMatriculaEstudianteList() {
-        return matriculaEstudianteList;
-    }
-
-    public void setMatriculaEstudianteList(List<MatriculaEstudiante> matriculaEstudianteList) {
-        this.matriculaEstudianteList = matriculaEstudianteList;
     }
 
     @Override

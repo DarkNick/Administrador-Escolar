@@ -25,14 +25,6 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
         return em;
     }
 
-    public void createEstudiante(Estudiante estudiante) throws Exception {
-        try {
-            em.persist(estudiante);
-        } catch (Exception ex) {
-            throw new Exception("Error al intentar crear el estudiante");
-        }
-    }
-
     public EstudianteFacade() {
         super(Estudiante.class);
     }
