@@ -16,6 +16,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class FuncionarioFacade extends AbstractFacade<Funcionario> {
+
     @PersistenceContext(unitName = "WebAppAdministracionEscolarPU")
     private EntityManager em;
 
@@ -27,5 +28,13 @@ public class FuncionarioFacade extends AbstractFacade<Funcionario> {
     public FuncionarioFacade() {
         super(Funcionario.class);
     }
-    
+
+    public void createCourse(Funcionario funcionario) throws Exception {
+        try {
+            em.persist(funcionario);
+        } catch (Exception e) {
+            throw new Exception("Error al intentar crear al funcionario");
+        }
+    }
+
 }

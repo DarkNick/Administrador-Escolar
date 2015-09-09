@@ -9,7 +9,7 @@ package com.lusadi.constant;
  *
  * @author andresfelipegarciaduran
  */
-public enum SesionValuesEnum {
+public enum SessionValuesEnum {
 
     FULLNAME_USER,
     ROL_USER,
