@@ -27,5 +27,12 @@ public class LoginFacade extends AbstractFacade<Login> {
     public LoginFacade() {
         super(Login.class);
     }
-    
+
+    public void createCourse(Login login) throws Exception {
+        try {
+            em.persist(login);
+        } catch (Exception e) {
+            throw new Exception(e+" Error al intentar crear Login");
+        }
+    }
 }
