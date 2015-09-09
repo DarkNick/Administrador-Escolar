@@ -6,7 +6,6 @@
 package com.lusadi.dao;
 
 import com.lusadi.entities.Curso;
-import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,17 +16,21 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class CursoFacade extends AbstractFacade<Curso> {
-
+    
     @PersistenceContext(unitName = "WebAppAdministracionEscolarPU")
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public CursoFacade() {
         super(Curso.class);
     }
-
+    
+    public void createCurso(Curso curso) {
+        em.persist(curso);
+    }
+    
 }

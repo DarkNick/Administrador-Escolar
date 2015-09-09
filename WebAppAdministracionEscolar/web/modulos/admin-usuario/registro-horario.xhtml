@@ -1,0 +1,47 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+    <b:row>
+        <b:panelGrid id="pgMaterias" colSpans="6,6">
+            <b:column>
+                <h:form>
+                    <b:panel title="Matricula" collapsible="false">
+                        <p:messages autoUpdate="true" closable="true"/>                        
+                        <p:outputLabel for="estudent" value="Materia: " />
+                        <p:selectOneMenu id="varEstudiante" value="" effect="fold" editable="true">
+                            <f:selectItem itemLabel="Seleccione un Materia" itemValue="" />
+                            <f:selectItems value=""/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="course" value="Curso: " />
+                        <p:selectOneMenu id="varCurso" value="" effect="fold" editable="true">
+                            <f:selectItem itemLabel="Seleccione un Curso" itemValue="" />
+                            <f:selectItems value=""/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="estudent" value="Funcionario: " />
+                        <p:selectOneMenu id="varEstudiante" value="" effect="fold" editable="true">
+                            <f:selectItem itemLabel="Seleccione un Funcionario" itemValue="" />
+                            <f:selectItems value=""/>
+                        </p:selectOneMenu>
+                        <p:outputLabel for="estudent" value="Resultado Academico " />
+                        <p:selectOneMenu id="varEstudiante" value="" effect="fold" editable="true">
+                            <f:selectItem itemLabel="----------------" itemValue="" />
+                            <f:selectItems value=""/>
+                        </p:selectOneMenu>
+                        <b:row>
+                            <b:column style="text-align: center;">
+                                <b:commandButton icon="ui-icon-check" value="Registrar Matricula" action="#{adminMatriculaBean.createMatricula()}"
+                                                 update=":form-tab-cours:panel-01:tab-cours"/>
+                            </b:column>
+                        </b:row>
+                    </b:panel>
+                </h:form>
+            </b:column>
+            <b:column>
+            </b:column>
+        </b:panelGrid>
+    </b:row>
+</ui:composition>

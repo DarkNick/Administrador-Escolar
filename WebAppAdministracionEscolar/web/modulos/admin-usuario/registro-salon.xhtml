@@ -6,7 +6,6 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <b:row>
-
         <b:panelGrid colSpans="6,6">
             <b:column>
                 <h:form id="registerSalon">
@@ -30,7 +29,7 @@
             <b:column>
                 <h:form id="form-tab-salon">
                     <b:panel id="panel-01" title="Salones Registrados" collapsible="false">
-                        <p:dataTable id="tab-salon" var="varSalon" value="#{adminSalonBean.salones}">
+                        <p:dataTable id="tab-salon" var="varSalon" value="#{adminSalonBean.salones}" paginator="true" rows="5" paginatorPosition="bottom">
                             <p:column headerText="Ubicacion">
                                 <h:outputText value="#{varSalon.ubicacionSalon}" />
                             </p:column>
@@ -48,7 +47,6 @@
                 </h:form>
             </b:column>
         </b:panelGrid>
-
     </b:row>
 </ui:composition>
 

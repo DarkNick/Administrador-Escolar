@@ -6,9 +6,11 @@
 package com.lusadi.beans;
 
 import com.lusadi.dao.CursoFacade;
+import com.lusadi.dao.EstudianteFacade;
 import com.lusadi.dao.MatriculaEstudianteFacade;
 import com.lusadi.dao.UsuarioFacade;
 import com.lusadi.entities.Curso;
+import com.lusadi.entities.Estudiante;
 import com.lusadi.entities.MatriculaEstudiante;
 import com.lusadi.entities.Usuario;
 import com.lusadi.utils.UtilFaces;
@@ -30,6 +32,8 @@ import javax.faces.bean.RequestScoped;
 public class AdminMatriculaBean {
 
     @EJB
+    private EstudianteFacade estudianteFacade;
+    @EJB
     private UsuarioFacade usuarioFacade;
     @EJB
     private CursoFacade cursoFacade;
@@ -39,7 +43,7 @@ public class AdminMatriculaBean {
     private MatriculaEstudiante matricula = new MatriculaEstudiante();
     private ArrayList<MatriculaEstudiante> matriculas = new ArrayList<MatriculaEstudiante>();
     private HashMap<Integer, Integer> cursos = new HashMap<Integer, Integer>();
-    private HashMap<String, String> estudiantes = new HashMap<String, String>();
+    private HashMap<String, Integer> estudiantes = new HashMap<String, Integer>();
 
     public AdminMatriculaBean() {
     }
@@ -55,7 +59,7 @@ public class AdminMatriculaBean {
 
     public void findAllMatriculas() {
         try {
-            ArrayList<MatriculaEstudiante> result = matriculaEstudianteFacade.findAllMAtriculas();
+            ArrayList<MatriculaEstudiante> result = (ArrayList<MatriculaEstudiante>) matriculaEstudianteFacade.findAll();
             if (result != null) {
                 matriculas = result;
                 Collections.sort(matriculas, new Comparator<MatriculaEstudiante>() {
@@ -92,24 +96,57 @@ public class AdminMatriculaBean {
 
     public void findAllEstudiantes() {
         try {
-            ArrayList<Usuario> estudiantesAdd = new ArrayList<Usuario>();
-            estudiantesAdd = (ArrayList<Usuario>) usuarioFacade.findAll();
+            ArrayList<Estudiante> estudiantesAdd = new ArrayList<Estudiante>();
+            estudiantesAdd = (ArrayList<Estudiante>) estudianteFacade.findAll();
             if (estudiantesAdd != null) {
-                Collections.sort(estudiantesAdd, new Comparator<Usuario>() {
-                    @Override
-                    public int compare(Usuario p1, Usuario p2) {
-                        String aux1 = p1.getPrimerApellido() + " " + p1.getSegundoApellido() + " " + p1.getNombres();
-                        String aux2 = p2.getPrimerApellido() + " " + p2.getSegundoApellido() + " " + p2.getNombres();
-                        return new String(aux1).compareTo(aux2);
-                    }
-                });
-                for (Usuario varSalon : estudiantesAdd) {
-                    String aux1 = varSalon.getPrimerApellido() + " " + varSalon.getSegundoApellido() + " " + varSalon.getNombres();
-                    estudiantes.put(aux1, varSalon.getNombres()); // --- cambiar esto
+                /*Collections.sort(estudiantesAdd, new Comparator<Estudiante>() {
+                 @Override
+                 public int compare(Estudiante p1, Estudiante p2) {
+                 String aux1 = p1.getPrimerApellido() + " " + p1.getSegundoApellido() + " " + p1.getNombres();
+                 String aux2 = p2.getPrimerApellido() + " " + p2.getSegundoApellido() + " " + p2.getNombres();
+                 return new String(aux1).compareTo(aux2);
+                 }
+                 });*/
+                for (Estudiante varStudent : estudiantesAdd) {
+                    String aux1 = varStudent.getUsuario().getPrimerApellido() + " " + varStudent.getUsuario().getSegundoApellido() + " " + varStudent.getUsuario().getNombres();
+                    estudiantes.put(aux1, varStudent.getEstudiateId());
                 }
             }
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
+
+    public MatriculaEstudiante getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(MatriculaEstudiante matricula) {
+        this.matricula = matricula;
+    }
+
+    public ArrayList<MatriculaEstudiante> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(ArrayList<MatriculaEstudiante> matriculas) {
+        this.matriculas = matriculas;
+    }
+
+    public HashMap<Integer, Integer> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(HashMap<Integer, Integer> cursos) {
+        this.cursos = cursos;
+    }
+
+    public HashMap<String, Integer> getEstudiantes() {
+        return estudiantes;
+    }
+
+    public void setEstudiantes(HashMap<String, Integer> estudiantes) {
+        this.estudiantes = estudiantes;
+    }
+
 }

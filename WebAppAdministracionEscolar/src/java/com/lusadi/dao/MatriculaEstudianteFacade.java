@@ -6,11 +6,9 @@
 package com.lusadi.dao;
 
 import com.lusadi.entities.MatriculaEstudiante;
-import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -35,10 +33,4 @@ public class MatriculaEstudianteFacade extends AbstractFacade<MatriculaEstudiant
         em.persist(matricula);
     }
 
-    public ArrayList<MatriculaEstudiante> findAllMAtriculas() {
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM PRUEBA.MATRICULAESTUDIANTE");
-        Query q = em.createNativeQuery(sql.toString(), MatriculaEstudiante.class);
-        return new ArrayList<MatriculaEstudiante>(q.getResultList());
-    }
 }
