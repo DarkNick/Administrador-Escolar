@@ -5,7 +5,7 @@
  */
 package com.lusadi.dao;
 
-import com.lusadi.entities.ResultadoAcademico;
+import com.lusadi.entities.Nota;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,21 +15,21 @@ import javax.persistence.PersistenceContext;
  * @author Personal
  */
 @Stateless
-public class ResultadoAcademicoFacade extends AbstractFacade<ResultadoAcademico> {
-    
+public class NotaFacade extends AbstractFacade<Nota> {
+
     @PersistenceContext(unitName = "WebAppAdministracionEscolarPU")
     private EntityManager em;
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
-    public ResultadoAcademicoFacade() {
-        super(ResultadoAcademico.class);
+
+    public NotaFacade() {
+        super(Nota.class);
     }
-    
-    public void createResultadoAcademico(ResultadoAcademico resultadoAcademico) {
-        em.persist(resultadoAcademico);
+
+    public void createNota(Nota nota) {
+        em.persist(nota);
     }
 }
