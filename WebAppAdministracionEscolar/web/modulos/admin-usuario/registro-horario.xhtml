@@ -9,8 +9,14 @@
         <b:panelGrid id="pgMaterias" colSpans="6,6">
             <b:column>
                 <h:form>
-                    <b:panel title="Matricula" collapsible="false">
-                        <p:messages autoUpdate="true" closable="true"/>                        
+                    <b:panel title="Horario" collapsible="false">
+                        <p:messages autoUpdate="true" closable="true"/>   
+                        <h:outputLabel value="Dia de Clase"/>
+                        <b:inputText value="" title="Dia de Clase" required="true"/>
+                        <h:outputLabel value="Hora de Inicio"/>
+                        <b:inputText value="" title="Hora de Inicio" required="true"/>
+                        <h:outputLabel value="Hora de Fin"/>
+                        <b:inputText value="" title="Hora de Fin" required="true"/>
                         <p:outputLabel for="estudent" value="Materia: " />
                         <p:selectOneMenu id="varEstudiante" value="" effect="fold" editable="true">
                             <f:selectItem itemLabel="Seleccione un Materia" itemValue="" />

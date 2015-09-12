@@ -12,7 +12,6 @@ import com.lusadi.dao.UsuarioFacade;
 import com.lusadi.entities.Curso;
 import com.lusadi.entities.Estudiante;
 import com.lusadi.entities.MatriculaEstudiante;
-import com.lusadi.entities.Usuario;
 import com.lusadi.utils.UtilFaces;
 import java.util.ArrayList;
 import java.util.Collections;
