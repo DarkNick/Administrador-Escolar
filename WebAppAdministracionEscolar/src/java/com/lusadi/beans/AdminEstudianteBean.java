@@ -13,9 +13,14 @@ import com.lusadi.dao.RolFacade;
 import com.lusadi.dao.UsuarioFacade;
 import com.lusadi.entities.Estudiante;
 import com.lusadi.entities.Login;
+import com.lusadi.entities.ParentescoFamilia;
 import com.lusadi.entities.Usuario;
 import com.lusadi.entities.UsuarioPK;
 import com.lusadi.utils.UtilFaces;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -40,12 +45,33 @@ public class AdminEstudianteBean {
     @EJB
     private ParentescoFamiliaFacade parentescoFamiliaFacade;
 
-    private Usuario usuario = new Usuario();
-    private UsuarioPK usuarioPk = new UsuarioPK();
+    private ParentescoFamilia parentescoFamilia = new ParentescoFamilia();
     private Login login = new Login();
     private Estudiante estudiante = new Estudiante();
-    int idParent;
 
+    public ParentescoFamilia getParentescoFamilia() {
+        return parentescoFamilia;
+    }
+
+    public void setParentescoFamilia(ParentescoFamilia parentescoFamilia) {
+        this.parentescoFamilia = parentescoFamilia;
+    }
+    private Map<String, ParentescoFamilia> parentescoFamilias;
+
+    public Map<String, ParentescoFamilia> getParentescoFamilias() {
+        return parentescoFamilias;
+    }
+
+    public void setParentescoFamilias(Map<String, ParentescoFamilia> parentescoFamilias) {
+        this.parentescoFamilias = parentescoFamilias;
+    }
+    
+    @PostConstruct
+    public void init() {
+        parentescoFamilias = parseParentescoFamiliasToMap(parentescoFamiliaFacade.findAll());
+        estudiante.setUsuario(new Usuario());
+        estudiante.getUsuario().setUsuarioPK(new UsuarioPK());
+    }
     public EstudianteFacade getEstudianteFacade() {
         return estudianteFacade;
     }
@@ -86,14 +112,6 @@ public class AdminEstudianteBean {
         this.parentescoFamiliaFacade = parentescoFamiliaFacade;
     }
 
-    public UsuarioPK getUsuarioPk() {
-        return usuarioPk;
-    }
-
-    public void setUsuarioPk(UsuarioPK usuarioPk) {
-        this.usuarioPk = usuarioPk;
-    }
-
     public Login getLogin() {
         return login;
     }
@@ -110,13 +128,6 @@ public class AdminEstudianteBean {
         this.estudiante = estudiante;
     }
 
-    public int getIdParent() {
-        return idParent;
-    }
-
-    public void setIdParent(int idParent) {
-        this.idParent = idParent;
-    }
 
     public AdminEstudianteBean() {
     }
@@ -125,25 +136,33 @@ public class AdminEstudianteBean {
         try {
             System.out.println("EMPEZO LA CUESTION");
             com.lusadi.entities.Rol rol = rolFacade.find(CommonInterface.ROL_ID_ESTUDIANTE);
-            estudiante. getUsuario().setRolId(rol);
-            com.lusadi.entities.ParentescoFamilia parentesco = parentescoFamiliaFacade.find(idParent);
-            estudiante.setParentescoFamiliaId(parentesco);
-            usuario.setUsuarioPK(usuarioPk);
-            estudiante.setUsuario(usuario);
-            LoginFacade.create(login);
+            estudiante.getUsuario().setRolId(rol);
+            estudiante.setParentescoFamiliaId(parentescoFamilia);
+            login.setUsuario(estudiante.getUsuario());
+            System.out.println("Correo: "+estudiante.getUsuario().getCorreoElectronico());
+            System.out.println("Nacimiento: "+estudiante.getUsuario().getFechaNacimiento());
+            System.out.println("Nonbres: "+estudiante.getUsuario().getNombres());
+            System.out.println("1 apellido: "+estudiante.getUsuario().getPrimerApellido());
+            System.out.println("2 apellido: "+estudiante.getUsuario().getSegundoApellido());
+            System.out.println("tipo sangre "+estudiante.getUsuario().getTipoSangre());
+            System.out.println("tipo ID "+estudiante.getUsuario().getUsuarioPK().getTipoId());
+            System.out.println("numeri ID "+estudiante.getUsuario().getUsuarioPK().getNumeroId());
+            System.out.println("ID rol"+estudiante.getUsuario().getRolId().getRolId());
+           // usuarioFacade.create(estudiante.getUsuario());
             estudianteFacade.create(estudiante);
+          //  LoginFacade.create(login);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    private Map<String, ParentescoFamilia> parseParentescoFamiliasToMap(List<ParentescoFamilia> findAll) {
+        Map<String, ParentescoFamilia> outcome = new LinkedHashMap<String, ParentescoFamilia>();
+        for (ParentescoFamilia s : findAll) {
+            String key = s.getParentesco();
+            outcome.put(key.toUpperCase(), s);
+        }
+        return outcome;
     }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
 }

@@ -62,4 +62,15 @@ public class FuncionarioFacade extends AbstractFacade<Funcionario> {
         return new ArrayList<String>();
     }
 
+    public List<Funcionario> findDocenteByUsuario(long numeroId) {
+        System.out.println(numeroId);
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT * FROM colegio_lusadi.FUNCIONARIO");
+        StringBuilder sbConditionals = new StringBuilder();
+        System.out.println((numeroId != -1));
+        if (numeroId != -1) 
+            sbConditionals.append("colegio_lusadi.FUNCIONARIO.USUARIO_NUMERO_ID = ").append(numeroId);
+        Query query = em.createNativeQuery(sb.toString() + ((sbConditionals.length() != 0) ? " WHERE " + sbConditionals.toString() : ""), Funcionario.class);
+        return new ArrayList<Funcionario>(query.getResultList());
+    }
 }

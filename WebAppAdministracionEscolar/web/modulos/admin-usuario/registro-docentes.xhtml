@@ -23,9 +23,13 @@
                         <b:inputText value="#{adminDocenteBean.usuario.segundoApellido}" required="true"/>
                         <h:outputLabel value="Nombres"/>
                         <b:inputText value="#{adminDocenteBean.usuario.nombres}" required="true"/>
+                        <h:outputLabel value="Tipo De Sangre"/>
+                        <b:selectOneMenu value="#{adminDocenteBean.usuario.tipoSangre}">
+                            <f:selectItem itemLabel="AB-+" itemValue="AB+-"/>
+                        </b:selectOneMenu>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Docente" action="#{adminDocenteBean.createCourse}"/>
+                                <b:commandButton icon="ui-icon-check" value="Registrar Docente" action="#{adminDocenteBean.createDocente()}"/>
                             </b:column>
                         </b:row>
                     </b:panel>
@@ -36,16 +40,18 @@
                         <b:inputText value="#{adminDocenteBean.usuario.correoElectronico}" required="true"/>
                         <h:outputLabel value="Cargo"/>
                         <b:selectOneMenu value="#{adminDocenteBean.cargo}" required="true" >
-                            <f:selectItem  itemLabel="Seleccione un Salon" itemValue="" />
+                            <f:selectItem  itemLabel="Seleccione un Cargo" itemValue="" />
                             <f:selectItems value="#{adminDocenteBean.cargos.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}" />
                         </b:selectOneMenu>
                         <h:outputLabel value="Salario"/>
                         <b:inputText value="#{adminDocenteBean.funcionario.saldoNeto}"/>
-                        <h:outputLabel value="Fecha Ingreso"/>
-                        <b:datepicker  />
-                        <h:outputLabel value="Observaciones"/>
-                        <p:inputTextarea rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
+                        <h:outputLabel value="Fecha Nacimiento"/>
+                        <b:datepicker  value="#{adminDocenteBean.usuario.fechaNacimiento}"/>
+                        <h:outputText value="Contraseña"/>
+                        <b:inputSecret value="#{adminDocenteBean.login.clave}"/>
+                        <h:outputText value="Repetir Contraseña"/>
+                        <b:inputSecret />
                     </b:panel>
                 </b:column>
             </b:panelGrid>

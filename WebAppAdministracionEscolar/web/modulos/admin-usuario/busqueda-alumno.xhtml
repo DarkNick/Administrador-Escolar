@@ -8,29 +8,23 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <b:row>
         <h:form>
-            <b:panel title="Consulta Docente" collapsible="false">
+            <b:panel title="Consulta Alumno" collapsible="false">
                 <p:messages/>
                 <b:panelGrid colSpans="2,4,2,4">
-                    <b:selectBooleanCheckbox value="#{adminDocentesBusqueda.filtroAllRegisters}" caption="Todos los registros" />
-                    <p:inputText  value="#{adminDocentesBusqueda.campoBusquedaAsistencia}" placeholder="Numero documento"/>
+                    <b:selectBooleanCheckbox value="#{adminAlumnoBusqueda.filtroAllRegisters}" caption="Todos los registros" />
+                    <p:inputText  value="#{adminAlumnoBusqueda.campoBusquedaAlumno}" placeholder="Numero documento"/>
                 </b:panelGrid>
-                <b:commandButton icon="ui-icon-check" value="Buscar" action="#{adminDocentesBusqueda.actionBusquedaDocente()}" />
+                <b:commandButton icon="ui-icon-check" value="Buscar" action="#{adminAlumnoBusqueda.actionBusquedaAlumno()}" />
             </b:panel>
             <br/>
-            <b:panel title="Resultado busqueda." rendered="#{adminDocentesBusqueda.listBusquedaAsistencia.size() != 0}">
-                <p:dataTable id="docente-table" value="#{adminDocentesBusqueda.listBusquedaAsistencia}" widgetVar="docenteTable" var="obj" rows="8" paginator="true"
-                             paginatorPosition="bottom" filteredValue="#{adminDocentesBusqueda.filteredListBusquedaAsistencia}">
+            <b:panel title="Resultado busqueda." rendered="#{adminAlumnoBusqueda.listBusquedaAlumno.size() != 0}">
+                <p:dataTable id="alumno-table" value="#{adminAlumnoBusqueda.listBusquedaAlumno}" widgetVar="alumnoTable" var="obj" rows="5" paginator="true"
+                             paginatorPosition="bottom" filteredValue="#{adminAlumnoBusqueda.filteredListBusquedaAlumno}">
                     <f:facet name="header">
                         <p:outputPanel>
-                            <p:inputText id="globalFilter" onkeyup=" PF('docenteTable').filter();"  style="width: 60%;"  placeholder="Ingrese un valor de busqueda"/>
+                            <p:inputText id="globalFilter" onkeyup=" PF('alumnoTable').filter();"  style="width: 60%;"  placeholder="Ingrese un valor de busqueda"/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="Cargo ID" filterBy="#{obj.cargoId.cargoId}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.cargoId.cargoId}" />
-                    </p:column>
-                    <p:column headerText="Cargo" filterBy="#{obj.cargoId.nombreCargo}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.cargoId.nombreCargo}" />
-                    </p:column>
                     <p:column headerText="Nombre" filterBy="#{obj.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
                         <h:outputText value="#{obj.usuario.nombres}" />
                     </p:column>
@@ -39,10 +33,7 @@
                     </p:column>
                     <p:column headerText="Segundo Apellido" filterBy="#{obj.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
                         <h:outputText value="#{obj.usuario.segundoApellido}" />
-                    </p:column>
-                    <p:column headerText="Saldo" filterBy="#{obj.saldoNeto}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.saldoNeto}" />
-                    </p:column>                    
+                    </p:column>                 
                     <p:column headerText="Tipo Identificacion" filterBy="#{obj.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
                         <h:outputText value="#{obj.usuario.usuarioPK.tipoId}" />
                     </p:column>

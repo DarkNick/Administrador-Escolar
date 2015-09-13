@@ -10,7 +10,6 @@ import com.lusadi.entities.Cargo;
 import com.lusadi.entities.Funcionario;
 import com.lusadi.entities.Login;
 import com.lusadi.entities.Rol;
-import com.lusadi.entities.Salon;
 import com.lusadi.entities.Usuario;
 import com.lusadi.entities.UsuarioPK;
 import com.lusadi.utils.UtilFaces;
@@ -21,14 +20,13 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Named;
 
 /**
- *
  * @author dark-nick
  */
-@ManagedBean(name = "adminDocenteBean")
+@Named(value = "adminDocenteBean")
 @ViewScoped
 public class AdminDocenteBean implements Serializable {
 
@@ -147,15 +145,29 @@ public class AdminDocenteBean implements Serializable {
         this.cargos = cargos;
     }
 
-    public void createCourse() {
+    public void createDocente() {
         try {
             System.out.println("OK");
             Rol rol = rolFacade.find(CommonInterface.ROL_ID_DOCENTE);
             usuario.setUsuarioPK(usuarioPk);
             usuario.setRolId(rol);
+            System.out.println("Correo: "+usuario.getCorreoElectronico());
+            System.out.println("Nacimiento: "+usuario.getFechaNacimiento());
+            System.out.println("Nonbres: "+usuario.getNombres());
+            System.out.println("1 apellido: "+usuario.getPrimerApellido());
+            System.out.println("2 apellido: "+usuario.getSegundoApellido());
+            System.out.println("tipo sangre "+usuario.getTipoSangre());
+            System.out.println("tipo ID "+usuario.getUsuarioPK().getTipoId());
+            System.out.println("tipo ID "+usuario.getUsuarioPK().getNumeroId());
+            System.out.println("tipo ID "+usuario.getRolId().getRolId());
             usuarioFacade.create(usuario);
             funcionario.setUsuario(usuario);
             funcionario.setCargoId(cargoFacade.find(cargo.getCargoId()));
+            System.out.println("ID cargo "+funcionario.getCargoId().getCargoId());
+            System.out.println("ID funcionario "+funcionario.getFuncionarioId());
+            System.out.println("ID funcionario "+funcionario.getSaldoNeto());
+            login.setUsuario(usuario);
+            LoginFacade.create(login);
             funcionarioFacade.create(funcionario);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-usuarios.xhtml");
         } catch (Exception ex) {
@@ -172,3 +184,4 @@ public class AdminDocenteBean implements Serializable {
         return outcome;
     }
 }
+

@@ -46,6 +46,7 @@ public class LoginBean implements Serializable {
         } catch (IOException ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         } catch (Exception ex) {
+            System.err.println(ex);
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }

@@ -3,47 +3,56 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:b="http://bootsfaces.net/ui">
     <b:row>
         <h:form>
             <b:panelGrid colSpans="6,6">
                 <b:column>
                     <b:panel>
                         <h:outputLabel value="Tipo de Documento"/>
-                        <b:selectOneMenu value="">
-                            <f:selectItem itemLabel="C.C." itemValue="cc"/>
-                            <f:selectItem itemLabel="T.I." itemValue="ti"/>
+                        <b:selectOneMenu value="#{adminEstudiante.estudiante.usuario.usuarioPK.tipoId}">
+                            <f:selectItem itemLabel="C.C." itemValue="CC"/>
+                            <f:selectItem itemLabel="T.I." itemValue="TI"/>
                         </b:selectOneMenu>
                         <h:outputLabel value="Numero Del Documento"/>
-                        <b:inputText value="" />
+                        <b:inputText value="#{adminEstudiante.estudiante.usuario.usuarioPK.numeroId}" />
                         <h:outputLabel value="Primer Apellido"/>
-                        <b:inputText value=""/>
+                        <b:inputText value="#{adminEstudiante.estudiante.usuario.primerApellido}"/>
                         <h:outputLabel value="Segundo Apellido"/>
-                        <b:inputText value=""/>
+                        <b:inputText value="#{adminEstudiante.estudiante.usuario.segundoApellido}"/>
                         <h:outputLabel value="Nombres"/>
-                        <b:inputText value=""/>                      
+                        <b:inputText value="#{adminEstudiante.estudiante.usuario.nombres}"/>
+                        <h:outputLabel value="Correo electronico"/>
+                        <b:inputText value="#{adminEstudiante.estudiante.usuario.correoElectronico}"/> 
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Estudiante" action=""/>
+                                <b:commandButton icon="ui-icon-check" value="Registrar Estudiante" action="#{adminEstudiante.createStudent()}"/>
                             </b:column>
                         </b:row>
                     </b:panel>
                 </b:column>
                 <b:column>
                     <b:panel>
-                        <h:outputLabel value="Grado"/>
-                        <b:selectOneMenu value="">
-                            <f:selectItem itemLabel="1 Bachillerato / Sesto" itemValue="1B"/>
-                        </b:selectOneMenu>
                         <h:outputLabel value="Tipo De Sangre"/>
-                        <b:inputText value=""/>
+                        <b:selectOneMenu value="#{adminEstudiante.estudiante.usuario.tipoSangre}">
+                            <f:selectItem itemLabel="AB-+" itemValue="AB+-"/>
+                        </b:selectOneMenu>
                         <h:outputLabel value="Fecha de Nacimiento"/>
-                        <b:datepicker  />
-                        <h:outputLabel value="Correo electronico"/>
-                        <b:inputText value=""/>                          
-                        <h:outputLabel value="Observaciones"/>
-                        <p:inputTextarea rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
+                        <b:datepicker  value="#{adminEstudiante.estudiante.usuario.fechaNacimiento}"/>
+                        <h:outputLabel value="Apellidos del acudiente"/>
+                        <b:inputText value="#{adminEstudiante.estudiante.apellidosAcudiente}"/>
+                        <h:outputLabel value="Nombres Acudiente"/>
+                        <b:inputText value="#{adminEstudiante.estudiante.nombresAcudiente}"/>
+                        <h:outputLabel value="Parentesco"/>
+                        <b:selectOneMenu value="#{adminEstudiante.parentescoFamilia}" required="true" >
+                            <f:selectItem  itemLabel="Seleccione un Parentesco" itemValue="" />
+                            <f:selectItems value="#{adminEstudiante.parentescoFamilias.entrySet()}" var="entry"
+                                           itemValue="#{entry.value}" itemLabel="#{entry.key}" />
+                        </b:selectOneMenu>
+                        <h:outputText value="Contraseña"/>
+                        <b:inputSecret value="#{adminEstudiante.login.clave}"/>
+                        <h:outputText value="Repetir Contraseña"/>
+                        <b:inputSecret />
                     </b:panel>
                 </b:column>
             </b:panelGrid>
