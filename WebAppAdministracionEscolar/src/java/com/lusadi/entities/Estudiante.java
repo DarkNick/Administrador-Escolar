@@ -6,7 +6,9 @@
 package com.lusadi.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,9 +20,11 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -52,6 +56,8 @@ public class Estudiante implements Serializable {
         @JoinColumn(name = "NUMERO_ID", referencedColumnName = "NUMERO_ID")})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudianteId", fetch = FetchType.LAZY)
+    private List<MatriculaEstudiante> matriculaEstudianteList;
 
     public Estudiante() {
     }
@@ -98,6 +104,15 @@ public class Estudiante implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    @XmlTransient
+    public List<MatriculaEstudiante> getMatriculaEstudianteList() {
+        return matriculaEstudianteList;
+    }
+
+    public void setMatriculaEstudianteList(List<MatriculaEstudiante> matriculaEstudianteList) {
+        this.matriculaEstudianteList = matriculaEstudianteList;
     }
 
     @Override

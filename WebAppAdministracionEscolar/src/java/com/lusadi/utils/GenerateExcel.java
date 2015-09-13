@@ -5,8 +5,10 @@
  */
 package com.lusadi.utils;
 
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -27,11 +29,20 @@ import org.apache.poi.ss.util.CellUtil;
  */
 public class GenerateExcel {
 
+    private static GenerateExcel generateExcel;
+
     public GenerateExcel() {
     }
 
+    public static GenerateExcel getGenerateExcel() {
+        if (generateExcel == null) {
+            generateExcel = new GenerateExcel();
+        }
+        return generateExcel;
+    }
+
     // el tipo de dato del array es variable tiene que traer a todas las personas registradas
-    public static void generarNomina(ArrayList<String> documento) {
+    public byte[] generarNomina(ArrayList<String> documento) throws IOException {
         Calendar calendar = new GregorianCalendar();
         String month = recognizeMonth((calendar.get(Calendar.MONTH) + 1));
 
@@ -184,15 +195,16 @@ public class GenerateExcel {
             }
         }
 
-        String file = "Nomina.xls";
-        try (FileOutputStream out = new FileOutputStream(file)) {
-            libro.write(out);
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            libro.write(bos);
+        } finally {
+            bos.close();
         }
+        return bos.toByteArray();
     }
 
-    public static String recognizeMonth(int index) {
+    private String recognizeMonth(int index) {
         if (index == 1) {
             return "ENERO";
         } else if (index == 2) {
@@ -219,6 +231,11 @@ public class GenerateExcel {
             return "DICIEMBRE";
         }
         return null;
+    }
+
+    public String currentDateToString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("DD-MM-YYYY");
+        return dateFormat.format(Calendar.getInstance().getTime());
     }
 
 }

@@ -166,8 +166,9 @@ public class HomeConfigBean implements Serializable {
         TreeNode node01 = new DefaultTreeNode(new Funcion("Nomina", null, null), root);
         node01.setExpanded(true);
 
-        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Consulta Pagos", "/modulos/admin-nomina/busqueda-nomina.xhtml", "D"), node01);
-        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Registro pago", "/modulos/admin-usuario/busqueda-docente.xhtml", "D"), node01);
+        TreeNode node01_01 = new DefaultTreeNode(new Funcion("Generacion Recibo Nomina", "/modulos/admin-nomina/generacion-nomina.xhtml", "D"), node01);
+        TreeNode node01_02 = new DefaultTreeNode(new Funcion("Registro Pago Nomina", "/modulos/admin-nomina/registro-nomina.xhtml", "D"), node01);
+        TreeNode node01_03 = new DefaultTreeNode(new Funcion("Consulta Historial Nomina", "/modulos/admin-nomina/busqueda-nomina.xhtml", "D"), node01);
 
         return root;
     }

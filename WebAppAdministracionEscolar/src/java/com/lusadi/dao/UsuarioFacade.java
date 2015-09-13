@@ -7,6 +7,8 @@ package com.lusadi.dao;
 
 import com.lusadi.entities.Login;
 import com.lusadi.entities.Usuario;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

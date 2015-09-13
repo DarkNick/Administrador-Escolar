@@ -43,18 +43,18 @@ public class Funcionario implements Serializable {
     private Integer funcionarioId;
     @Column(name = "SALDO_NETO")
     private Long saldoNeto;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
+    private List<HistorialNomina> historialNominaList;
     @JoinColumn(name = "CARGO_ID", referencedColumnName = "CARGO_ID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Cargo cargoId;
     @JoinColumns({
-        @JoinColumn(name = "USUARIO_TIPO_ID", referencedColumnName = "TIPO_ID"),
-        @JoinColumn(name = "USUARIO_NUMERO_ID", referencedColumnName = "NUMERO_ID")})
+        @JoinColumn(name = "TIPO_ID", referencedColumnName = "TIPO_ID"),
+        @JoinColumn(name = "NUMERO_ID", referencedColumnName = "NUMERO_ID")})
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Usuario usuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
     private List<Horario> horarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioId", fetch = FetchType.LAZY)
-    private List<AdjuntoNomina> adjuntoNominaList;
 
     public Funcionario() {
     }
@@ -77,6 +77,15 @@ public class Funcionario implements Serializable {
 
     public void setSaldoNeto(Long saldoNeto) {
         this.saldoNeto = saldoNeto;
+    }
+
+    @XmlTransient
+    public List<HistorialNomina> getHistorialNominaList() {
+        return historialNominaList;
+    }
+
+    public void setHistorialNominaList(List<HistorialNomina> historialNominaList) {
+        this.historialNominaList = historialNominaList;
     }
 
     public Cargo getCargoId() {
@@ -102,15 +111,6 @@ public class Funcionario implements Serializable {
 
     public void setHorarioList(List<Horario> horarioList) {
         this.horarioList = horarioList;
-    }
-
-    @XmlTransient
-    public List<AdjuntoNomina> getAdjuntoNominaList() {
-        return adjuntoNominaList;
-    }
-
-    public void setAdjuntoNominaList(List<AdjuntoNomina> adjuntoNominaList) {
-        this.adjuntoNominaList = adjuntoNominaList;
     }
 
     @Override

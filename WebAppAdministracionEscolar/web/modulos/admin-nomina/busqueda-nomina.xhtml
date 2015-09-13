@@ -4,35 +4,56 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:b="http://bootsfaces.net/ui"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <b:row>
-        <b:panel>
-            <h:form>
-                <p:dataTable value="#{adminNominaBean.listFuncionarios}" var="obj">
-                    <p:column headerText="Tipo Id">
-                        <h:outputText value="#{obj.usuario.usuarioPK.tipoId}" />
+        <h:form>
+            <b:panel title="Busqueda Historico Nomina" collapsible="false">
+                <p:messages autoUpdate="true" closable="true"/>
+                <b:panelGrid colSpans="1,2,1,6,2">
+                    <h:outputLabel value="Tipo documento"/>
+                    <b:selectOneMenu  value="#{adminNominaBean.usuarioPK.tipoId}" required="true" >
+                        <f:selectItem itemLabel="CC" itemValue="CC" />
+                        <f:selectItem itemLabel="CE" itemValue="CE" />
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Numero documento"/>
+                    <p:autoComplete size="80" value="#{adminNominaBean.usuarioPK.numeroId}" completeMethod="#{adminNominaBean.obtenerNumerosIdSegun}" required="true" />
+                    <b:commandButton icon="ui-icon-check" value="Buscar" action="#{adminNominaBean.cargarHistorialFuncionario}" />
+                </b:panelGrid>
+            </b:panel>
+            <br/>
+            <b:panel title="Resultado Busqueda" collapsible="false" rendered="#{adminNominaBean.listPagosFuncionario.size() != 0}">
+                <p:dataTable id="historial-table" value="#{adminNominaBean.listPagosFuncionario}" widgetVar="historialFuncionariosTable" var="obj" rows="7" paginator="true"
+                             paginatorPosition="bottom" filteredValue="#{adminNominaBean.filteredListHistorialFuncionarios}">
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <p:inputText id="globalFilter" onkeyup="PF('historialFuncionariosTable').filter();"  style="width: 60%;"  placeholder="Ingrese un valor de busqueda"/>
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:column headerText="Fecha registro" filterBy="#{obj.fechaRegistro}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.fechaRegistro}" />
                     </p:column>
-                    <p:column headerText="Numero Id">
-                        <h:outputText value="#{obj.usuario.usuarioPK.numeroId}" />
+                    <p:column headerText="Responsable" filterBy="#{obj.responsablePago}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.responsablePago}" />
                     </p:column>
-                    <p:column headerText="Primer Apellido">
-                        <h:outputText value="#{obj.usuario.primerApellido}" />
+                    <p:column headerText="Primer Apellido" filterBy="#{obj.funcionarioId.usuario.primerApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.funcionarioId.usuario.primerApellido}" />
                     </p:column>
-                    <p:column headerText="Segundo Apellido">
-                        <h:outputText value="#{obj.usuario.segundoApellido}" />
+                    <p:column headerText="Segundo Apellido" filterBy="#{obj.funcionarioId.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.funcionarioId.usuario.segundoApellido}" />
                     </p:column>
-                    <p:column headerText="Nombre">
-                        <h:outputText value="#{obj.usuario.nombres}" />
+                    <p:column headerText="Nombre" filterBy="#{obj.funcionarioId.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.funcionarioId.usuario.nombres}" />
                     </p:column>
-                    <p:column headerText="Cargo">
-                        <h:outputText value="#{obj.cargoId}" />
+                    <p:column headerText="Cargo" filterBy="#{obj.funcionarioId.cargoId.nombreCargo}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.funcionarioId.cargoId.nombreCargo}" />
                     </p:column>
                     <p:column headerText="">
-                        <b:commandButton value="Generar" />
+                        <h:commandButton value="Descargar Adjunto" action="#{adminNominaBean.descargarAdjunto(obj.historialNominaId)}"/>
                     </p:column>
                 </p:dataTable>
-            </h:form>
-        </b:panel>
+            </b:panel>
+        </h:form>
     </b:row>
 </ui:composition>
 

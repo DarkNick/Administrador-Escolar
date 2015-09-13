@@ -68,7 +68,7 @@ public class NavigationFilter implements Filter {
         if (requestURI.endsWith(".xhtml")) { // Evalua toda peticion terminada en .xhtml.
             String[] tokens = requestURI.split("/");
             String page = tokens[tokens.length - 1]; // vista .xhtml actual.
-            System.out.println("page: " + page + "  session:" + sessionCreated + " ip:" + request.getRemoteHost());
+            //System.out.println("page: " + page + "  session:" + sessionCreated + " ip:" + request.getRemoteHost());
             if (!sessionCreated) {
                 if (!indexURI.endsWith(page)) {
                     httpResponse.sendRedirect(contextPath); // Redirige la respuesta al index, ya que no existe sesion.

@@ -13,17 +13,17 @@
                         <b:panel>
                             <p:dataTable value="#{adminAsistenciaBean.listTemporalAsistencia}" var="obj">
                                 <p:column headerText="Numero Id">
-                                    <h:outputText value="#{obj.numeroId}" />
+                                    <h:outputText value="#{obj.usuario.usuarioPK.numeroId}" />
                                 </p:column>
                                 <p:column headerText="Hora">
-                                    <h:outputText value="#{obj.fecha}" />
+                                    <h:outputText value="#{obj.fechaHoraIngreso}" />
                                 </p:column>
                             </p:dataTable>
                         </b:panel>
                     </b:column>
                     <b:column>
                         <b:panel>
-                            <h:outputLabel >Por favor diriga la salida de datos de la maquina lectora de codigos, sobre el siguiente campo.</h:outputLabel>
+                            <h:outputLabel >Por favor dirigir la salida de datos de la maquina lectora de codigos, sobre el siguiente campo.</h:outputLabel>
                             <b:inputText onchange="test()"/>
                         </b:panel>
                     </b:column>
@@ -33,8 +33,8 @@
     </b:row>
     <script>
         /**
-        * Comment
-        */
+         * Comment
+         */
         function test() {
             console.log('hola mund');
         }
