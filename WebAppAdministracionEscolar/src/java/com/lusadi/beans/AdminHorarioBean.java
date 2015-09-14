@@ -6,15 +6,15 @@
 package com.lusadi.beans;
 
 import com.lusadi.dao.CursoFacade;
-import com.lusadi.dao.EstudianteFacade;
 import com.lusadi.dao.FuncionarioFacade;
 import com.lusadi.dao.HorarioFacade;
-import com.lusadi.dao.SalonFacade;
+import com.lusadi.dao.MateriaFacade;
+import com.lusadi.dao.ResultadoAcademicoFacade;
 import com.lusadi.entities.Curso;
-import com.lusadi.entities.Estudiante;
 import com.lusadi.entities.Funcionario;
 import com.lusadi.entities.Horario;
-import com.lusadi.entities.Salon;
+import com.lusadi.entities.Materia;
+import com.lusadi.entities.ResultadoAcademico;
 import com.lusadi.utils.UtilFaces;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,64 +34,46 @@ import javax.faces.bean.RequestScoped;
 public class AdminHorarioBean {
 
     @EJB
+    private MateriaFacade materiaFacade;
+    @EJB
+    private ResultadoAcademicoFacade resultadoAcademicoFacade;
+    @EJB
     private HorarioFacade horarioFacade;
     @EJB
     private FuncionarioFacade funcionarioFacade;
     @EJB
-    private EstudianteFacade estudianteFacade;
-    @EJB
-    private SalonFacade salonFacade;
-    @EJB
     private CursoFacade cursoFacade;
 
     private Horario horario = new Horario();
-    private Map<String, Salon> salones;
     private Map<String, Curso> cursos;
-    private Map<String, Estudiante> estudiantes;
     private Map<String, Funcionario> funcionarios;
+    private Map<String, Materia> materias;
+    private Map<String, ResultadoAcademico> resultados;
 
     public AdminHorarioBean() {
     }
 
     @PostConstruct
     public void init() {
-        salones = parseSalonesToMap(salonFacade.findAll());
         cursos = parseCursosToMap(cursoFacade.findAll());
-        estudiantes = parseEstudianteToMap(estudianteFacade.findAll());
         funcionarios = parseFuncionarioToMap(funcionarioFacade.findAll());
+        materias = parseMateriaToMap(materiaFacade.findAll());
+        resultados = parseResultadoAcademicoToMap(resultadoAcademicoFacade.findAll());
     }
 
     public void createHorario() {
         try {
-            horarioFacade.create(horario);
+            horarioFacade.createHorario(horario);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 
-    private Map<String, Salon> parseSalonesToMap(List<Salon> findAll) {
-        Map<String, Salon> outcome = new LinkedHashMap<String, Salon>();
-        for (Salon s : findAll) {
-            String key = s.getUbicacionSalon() + "/" + s.getCapacidad();
-            outcome.put(key.toUpperCase(), s);
-        }
-        return outcome;
-    }
-
     private Map<String, Curso> parseCursosToMap(List<Curso> findAll) {
         Map<String, Curso> outcome = new LinkedHashMap<String, Curso>();
         for (Curso s : findAll) {
             String key = Integer.toString(s.getCursoId());
-            outcome.put(key.toUpperCase(), s);
-        }
-        return outcome;
-    }
-
-    private Map<String, Estudiante> parseEstudianteToMap(List<Estudiante> findAll) {
-        Map<String, Estudiante> outcome = new LinkedHashMap<String, Estudiante>();
-        for (Estudiante s : findAll) {
-            String key = s.getUsuario().getPrimerApellido() + " " + s.getUsuario().getSegundoApellido() + " " + s.getUsuario().getNombres();
             outcome.put(key.toUpperCase(), s);
         }
         return outcome;
@@ -106,20 +88,30 @@ public class AdminHorarioBean {
         return outcome;
     }
 
+    private Map<String, Materia> parseMateriaToMap(List<Materia> findAll) {
+        Map<String, Materia> outcome = new LinkedHashMap<String, Materia>();
+        for (Materia s : findAll) {
+            String key = s.getNombreMateria();
+            outcome.put(key.toUpperCase(), s);
+        }
+        return outcome;
+    }
+
+    private Map<String, ResultadoAcademico> parseResultadoAcademicoToMap(List<ResultadoAcademico> findAll) {
+        Map<String, ResultadoAcademico> outcome = new LinkedHashMap<String, ResultadoAcademico>();
+        for (ResultadoAcademico s : findAll) {
+            String key = s.getObjetivoEvaluado();
+            outcome.put(key.toUpperCase(), s);
+        }
+        return outcome;
+    }
+
     public Horario getHorario() {
         return horario;
     }
 
     public void setHorario(Horario horario) {
         this.horario = horario;
-    }
-
-    public Map<String, Salon> getSalones() {
-        return salones;
-    }
-
-    public void setSalones(Map<String, Salon> salones) {
-        this.salones = salones;
     }
 
     public Map<String, Curso> getCursos() {
@@ -130,20 +122,28 @@ public class AdminHorarioBean {
         this.cursos = cursos;
     }
 
-    public Map<String, Estudiante> getEstudiantes() {
-        return estudiantes;
-    }
-
-    public void setEstudiantes(Map<String, Estudiante> estudiantes) {
-        this.estudiantes = estudiantes;
-    }
-
     public Map<String, Funcionario> getFuncionarios() {
         return funcionarios;
     }
 
     public void setFuncionarios(Map<String, Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
+    }
+
+    public Map<String, Materia> getMaterias() {
+        return materias;
+    }
+
+    public void setMaterias(Map<String, Materia> materias) {
+        this.materias = materias;
+    }
+
+    public Map<String, ResultadoAcademico> getResultados() {
+        return resultados;
+    }
+
+    public void setResultados(Map<String, ResultadoAcademico> resultados) {
+        this.resultados = resultados;
     }
 
 }
