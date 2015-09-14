@@ -63,7 +63,16 @@ public class AdminHorarioBean {
 
     public void createHorario() {
         try {
-            horarioFacade.createHorario(horario);
+            boolean ban = false;
+            List<Horario> horarioAll = horarioFacade.findAll();
+            for (Horario varHorario : horarioAll) {
+                if (varHorario.getFuncionarioId().getFuncionarioId().equals(horario.getFuncionarioId().getFuncionarioId())){
+                    if ((varHorario.getDiaClase().equals(horario.getDiaClase())) && (varHorario.getHoraInicioClase().equals(horario.getHoraInicioClase()))){
+                        ban = true;
+                    }
+                }
+            }
+            if ( !ban ) horarioFacade.createHorario(horario);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
