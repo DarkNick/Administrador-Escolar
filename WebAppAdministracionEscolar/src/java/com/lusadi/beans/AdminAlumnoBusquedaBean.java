@@ -18,7 +18,6 @@ import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 
 /**
- *
  * @author darknick
  */
 @Named(value = "adminAlumnoBusqueda")
