@@ -12,7 +12,16 @@
                     <b:panel title="Horario" collapsible="false">
                         <p:messages autoUpdate="true" closable="true"/>   
                         <h:outputLabel value="Dia de Clase"/>
-                        <b:inputText value="#{adminHorarioBean.horario.diaClase}" title="Dia de Clase" required="true"/>
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.diaClase}" required="true" >
+                            <f:selectItem itemLabel="Seleccione un Día" itemValue="" />
+                            <f:selectItem itemLabel="Lunes" itemValue="Lunes" />
+                            <f:selectItem itemLabel="Martes" itemValue="Martes" />
+                            <f:selectItem itemLabel="Miercoles" itemValue="Miercoles" />
+                            <f:selectItem itemLabel="Jueves" itemValue="Jueves" />
+                            <f:selectItem itemLabel="Viernes" itemValue="Viernes" />
+                            <f:selectItem itemLabel="Sabado" itemValue="Sabado" />
+                            <f:selectItem itemLabel="Domingo" itemValue="Domingo" />
+                        </p:selectOneMenu>
                         <h:outputLabel value="Hora de Inicio"/>
                         <b:inputText value="#{adminHorarioBean.horario.horaInicioClase}" title="Hora de Inicio" required="true"/>
                         <h:outputLabel value="Hora de Fin"/>
