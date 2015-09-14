@@ -54,15 +54,31 @@ public class AdminNominaBean implements Serializable {
     }
 
     public void generateExcelNomina(String funcionarioId) {
+
+    }
+
+    public void generateExcelNominaCompleta() {
         try {
-            Funcionario funcionario = funcionarioFacade.find(Integer.parseInt(funcionarioId));
             ArrayList<String> listParam = new ArrayList<String>();
-            listParam.add(funcionario.getUsuario().getUsuarioPK().getTipoId());
-            listParam.add(funcionario.getUsuario().getUsuarioPK().getNumeroId() + "");
+            List<Funcionario> findAll = funcionarioFacade.findAll();
+            for (Funcionario f : findAll) {
+                listParam.add(String.valueOf(f.getUsuario().getUsuarioPK().getNumeroId()));
+                listParam.add(f.getUsuario().getSegundoApellido());
+                listParam.add(f.getUsuario().getPrimerApellido());
+                listParam.add(f.getUsuario().getNombres());
+                listParam.add(String.valueOf(f.getSaldoNeto()));
+            }
+            //Funcionario funcionario = funcionarioFacade.find(Integer.parseInt(funcionarioId));
+            /*listParam.add(String.valueOf(funcionario.getUsuario().getUsuarioPK().getNumeroId()));
+             listParam.add(String.valueOf(funcionario.getUsuario().getPrimerApellido()));
+             listParam.add(String.valueOf(funcionario.getUsuario().getSegundoApellido()));
+             listParam.add(String.valueOf(funcionario.getUsuario().getNombres()));
+             listParam.add(String.valueOf(String.valueOf(funcionario.getSaldoNeto())));
+             */
             byte[] generarNomina = GenerateExcel.getGenerateExcel().generarNomina(listParam);
-            String nombreArchivo = "NOMINA_" + funcionario.getUsuario().getUsuarioPK().getTipoId() + "_" + funcionario.getUsuario().getUsuarioPK().getNumeroId()
-                    + "_" + GenerateExcel.getGenerateExcel().currentDateToString() + ".xls";
+            String nombreArchivo = "NOMINA_" + GenerateExcel.getGenerateExcel().currentDateToString() + ".xls";
             UtilFaces.getFacesUtil().downloadFile(nombreArchivo, generarNomina);
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "EL REGISTRO FUE ALMACENADO CORRECTAMENTE");
         } catch (IOException ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
@@ -104,6 +120,7 @@ public class AdminNominaBean implements Serializable {
             HistorialNomina historialNomina = historialNominaFacade.find(Integer.parseInt(historialNominaId));
             byte[] generarNomina = historialNomina.getSoporteAdjunto();
             UtilFaces.getFacesUtil().downloadFile(nombreArchivo, generarNomina);
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "EL REGISTRO FUE ALMACENADO CORRECTAMENTE");
         } catch (IOException ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
