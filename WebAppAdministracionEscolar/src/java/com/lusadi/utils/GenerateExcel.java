@@ -165,6 +165,8 @@ public class GenerateExcel {
         my_style2.setBorderBottom(HSSFCellStyle.BORDER_DOUBLE);
         Font my_font = libro.createFont();
         my_font.setColor(Font.COLOR_RED);
+        
+        //------- 
         for (int i = 0; i < documento.size(); i++) {
             Row fila6 = hoja.createRow(5 + i);
             for (int j = 0; j < 14; j++) {
@@ -174,7 +176,8 @@ public class GenerateExcel {
                 celda.setCellStyle(my_style2);
             }
         }
-
+        
+        
         Row fila7 = hoja.createRow(documento.size() + 5);
         celda = fila7.createCell(8);
         celda.setCellValue("APORTE");

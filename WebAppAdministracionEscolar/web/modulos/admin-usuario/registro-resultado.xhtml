@@ -12,11 +12,32 @@
                     <b:panel title="Resultado Academico" collapsible="false">
                         <p:messages/>
                         <h:outputLabel value="Objetivo Evaluado"/>
-                        <b:inputText value="#{adminNotaBean.resultadoAcademico.objetivoEvaluado}" title="Objetivo Evaluado" maxlength="50" required="true"/>
+                        <p:inputTextarea value="#{adminNotaBean.resultadoAcademico.objetivoEvaluado}" title="Objetivo Evaluado" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                         <h:outputLabel value="Nota Definitiva"/>
                         <b:inputText value="" title="Nota Definitiva" required="true">
                             <f:validateDoubleRange minimum="1" maximum="60" />
                         </b:inputText>
+                        <p:commandButton value="Registrar Nota" type="button" onclick="PF('dlg2').show();" />
+                        <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" >
+                            <h:outputText value="Registro de Notas" />
+                            <b:inputText value="#{adminNotaBean.nota.porcentaje}" title="Porcentaje Decimal" required="true">
+                                <f:validateDoubleRange minimum="1" maximum="100" />
+                            </b:inputText>
+                            <b:inputText value="#{adminNotaBean.nota.nota}" title="Nota Decimal" required="true">
+                                <f:validateDoubleRange minimum="1" maximum="100" />
+                            </b:inputText>
+                            <h:outputLabel value="Comentario"/>
+                            <p:inputTextarea value="#{adminNotaBean.nota.comentario}" title="Comentario" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
+                            <b:row>
+                                <b:column style="text-align: center;">
+                                    <p:commandButton value="Cancelar" type="button" onclick="PF('dlg2').hide();" />
+                                </b:column>
+                                <b:column style="text-align: center;">
+                                    <b:commandButton icon="ui-icon-check" value="Registrar Nota" action="#{adminNotaBean.registrarNota()}"
+                                                     update=":form-tab-salon:panel-01:tab-salon"/>
+                                </b:column>
+                            </b:row>
+                        </p:dialog>   
                         <b:row>
                             <b:column style="text-align: center;">
                                 <b:commandButton icon="ui-icon-check" value="Registrar Resultado" action="#{adminSalonBean.createSalon()}"

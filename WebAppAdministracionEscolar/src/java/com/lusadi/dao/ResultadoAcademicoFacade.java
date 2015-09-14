@@ -5,7 +5,9 @@
  */
 package com.lusadi.dao;
 
+import com.lusadi.entities.Nota;
 import com.lusadi.entities.ResultadoAcademico;
+import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,7 +31,11 @@ public class ResultadoAcademicoFacade extends AbstractFacade<ResultadoAcademico>
         super(ResultadoAcademico.class);
     }
     
-    public void createResultadoAcademico(ResultadoAcademico resultadoAcademico) {
+    public void createResultadoAcademico(ResultadoAcademico resultadoAcademico, ArrayList<Nota> notas) {
         em.persist(resultadoAcademico);
+        for (Nota nota : notas) {
+            nota.setResultadoAcademicoId(resultadoAcademico);
+            em.persist(nota);
+        }
     }
 }
