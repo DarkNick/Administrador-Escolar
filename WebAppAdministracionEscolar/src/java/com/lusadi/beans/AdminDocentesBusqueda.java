@@ -12,6 +12,7 @@ import com.lusadi.utils.UtilFaces;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.RequestScoped;
@@ -25,7 +26,7 @@ import org.primefaces.context.RequestContext;
  */
 @Named(value = "adminDocentesBusqueda")
 @ViewScoped
-public class AdminDocentesBusqueda implements Serializable{
+public class AdminDocentesBusqueda implements Serializable {
 
     @EJB
     private FuncionarioFacade funcionarioFacade;
@@ -36,6 +37,11 @@ public class AdminDocentesBusqueda implements Serializable{
     private List<Funcionario> listTemporalAsistencia;
     private List<Funcionario> listBusquedaAsistencia = new ArrayList<Funcionario>();
     private List<Funcionario> filteredListBusquedaAsistencia;
+
+    @PostConstruct
+    public void init() {
+        this.listBusquedaAsistencia = funcionarioFacade.findAll();
+    }
 
     public FuncionarioFacade getFuncionarioFacade() {
         return funcionarioFacade;
@@ -92,9 +98,10 @@ public class AdminDocentesBusqueda implements Serializable{
     public void setFilteredListBusquedaAsistencia(List<Funcionario> filteredListBusquedaAsistencia) {
         this.filteredListBusquedaAsistencia = filteredListBusquedaAsistencia;
     }
-    
+
     public AdminDocentesBusqueda() {
     }
+
     public void actionBusquedaDocente() {
         System.out.println("MMM HOLA");
         if (!filtroAllRegisters && campoBusquedaAsistencia.isEmpty()) {
