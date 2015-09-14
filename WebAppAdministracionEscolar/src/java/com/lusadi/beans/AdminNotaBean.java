@@ -10,6 +10,7 @@ import com.lusadi.dao.ResultadoAcademicoFacade;
 import com.lusadi.entities.Nota;
 import com.lusadi.entities.ResultadoAcademico;
 import com.lusadi.utils.UtilFaces;
+import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,8 +31,18 @@ public class AdminNotaBean {
 
     private Nota nota = new Nota();
     private ResultadoAcademico resultadoAcademico = new ResultadoAcademico();
+    private ArrayList<Nota> notas = new ArrayList<Nota>();
 
     public AdminNotaBean() {
+    }
+
+    public void registrarNota() {
+        try {
+            notas.add(nota);
+            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
     }
 
     public void createNota() {
@@ -45,7 +56,7 @@ public class AdminNotaBean {
 
     public void createResultado() {
         try {
-            resultadoAcademicoFacade.createResultadoAcademico(resultadoAcademico);
+            resultadoAcademicoFacade.createResultadoAcademico(resultadoAcademico, notas);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());

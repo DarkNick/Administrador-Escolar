@@ -16,7 +16,10 @@ import com.lusadi.utils.UtilFaces;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -41,10 +44,16 @@ public class AdminMatriculaBean {
 
     private MatriculaEstudiante matricula = new MatriculaEstudiante();
     private ArrayList<MatriculaEstudiante> matriculas = new ArrayList<MatriculaEstudiante>();
-    private HashMap<Integer, Integer> cursos = new HashMap<Integer, Integer>();
-    private HashMap<String, Integer> estudiantes = new HashMap<String, Integer>();
+    private Map<String, Curso> cursos;
+    private Map<String, Estudiante> estudiantes;
 
     public AdminMatriculaBean() {
+    }
+
+    @PostConstruct
+    public void init() {
+        cursos = parseCursosToMap(cursoFacade.findAll());
+        estudiantes = parseEstudianteToMap(estudianteFacade.findAll());
     }
 
     public void createMatricula() {
@@ -73,47 +82,44 @@ public class AdminMatriculaBean {
         }
     }
 
-    public void findAllCursos() {
-        try {
-            ArrayList<Curso> cursosAdd = new ArrayList<Curso>();
-            cursosAdd = (ArrayList<Curso>) cursoFacade.findAll();
-            if (cursosAdd != null) {
-                Collections.sort(cursosAdd, new Comparator<Curso>() {
-                    @Override
-                    public int compare(Curso p1, Curso p2) {
-                        return new Integer(p1.getCursoId()).compareTo(p2.getCursoId());
-                    }
-                });
-                for (Curso varSalon : cursosAdd) {
-                    cursos.put(varSalon.getCursoId(), varSalon.getCursoId());
-                }
-            }
-        } catch (Exception ex) {
-            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+     /*public void findAllEstudiantes() {
+     try {
+     ArrayList<Estudiante> estudiantesAdd = new ArrayList<Estudiante>();
+     estudiantesAdd = (ArrayList<Estudiante>) estudianteFacade.findAll();
+     if (estudiantesAdd != null) {
+     /*Collections.sort(estudiantesAdd, new Comparator<Estudiante>() {
+     @Override
+     public int compare(Estudiante p1, Estudiante p2) {
+     String aux1 = p1.getPrimerApellido() + " " + p1.getSegundoApellido() + " " + p1.getNombres();
+     String aux2 = p2.getPrimerApellido() + " " + p2.getSegundoApellido() + " " + p2.getNombres();
+     return new String(aux1).compareTo(aux2);
+     }
+     });
+     for (Estudiante varStudent : estudiantesAdd) {
+     String aux1 = varStudent.getUsuario().getPrimerApellido() + " " + varStudent.getUsuario().getSegundoApellido() + " " + varStudent.getUsuario().getNombres();
+     estudiantes.put(aux1, varStudent.getEstudiateId());
+     }
+     }
+     } catch (Exception ex) {
+     UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+     }
+     } */
+    private Map<String, Curso> parseCursosToMap(List<Curso> findAll) {
+        Map<String, Curso> outcome = new LinkedHashMap<String, Curso>();
+        for (Curso s : findAll) {
+            String key = Integer.toString(s.getCursoId());
+            outcome.put(key.toUpperCase(), s);
         }
+        return outcome;
     }
 
-    public void findAllEstudiantes() {
-        try {
-            ArrayList<Estudiante> estudiantesAdd = new ArrayList<Estudiante>();
-            estudiantesAdd = (ArrayList<Estudiante>) estudianteFacade.findAll();
-            if (estudiantesAdd != null) {
-                /*Collections.sort(estudiantesAdd, new Comparator<Estudiante>() {
-                 @Override
-                 public int compare(Estudiante p1, Estudiante p2) {
-                 String aux1 = p1.getPrimerApellido() + " " + p1.getSegundoApellido() + " " + p1.getNombres();
-                 String aux2 = p2.getPrimerApellido() + " " + p2.getSegundoApellido() + " " + p2.getNombres();
-                 return new String(aux1).compareTo(aux2);
-                 }
-                 });*/
-                for (Estudiante varStudent : estudiantesAdd) {
-                    String aux1 = varStudent.getUsuario().getPrimerApellido() + " " + varStudent.getUsuario().getSegundoApellido() + " " + varStudent.getUsuario().getNombres();
-                    estudiantes.put(aux1, varStudent.getEstudiateId());
-                }
-            }
-        } catch (Exception ex) {
-            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+    private Map<String, Estudiante> parseEstudianteToMap(List<Estudiante> findAll) {
+        Map<String, Estudiante> outcome = new LinkedHashMap<String, Estudiante>();
+        for (Estudiante s : findAll) {
+            String key = s.getUsuario().getPrimerApellido() + " " + s.getUsuario().getSegundoApellido() + " " + s.getUsuario().getNombres();
+            outcome.put(key.toUpperCase(), s);
         }
+        return outcome;
     }
 
     public MatriculaEstudiante getMatricula() {
@@ -132,19 +138,19 @@ public class AdminMatriculaBean {
         this.matriculas = matriculas;
     }
 
-    public HashMap<Integer, Integer> getCursos() {
+    public Map<String, Curso> getCursos() {
         return cursos;
     }
 
-    public void setCursos(HashMap<Integer, Integer> cursos) {
+    public void setCursos(Map<String, Curso> cursos) {
         this.cursos = cursos;
     }
 
-    public HashMap<String, Integer> getEstudiantes() {
+    public Map<String, Estudiante> getEstudiantes() {
         return estudiantes;
     }
 
-    public void setEstudiantes(HashMap<String, Integer> estudiantes) {
+    public void setEstudiantes(Map<String, Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
     }
 
