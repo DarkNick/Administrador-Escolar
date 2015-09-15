@@ -70,7 +70,7 @@ public class AdminEstudianteBean {
     public void init() {
         parentescoFamilias = parseParentescoFamiliasToMap(parentescoFamiliaFacade.findAll());
         estudiante.setUsuario(new Usuario());
-        estudiante.getUsuario().setUsuarioPK(new UsuarioPK());
+        estudiante.getUsuario().setUsuarioPK(new UsuarioPK());        
     }
     public EstudianteFacade getEstudianteFacade() {
         return estudianteFacade;
@@ -148,9 +148,9 @@ public class AdminEstudianteBean {
             System.out.println("tipo ID "+estudiante.getUsuario().getUsuarioPK().getTipoId());
             System.out.println("numeri ID "+estudiante.getUsuario().getUsuarioPK().getNumeroId());
             System.out.println("ID rol"+estudiante.getUsuario().getRolId().getRolId());
-           // usuarioFacade.create(estudiante.getUsuario());
+            usuarioFacade.create(estudiante.getUsuario());
             estudianteFacade.create(estudiante);
-          //  LoginFacade.create(login);
+            LoginFacade.create(login);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());

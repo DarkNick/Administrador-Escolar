@@ -1,0 +1,59 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <b:row>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+
+            <p:dataTable id="modificarFuncionario" var="funcionario" value="#{adminFuncionariosModificar.listFuncionarios}" editable="true" style="margin-bottom:20px">
+                <f:facet name="header">
+                    Row Editing
+                </f:facet>
+
+                <p:ajax event="rowEdit" listener="#{adminFuncionariosModificar.onRowEdit}" update=":form:msgs" />
+                <p:ajax event="rowEditCancel" listener="#{adminFuncionariosModificar.onRowCancel}" update=":form:msgs" />
+                <p:column headerText="Cargo" filterBy="#{obj.cargoId.nombreCargo}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{obj.cargoId.nombreCargo}" />                       
+                </p:column>
+                <p:column headerText="Nombre" filterBy="#{obj.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{obj.usuario.nombres}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{obj.usuario.nombres}" style="width:100%"/></f:facet>
+                    </p:cellEditor>   
+                </p:column>
+                <p:column headerText="Primer Apellido" filterBy="#{obj.usuario.primerApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{obj.usuario.primerApellido}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{obj.usuario.primerApellido}" style="width:100%"/></f:facet>
+                    </p:cellEditor>           
+                </p:column>
+                <p:column headerText="Segundo Apellido" filterBy="#{obj.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{obj.usuario.segundoApellido}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{obj.usuario.segundoApellido}" style="width:100%"/></f:facet>
+                    </p:cellEditor>           
+                </p:column>
+                <p:column headerText="Saldo" filterBy="#{obj.saldoNeto}" filterStyle="display:none;" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{obj.saldoNeto}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{obj.saldoNeto}" style="width:100%"/></f:facet>
+                    </p:cellEditor>  
+                </p:column>                    
+                <p:column headerText="Tipo Identificacion" filterBy="#{obj.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{obj.usuario.usuarioPK.tipoId}" />
+                </p:column>
+                <p:column headerText="Numero Identificacion" filterBy="#{obj.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{obj.usuario.usuarioPK.numeroId}" />
+                </p:column> 
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </b:row>
+</ui:composition>

@@ -38,6 +38,12 @@
                         <h:commandButton value="Generar" action="#{adminNominaBean.generateExcelNomina(obj.funcionarioId)}"/>
                     </p:column>
                 </p:dataTable>
+                <p:spacer/>
+                <div class="div-center">
+                    <b:row>
+                        <h:commandButton value="Generar Excel Nomina Completa" action="#{adminNominaBean.generateExcelNominaCompleta}"/>
+                    </b:row>
+                </div>
             </h:form>
         </b:panel>
     </b:row>
