@@ -14,8 +14,10 @@ import com.lusadi.entities.Estudiante;
 import com.lusadi.entities.MatriculaEstudiante;
 import com.lusadi.utils.UtilFaces;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +60,26 @@ public class AdminMatriculaBean {
 
     public void createMatricula() {
         try {
-            matriculaEstudianteFacade.createMatricula(matricula);
+            Calendar fecha = new GregorianCalendar();
+            int anio = fecha.get(Calendar.YEAR);
+            int mes = fecha.get(Calendar.MONTH);
+            int dia = fecha.get(Calendar.DAY_OF_MONTH);
+            boolean ban = false;
+            String fechaMat = dia + "/" + (mes + 1) + "/" + anio;
+            List<MatriculaEstudiante> matriculasAll = matriculaEstudianteFacade.findAll();
+            for (MatriculaEstudiante aux : matriculasAll) {
+                String arg[] = aux.getFechaMatricula().split("/");
+                if ((matricula.getEstudianteId().equals(aux.getEstudianteId())) && (anio == Integer.parseInt(arg[2]))) {
+                    ban = true;
+                    break;
+                }
+            }
+            if (!ban) {
+                matricula.setFechaMatricula(fechaMat);
+                matriculaEstudianteFacade.createMatricula(matricula);
+            } else {
+                UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, "Ya se Encuentra Matriculado");
+            }
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
@@ -82,7 +103,7 @@ public class AdminMatriculaBean {
         }
     }
 
-     /*public void findAllEstudiantes() {
+    /*public void findAllEstudiantes() {
      try {
      ArrayList<Estudiante> estudiantesAdd = new ArrayList<Estudiante>();
      estudiantesAdd = (ArrayList<Estudiante>) estudianteFacade.findAll();

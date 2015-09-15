@@ -10,6 +10,7 @@ import com.lusadi.dao.ResultadoAcademicoFacade;
 import com.lusadi.entities.Nota;
 import com.lusadi.entities.ResultadoAcademico;
 import com.lusadi.utils.UtilFaces;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -32,6 +33,7 @@ public class AdminNotaBean {
     private Nota nota = new Nota();
     private ResultadoAcademico resultadoAcademico = new ResultadoAcademico();
     private ArrayList<Nota> notas = new ArrayList<Nota>();
+    private BigDecimal suma = new BigDecimal("0");
 
     public AdminNotaBean() {
     }
@@ -39,7 +41,7 @@ public class AdminNotaBean {
     public void registrarNota() {
         try {
             notas.add(nota);
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+            suma.add(nota.getNota().multiply(nota.getPorcentaje()));
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
@@ -56,6 +58,7 @@ public class AdminNotaBean {
 
     public void createResultado() {
         try {
+            resultadoAcademico.setNotaDefinitiva(suma);
             resultadoAcademicoFacade.createResultadoAcademico(resultadoAcademico, notas);
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
@@ -77,6 +80,14 @@ public class AdminNotaBean {
 
     public void setResultadoAcademico(ResultadoAcademico resultadoAcademico) {
         this.resultadoAcademico = resultadoAcademico;
+    }
+
+    public BigDecimal getSuma() {
+        return suma;
+    }
+
+    public void setSuma(BigDecimal suma) {
+        this.suma = suma;
     }
 
 }
