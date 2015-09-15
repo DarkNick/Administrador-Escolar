@@ -4,21 +4,17 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:b="http://bootsfaces.net/ui"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns:p="http://primefaces.org/ui">
     <b:row>
         <h:form>
             <b:panel title="Busqueda Funcionario." collapsible="false" >
-                <p:dataTable id="docente-table" value="#{adminDocentesBusqueda.listBusquedaAsistencia}" widgetVar="docenteTable" var="obj" rows="8" paginator="true"
-                             paginatorPosition="bottom" filteredValue="#{adminDocentesBusqueda.filteredListBusquedaAsistencia}"  >
+                <p:dataTable id="funcionario-table" value="#{adFuncionarioBusqueda.listBusquedaFuncionario}" widgetVar="funcionarioTable" var="obj" rows="8" paginator="true"
+                             paginatorPosition="bottom" filteredValue="#{adFuncionarioBusqueda.filteredListBusquedaFuncionario}"  >
                     <f:facet name="header">
                         <p:outputPanel>
-                            <p:inputText id="globalFilter" onkeyup=" PF('docenteTable').filter();"  style="width: 60%;"  placeholder="Ingrese un valor de busqueda"/>
+                            <p:inputText id="globalFilter" onkeyup=" PF('funcionarioTable').filter();"  style="width: 60%;"  placeholder="Ingrese un valor de busqueda"/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="Cargo ID" filterBy="#{obj.cargoId.cargoId}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.cargoId.cargoId}" />
-                    </p:column>
                     <p:column headerText="Cargo" filterBy="#{obj.cargoId.nombreCargo}" filterStyle="display:none;" filterMatchMode="contains">
                         <h:outputText value="#{obj.cargoId.nombreCargo}" />
                     </p:column>

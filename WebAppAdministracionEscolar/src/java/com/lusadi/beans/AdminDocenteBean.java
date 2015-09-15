@@ -20,14 +20,14 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 /**
  * @author dark-nick
  */
-@Named(value = "adminDocenteBean")
-@ViewScoped
+@ManagedBean(name = "adminDocente")
+@RequestScoped
 public class AdminDocenteBean implements Serializable {
 
     @EJB
@@ -65,14 +65,16 @@ public class AdminDocenteBean implements Serializable {
 
     private Map<String, Cargo> cargos;
 
-    public AdminDocenteBean() {
-    }
-
     @PostConstruct
     public void init() {
-        cargos = parseSalonesToMap(cargoFacade.findAll());
+        cargos = parseCargosToMap(cargoFacade.findAll());
+        System.err.println(cargos.size());
+        System.err.println("*************");
+        System.err.println("*************");
+        System.err.println("*************");
     }
-
+    public AdminDocenteBean() {
+    }
     public CargoFacade getCargoFacade() {
         return cargoFacade;
     }
@@ -175,7 +177,7 @@ public class AdminDocenteBean implements Serializable {
         }
     }
 
-    private Map<String, Cargo> parseSalonesToMap(List<Cargo> findAll) {
+    private Map<String, Cargo> parseCargosToMap(List<Cargo> findAll) {
         Map<String, Cargo> outcome = new LinkedHashMap<String, Cargo>();
         for (Cargo s : findAll) {
             String key = s.getNombreCargo();

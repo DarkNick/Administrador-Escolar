@@ -12,24 +12,24 @@
                     <b:panel>
                         <p:messages/>
                         <h:outputLabel value="Tipo de Documento"/>
-                        <b:selectOneMenu value="#{adminDocenteBean.usuarioPk.tipoId}" required="true">
+                        <b:selectOneMenu value="#{adminDocente.usuarioPk.tipoId}" required="true">
                             <f:selectItem itemLabel="C.C." itemValue="CC"/>
                         </b:selectOneMenu>
                         <h:outputLabel value="Numero Del Documento"/>
-                        <b:inputText value="#{adminDocenteBean.usuarioPk.numeroId}" required="true"/>
+                        <b:inputText value="#{adminDocente.usuarioPk.numeroId}" required="true"/>
                         <h:outputLabel value="Primer Apellido"/>
-                        <b:inputText value="#{adminDocenteBean.usuario.primerApellido}" required="true"/>
+                        <b:inputText value="#{adminDocente.usuario.primerApellido}" required="true"/>
                         <h:outputLabel value="Segundo Apellido"/>
-                        <b:inputText value="#{adminDocenteBean.usuario.segundoApellido}" required="true"/>
+                        <b:inputText value="#{adminDocente.usuario.segundoApellido}" required="true"/>
                         <h:outputLabel value="Nombres"/>
-                        <b:inputText value="#{adminDocenteBean.usuario.nombres}" required="true"/>
+                        <b:inputText value="#{adminDocente.usuario.nombres}" required="true"/>
                         <h:outputLabel value="Tipo De Sangre"/>
-                        <b:selectOneMenu value="#{adminDocenteBean.usuario.tipoSangre}">
+                        <b:selectOneMenu value="#{adminDocente.usuario.tipoSangre}">
                             <f:selectItem itemLabel="AB-+" itemValue="AB+-"/>
                         </b:selectOneMenu>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Docente" action="#{adminDocenteBean.createDocente()}"/>
+                                <b:commandButton icon="ui-icon-check" value="Registrar Docente" action="#{adminDocente.createDocente()}"/>
                             </b:column>
                         </b:row>
                     </b:panel>
@@ -37,19 +37,19 @@
                 <b:column>
                     <b:panel>
                         <h:outputLabel value="Correo electronico"/>
-                        <b:inputText value="#{adminDocenteBean.usuario.correoElectronico}" required="true"/>
+                        <b:inputText value="#{adminDocente.usuario.correoElectronico}" required="true"/>
                         <h:outputLabel value="Cargo"/>
-                        <b:selectOneMenu value="#{adminDocenteBean.cargo}" required="true" >
+                        <b:selectOneMenu value="#{adminDocente.cargo}" required="true" >
                             <f:selectItem  itemLabel="Seleccione un Cargo" itemValue="" />
-                            <f:selectItems value="#{adminDocenteBean.cargos.entrySet()}" var="entry"
+                            <f:selectItems value="#{adminDocente.cargos.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}" />
                         </b:selectOneMenu>
                         <h:outputLabel value="Salario"/>
-                        <b:inputText value="#{adminDocenteBean.funcionario.saldoNeto}"/>
+                        <b:inputText value="#{adminDocente.funcionario.saldoNeto}"/>
                         <h:outputLabel value="Fecha Nacimiento"/>
-                        <b:datepicker  value="#{adminDocenteBean.usuario.fechaNacimiento}"/>
+                        <b:datepicker  value="#{adminDocente.usuario.fechaNacimiento}"/>
                         <h:outputText value="Contraseña"/>
-                        <b:inputSecret value="#{adminDocenteBean.login.clave}"/>
+                        <b:inputSecret value="#{adminDocente.login.clave}"/>
                         <h:outputText value="Repetir Contraseña"/>
                         <b:inputSecret />
                     </b:panel>
