@@ -66,13 +66,22 @@ public class AdminHorarioBean {
             boolean ban = false;
             List<Horario> horarioAll = horarioFacade.findAll();
             for (Horario varHorario : horarioAll) {
-                if (varHorario.getFuncionarioId().getFuncionarioId().equals(horario.getFuncionarioId().getFuncionarioId())){
-                    if ((varHorario.getDiaClase().equals(horario.getDiaClase())) && (varHorario.getHoraInicioClase().equals(horario.getHoraInicioClase()))){
+                if (varHorario.getFuncionarioId().getFuncionarioId().equals(horario.getFuncionarioId().getFuncionarioId())) {
+                    int x_1 = Integer.parseInt(varHorario.getHoraInicioClase());
+                    int y_1 = Integer.parseInt(varHorario.getHoraFinClase());
+                    int x_2 = Integer.parseInt(horario.getHoraInicioClase());
+                    int y_2 = Integer.parseInt(horario.getHoraFinClase());
+                    if ((x_1 == x_2 && y_1 == y_2) || (x_1 > x_2 && x_1 < y_2) || (y_1 > x_2 && y_1 < y_2) || (x_1 < x_2 && y_1 > y_2)) {
                         ban = true;
+                        break;
                     }
                 }
             }
-            if ( !ban ) horarioFacade.createHorario(horario);
+            if (!ban) {
+                horarioFacade.createHorario(horario);
+            } else {
+                UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, "El Funcionario se encuentra ocupado en esta franja");
+            }
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());

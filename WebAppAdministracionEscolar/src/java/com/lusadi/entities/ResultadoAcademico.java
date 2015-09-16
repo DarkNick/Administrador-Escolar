@@ -6,6 +6,7 @@
 package com.lusadi.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -123,6 +124,10 @@ public class ResultadoAcademico implements Serializable {
     @Override
     public String toString() {
         return "com.lusadi.entities.ResultadoAcademico[ resultadoAcademicoId=" + resultadoAcademicoId + " ]";
+    }
+
+    public void setNotaDefinitiva(BigDecimal suma) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

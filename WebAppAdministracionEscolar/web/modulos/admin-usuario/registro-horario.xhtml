@@ -19,13 +19,39 @@
                             <f:selectItem itemLabel="Miercoles" itemValue="Miercoles" />
                             <f:selectItem itemLabel="Jueves" itemValue="Jueves" />
                             <f:selectItem itemLabel="Viernes" itemValue="Viernes" />
-                            <f:selectItem itemLabel="Sabado" itemValue="Sabado" />
-                            <f:selectItem itemLabel="Domingo" itemValue="Domingo" />
                         </p:selectOneMenu>
                         <h:outputLabel value="Hora de Inicio"/>
-                        <b:inputText value="#{adminHorarioBean.horario.horaInicioClase}" title="Hora de Inicio" required="true"/>
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.horaInicioClase}" required="true" >
+                            <f:selectItem itemLabel="Seleccione una Hora" itemValue="" />
+                            <f:selectItem itemLabel="6:00 am" itemValue="6" />
+                            <f:selectItem itemLabel="7:00 am" itemValue="7" />
+                            <f:selectItem itemLabel="8:00 am" itemValue="8" />
+                            <f:selectItem itemLabel="9:00 am" itemValue="9" />
+                            <f:selectItem itemLabel="10:00 am" itemValue="10" />
+                            <f:selectItem itemLabel="11:00 am" itemValue="11" />
+                            <f:selectItem itemLabel="12:00 pm" itemValue="12" />
+                            <f:selectItem itemLabel="1:00 pm" itemValue="13" />
+                            <f:selectItem itemLabel="2:00 pm" itemValue="14" />
+                            <f:selectItem itemLabel="3:00 pm" itemValue="15" />
+                            <f:selectItem itemLabel="4:00 am" itemValue="16" />
+                            <f:selectItem itemLabel="5:00 am" itemValue="17" />
+                        </p:selectOneMenu>
                         <h:outputLabel value="Hora de Fin"/>
-                        <b:inputText value="#{adminHorarioBean.horario.horaFinClase}" title="Hora de Fin" required="true"/>
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.horaFinClase}" required="true" >
+                            <f:selectItem itemLabel="Seleccione una Hora" itemValue="" />
+                            <f:selectItem itemLabel="6:00 am" itemValue="6" />
+                            <f:selectItem itemLabel="7:00 am" itemValue="7" />
+                            <f:selectItem itemLabel="8:00 am" itemValue="8" />
+                            <f:selectItem itemLabel="9:00 am" itemValue="9" />
+                            <f:selectItem itemLabel="10:00 am" itemValue="10" />
+                            <f:selectItem itemLabel="11:00 am" itemValue="11" />
+                            <f:selectItem itemLabel="12:00 pm" itemValue="12" />
+                            <f:selectItem itemLabel="1:00 pm" itemValue="13" />
+                            <f:selectItem itemLabel="2:00 pm" itemValue="14" />
+                            <f:selectItem itemLabel="3:00 pm" itemValue="15" />
+                            <f:selectItem itemLabel="4:00 am" itemValue="16" />
+                            <f:selectItem itemLabel="5:00 am" itemValue="17" />
+                        </p:selectOneMenu>
                         <h:outputLabel value="Materia"/>
                         <p:selectOneMenu value="#{adminHorarioBean.horario.materiaId}" effect="fold" editable="true">
                             <f:selectItem itemLabel="Seleccione una Materia" itemValue="" />
