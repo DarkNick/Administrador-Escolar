@@ -1,0 +1,76 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+    <b:row>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+
+            <p:dataTable id="modificar-Estudiante" var="estudiante" value="#{adminEstudiantesModificar.listEstudiantes}" editable="true" style="margin-bottom:20px" paginator="true" rows="8" 
+                         paginatorPosition="bottom" filteredValue="#{adminEstudiantesModificar.filteredListBusquedaEstudiante}"  >
+                <f:facet name="header">
+                    Modificar Estudiante
+                    <p:outputPanel>
+                        <p:inputText id="globalFilter" onkeyup=" PF('modificarEstudiante').filter();"  style="width: 60%;"  placeholder="Ingrese un valor de busqueda"/>
+                    </p:outputPanel>                    
+                </f:facet>
+
+                <p:ajax event="rowEdit" listener="#{adminEstudiantesModificar.onRowEdit}" update=":form:msgs" />
+                <p:ajax event="rowEditCancel" listener="#{adminEstudiantesModificar.onRowCancel}" update=":form:msgs" />
+
+                <p:column headerText="Nombre" filterBy="#{estudiante.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{estudiante.usuario.nombres}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{estudiante.usuario.nombres}" style="width:100%"/></f:facet>
+                    </p:cellEditor>   
+                </p:column>
+                <p:column headerText="Primer Apellido" filterBy="#{estudiante.usuario.primerApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{estudiante.usuario.primerApellido}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{estudiante.usuario.primerApellido}" style="width:100%"/></f:facet>
+                    </p:cellEditor>           
+                </p:column>
+                <p:column headerText="Segundo Apellido" filterBy="#{estudiante.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{estudiante.usuario.segundoApellido}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{estudiante.usuario.segundoApellido}" style="width:100%"/></f:facet>
+                    </p:cellEditor>           
+                </p:column>                  
+                <p:column headerText="Tipo Identificacion" filterBy="#{estudiante.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{estudiante.usuario.usuarioPK.tipoId}" />
+                </p:column>
+                <p:column headerText="Numero Identificacion" filterBy="#{funcionario.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{estudiante.usuario.usuarioPK.numeroId}" />
+                </p:column> 
+                <p:column headerText="Nombres Acudiente" filterBy="#{estudiante.nombresAcudiente}" filterStyle="display:none;" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{estudiante.nombresAcudiente}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{estudiante.nombresAcudiente}" style="width:100%"/></f:facet>
+                    </p:cellEditor>           
+                </p:column>
+                <p:column headerText="Apellidos acudiente" filterBy="#{estudiante.apellidosAcudiente}" filterStyle="display:none;" filterMatchMode="contains">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{estudiante.apellidosAcudiente}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{estudiante.apellidosAcudiente}" style="width:100%"/></f:facet>
+                    </p:cellEditor>           
+                </p:column>
+                <p:column headerText="Parentesco" filterBy="#{estudiante.parentescoFamiliaId}" filterStyle="display:none;" filterMatchMode="contains">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{estudiante.parentescoFamiliaId}" /></f:facet>
+               <f:facet name="input">
+                   <h:selectOneMenu value="#{estudiante.parentescoFamiliaId}" style="width:100%">
+                       <f:selectItems value="#{adminEstudiantesModificar.parentescoFamilias.entrySet()}" var="entry" itemLabel="#{entry.value}" itemValue="#{entry.key}" />
+                   </h:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>                
+                <p:column style="width:32px">
+                    <p:rowEditor />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </b:row>
+</ui:composition>

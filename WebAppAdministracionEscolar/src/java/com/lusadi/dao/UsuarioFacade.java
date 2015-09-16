@@ -7,9 +7,9 @@ package com.lusadi.dao;
 
 import com.lusadi.entities.Login;
 import com.lusadi.entities.Usuario;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -55,4 +55,16 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         }
     }
 
+    public void modificar(Usuario usuario) {
+        try {
+            em.merge(usuario);
+            System.out.println("*******------------------******************");
+        } catch (Exception e) {
+            try {
+                throw new Exception(e+" Error al intentar modificar al usuario");
+            } catch (Exception ex) {
+                Logger.getLogger(FuncionarioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

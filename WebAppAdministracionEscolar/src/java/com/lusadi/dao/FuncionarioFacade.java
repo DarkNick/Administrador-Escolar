@@ -9,6 +9,8 @@ import com.lusadi.entities.Funcionario;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -72,5 +74,18 @@ public class FuncionarioFacade extends AbstractFacade<Funcionario> {
             sbConditionals.append("colegio_lusadi.FUNCIONARIO.USUARIO_NUMERO_ID = ").append(numeroId);
         Query query = em.createNativeQuery(sb.toString() + ((sbConditionals.length() != 0) ? " WHERE " + sbConditionals.toString() : ""), Funcionario.class);
         return new ArrayList<Funcionario>(query.getResultList());
+    }
+
+    public void modificar(Funcionario funcionario) {
+        try {
+            em.merge(funcionario);
+            System.out.println("*******------------------******************");
+        } catch (Exception e) {
+            try {
+                throw new Exception(e+" Error al intentar modificar al funcionario");
+            } catch (Exception ex) {
+                Logger.getLogger(FuncionarioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

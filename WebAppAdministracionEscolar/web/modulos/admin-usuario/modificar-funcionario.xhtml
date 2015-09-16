@@ -4,51 +4,55 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:b="http://bootsfaces.net/ui"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns:p="http://primefaces.org/ui">
     <b:row>
         <h:form id="form">
             <p:growl id="msgs" showDetail="true"/>
 
-            <p:dataTable id="modificarFuncionario" var="funcionario" value="#{adminFuncionariosModificar.listFuncionarios}" editable="true" style="margin-bottom:20px">
+            <p:dataTable id="modificar-Funcionario" var="funcionario" value="#{adminFuncionariosModificar.listFuncionario}" editable="true" style="margin-bottom:20px" paginator="true" rows="8" 
+                         paginatorPosition="bottom" filteredValue="#{adminFuncionariosModificar.filteredListBusquedaFuncionario}"  >
                 <f:facet name="header">
-                    Row Editing
+                    Modificar Funcionario
+                    <p:outputPanel>
+                        <p:inputText id="globalFilter" onkeyup=" PF('modificarFuncionario').filter();"  style="width: 60%;"  placeholder="Ingrese un valor de busqueda"/>
+                    </p:outputPanel>                    
                 </f:facet>
 
                 <p:ajax event="rowEdit" listener="#{adminFuncionariosModificar.onRowEdit}" update=":form:msgs" />
                 <p:ajax event="rowEditCancel" listener="#{adminFuncionariosModificar.onRowCancel}" update=":form:msgs" />
-                <p:column headerText="Cargo" filterBy="#{obj.cargoId.nombreCargo}" filterStyle="display:none;" filterMatchMode="contains">
-                    <h:outputText value="#{obj.cargoId.nombreCargo}" />                       
+
+                <p:column headerText="Cargo" filterBy="#{funcionario.cargoId.nombreCargo}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{funcionario.cargoId.nombreCargo}" />
                 </p:column>
-                <p:column headerText="Nombre" filterBy="#{obj.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
+                <p:column headerText="Nombre" filterBy="#{funcionario.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{obj.usuario.nombres}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{obj.usuario.nombres}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{funcionario.usuario.nombres}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{funcionario.usuario.nombres}" style="width:100%"/></f:facet>
                     </p:cellEditor>   
                 </p:column>
-                <p:column headerText="Primer Apellido" filterBy="#{obj.usuario.primerApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                <p:column headerText="Primer Apellido" filterBy="#{funcionario.usuario.primerApellido}" filterStyle="display:none;" filterMatchMode="contains">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{obj.usuario.primerApellido}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{obj.usuario.primerApellido}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{funcionario.usuario.primerApellido}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{funcionario.usuario.primerApellido}" style="width:100%"/></f:facet>
                     </p:cellEditor>           
                 </p:column>
-                <p:column headerText="Segundo Apellido" filterBy="#{obj.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                <p:column headerText="Segundo Apellido" filterBy="#{funcionario.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{obj.usuario.segundoApellido}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{obj.usuario.segundoApellido}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{funcionario.usuario.segundoApellido}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{funcionario.usuario.segundoApellido}" style="width:100%"/></f:facet>
                     </p:cellEditor>           
                 </p:column>
-                <p:column headerText="Saldo" filterBy="#{obj.saldoNeto}" filterStyle="display:none;" filterMatchMode="contains">
+                <p:column headerText="Saldo" filterBy="#{funcionario.saldoNeto}" filterStyle="display:none;" filterMatchMode="contains">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{obj.saldoNeto}" /></f:facet>
-                        <f:facet name="input"><p:inputText value="#{obj.saldoNeto}" style="width:100%"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{funcionario.saldoNeto}" /></f:facet>
+                        <f:facet name="input"><p:inputText value="#{funcionario.saldoNeto}" style="width:100%"/></f:facet>
                     </p:cellEditor>  
                 </p:column>                    
-                <p:column headerText="Tipo Identificacion" filterBy="#{obj.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
-                    <h:outputText value="#{obj.usuario.usuarioPK.tipoId}" />
+                <p:column headerText="Tipo Identificacion" filterBy="#{funcionario.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{funcionario.usuario.usuarioPK.tipoId}" />
                 </p:column>
-                <p:column headerText="Numero Identificacion" filterBy="#{obj.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
-                    <h:outputText value="#{obj.usuario.usuarioPK.numeroId}" />
+                <p:column headerText="Numero Identificacion" filterBy="#{funcionario.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{funcionario.usuario.usuarioPK.numeroId}" />
                 </p:column> 
                 <p:column style="width:32px">
                     <p:rowEditor />

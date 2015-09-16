@@ -8,6 +8,8 @@ package com.lusadi.dao;
 import com.lusadi.entities.Estudiante;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,5 +43,18 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
             sbConditionals.append("colegio_lusadi.ESTUDIANTE.USUARIO_NUMERO_ID = ").append(numeroId);
         Query query = em.createNativeQuery(sb.toString() + ((sbConditionals.length() != 0) ? " WHERE " + sbConditionals.toString() : ""), Estudiante.class);
         return new ArrayList<Estudiante>(query.getResultList());
+    }
+
+    public void modificar(Estudiante usuario) {
+        try {
+            em.merge(usuario);
+            System.out.println("*******------------------******************");
+        } catch (Exception e) {
+            try {
+                throw new Exception(e+" Error al intentar modificar al estudiante");
+            } catch (Exception ex) {
+                Logger.getLogger(FuncionarioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
