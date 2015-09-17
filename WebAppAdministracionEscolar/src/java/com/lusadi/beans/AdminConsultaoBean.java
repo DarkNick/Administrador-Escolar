@@ -48,4 +48,12 @@ public class AdminConsultaoBean {
         this.funcionarios = funcionarios;
     }
 
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+
 }

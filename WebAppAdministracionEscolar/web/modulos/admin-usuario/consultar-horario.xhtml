@@ -27,29 +27,29 @@
                 </p:column>
                 <p:column style="width:32px;text-align: center">
                     <p:commandButton update=":form:carDetail" oncomplete="PF('funcionarioDialog').show()" icon="ui-icon-search" title="View">
-                        <f:setPropertyActionListener value="#{varFuncionario}" target="#{}" />
+                        <f:setPropertyActionListener value="#{varFuncionario}" target="#{adminConsultaoBean.funcionario}" />
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
 
-            <p:dialog header="Car Info" widgetVar="funcionarioDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+            <p:dialog header="Funcionario Info" widgetVar="funcionarioDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty dtSelectionView.selectedCar}" columnClasses="label,value">
+                    <p:panelGrid  columns="2" rendered="#{not empty adminConsultaoBean.funcionario}" columnClasses="label,value">
                         <f:facet name="header">
-                            
+                            Datos
                         </f:facet>
 
                         <h:outputText value="Id:" />
-                        <h:outputText value="#{}" />
+                        <h:outputText value="#{adminConsultaoBean.funcionario.funcionarioId}" />
 
-                        <h:outputText value="Year" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.year}" />
+                        <h:outputText value="Primer Apellido" />
+                        <h:outputText value="#{adminConsultaoBean.funcionario.usuario.primerApellido}" />
 
-                        <h:outputText value="Color:" />
-                        <h:outputText value="#{dtSelectionView.selectedCar.color}" style="color:#{dtSelectionView.selectedCar.color}"/>
+                        <h:outputText value="Segundo Apellido:" />
+                        <h:outputText value="#{adminConsultaoBean.funcionario.usuario.segundoApellido}"/>
 
-                        <h:outputText value="Price" />
-                        <h:outputText value="$#{dtSelectionView.selectedCar.price}" />
+                        <h:outputText value="Nombre" />
+                        <h:outputText value="$#{adminConsultaoBean.funcionario.usuario.nombres}" />
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
