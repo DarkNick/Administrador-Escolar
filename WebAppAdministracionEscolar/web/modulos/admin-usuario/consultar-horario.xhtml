@@ -1,0 +1,59 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui">
+    <b:row>
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true" />
+
+            <p:dataTable id="basicDT" var="varFuncionario" value="#{adminConsultaoBean.funcionarios}">
+                <f:facet name="header">
+                    Funcionarios
+                </f:facet>
+                <p:column headerText="Id">
+                    <h:outputText value="#{varFuncionario.funcionarioId}" />
+                </p:column>
+                <p:column headerText="Primer Apellido">
+                    <h:outputText value="#{varFuncionario.usuario.primerApellido}" />
+                </p:column>
+                <p:column headerText="Segundo Apelido">
+                    <h:outputText value="#{varFuncionario.usuario.segundoApellido}" />
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{varFuncionario.usuario.nombres}" />
+                </p:column>
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton update=":form:carDetail" oncomplete="PF('funcionarioDialog').show()" icon="ui-icon-search" title="View">
+                        <f:setPropertyActionListener value="#{varFuncionario}" target="#{}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="Car Info" widgetVar="funcionarioDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="carDetail" style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty dtSelectionView.selectedCar}" columnClasses="label,value">
+                        <f:facet name="header">
+                            
+                        </f:facet>
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{}" />
+
+                        <h:outputText value="Year" />
+                        <h:outputText value="#{dtSelectionView.selectedCar.year}" />
+
+                        <h:outputText value="Color:" />
+                        <h:outputText value="#{dtSelectionView.selectedCar.color}" style="color:#{dtSelectionView.selectedCar.color}"/>
+
+                        <h:outputText value="Price" />
+                        <h:outputText value="$#{dtSelectionView.selectedCar.price}" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+        </h:form>
+    </b:row>
+</ui:composition>
+

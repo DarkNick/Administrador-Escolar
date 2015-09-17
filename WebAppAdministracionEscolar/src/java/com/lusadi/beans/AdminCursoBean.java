@@ -17,6 +17,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -58,6 +60,26 @@ public class AdminCursoBean implements Serializable {
                     }
                 });
             }
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
+    }
+
+    public void onRowEdit(RowEditEvent event) {
+        cursoFacade.mergeCurso(((Curso) event.getObject()));
+        FacesMessage msg = new FacesMessage("Curso Edited", ((Curso) event.getObject()).toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Curso) event.getObject()).toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void deleteMateria(Curso item) {
+        try {
+            cursoFacade.deleteCurso(item);
+            cursos.remove(item);
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }

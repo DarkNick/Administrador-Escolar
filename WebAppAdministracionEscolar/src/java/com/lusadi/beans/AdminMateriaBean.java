@@ -24,6 +24,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -56,29 +58,6 @@ public class AdminMateriaBean implements Serializable {
         materias = new ArrayList<Materia>(materiaFacade.findAll());
     }
 
-    public void createCourse() {
-        materiaFacade.create(materia);
-        materias = new ArrayList<Materia>(materiaFacade.findAll());
-        materia = new Materia();
-    }
-
-    public void findAllMaterias() {
-        try {
-            ArrayList<Materia> result = (ArrayList<Materia>) materiaFacade.findAll();
-            if (result != null) {
-                materias = result;
-                Collections.sort(materias, new Comparator<Materia>() {
-                    @Override
-                    public int compare(Materia p1, Materia p2) {
-                        return new String(p1.getNombreMateria()).compareTo(p2.getNombreMateria());
-                    }
-                });
-            }
-        } catch (Exception ex) {
-            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
-        }
-    }
-
     public Map<String, NivelAcademico> getNivelesAcademicos() {
         return nivelesAcademicos;
     }
@@ -109,6 +88,49 @@ public class AdminMateriaBean implements Serializable {
 
     public void setSalones(Map<String, Salon> salones) {
         this.salones = salones;
+    }
+
+    public void createMateria() {
+        materiaFacade.create(materia);
+        materias = new ArrayList<Materia>(materiaFacade.findAll());
+        materia = new Materia();
+    }
+
+    public void findAllMaterias() {
+        try {
+            ArrayList<Materia> result = (ArrayList<Materia>) materiaFacade.findAll();
+            if (result != null) {
+                materias = result;
+                Collections.sort(materias, new Comparator<Materia>() {
+                    @Override
+                    public int compare(Materia p1, Materia p2) {
+                        return new String(p1.getNombreMateria()).compareTo(p2.getNombreMateria());
+                    }
+                });
+            }
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
+    }
+
+    public void onRowEdit(RowEditEvent event) {
+        materiaFacade.mergeMateria(((Materia) event.getObject()));
+        FacesMessage msg = new FacesMessage("Materia Edited", ((Materia) event.getObject()).toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Materia) event.getObject()).toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void deleteMateria(Materia item) {
+        try {
+            materiaFacade.deleteMateria(item);
+            materias.remove(item);
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
     }
 
     private Map<String, Salon> parseSalonesToMap(List<Salon> findAll) {

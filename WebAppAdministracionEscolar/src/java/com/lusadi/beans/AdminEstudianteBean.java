@@ -65,13 +65,14 @@ public class AdminEstudianteBean {
     public void setParentescoFamilias(Map<String, ParentescoFamilia> parentescoFamilias) {
         this.parentescoFamilias = parentescoFamilias;
     }
-    
+
     @PostConstruct
     public void init() {
         parentescoFamilias = parseParentescoFamiliasToMap(parentescoFamiliaFacade.findAll());
         estudiante.setUsuario(new Usuario());
-        estudiante.getUsuario().setUsuarioPK(new UsuarioPK());        
+        estudiante.getUsuario().setUsuarioPK(new UsuarioPK());
     }
+
     public EstudianteFacade getEstudianteFacade() {
         return estudianteFacade;
     }
@@ -128,7 +129,6 @@ public class AdminEstudianteBean {
         this.estudiante = estudiante;
     }
 
-
     public AdminEstudianteBean() {
     }
 
@@ -139,15 +139,15 @@ public class AdminEstudianteBean {
             estudiante.getUsuario().setRolId(rol);
             estudiante.setParentescoFamiliaId(parentescoFamilia);
             login.setUsuario(estudiante.getUsuario());
-            System.out.println("Correo: "+estudiante.getUsuario().getCorreoElectronico());
-            System.out.println("Nacimiento: "+estudiante.getUsuario().getFechaNacimiento());
-            System.out.println("Nonbres: "+estudiante.getUsuario().getNombres());
-            System.out.println("1 apellido: "+estudiante.getUsuario().getPrimerApellido());
-            System.out.println("2 apellido: "+estudiante.getUsuario().getSegundoApellido());
-            System.out.println("tipo sangre "+estudiante.getUsuario().getTipoSangre());
-            System.out.println("tipo ID "+estudiante.getUsuario().getUsuarioPK().getTipoId());
-            System.out.println("numeri ID "+estudiante.getUsuario().getUsuarioPK().getNumeroId());
-            System.out.println("ID rol"+estudiante.getUsuario().getRolId().getRolId());
+            System.out.println("Correo: " + estudiante.getUsuario().getCorreoElectronico());
+            System.out.println("Nacimiento: " + estudiante.getUsuario().getFechaNacimiento());
+            System.out.println("Nonbres: " + estudiante.getUsuario().getNombres());
+            System.out.println("1 apellido: " + estudiante.getUsuario().getPrimerApellido());
+            System.out.println("2 apellido: " + estudiante.getUsuario().getSegundoApellido());
+            System.out.println("tipo sangre " + estudiante.getUsuario().getTipoSangre());
+            System.out.println("tipo ID " + estudiante.getUsuario().getUsuarioPK().getTipoId());
+            System.out.println("numeri ID " + estudiante.getUsuario().getUsuarioPK().getNumeroId());
+            System.out.println("ID rol" + estudiante.getUsuario().getRolId().getRolId());
             usuarioFacade.create(estudiante.getUsuario());
             estudianteFacade.create(estudiante);
             LoginFacade.create(login);

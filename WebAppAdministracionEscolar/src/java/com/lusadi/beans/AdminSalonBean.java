@@ -17,6 +17,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -58,6 +60,26 @@ public class AdminSalonBean implements Serializable {
                     }
                 });
             }
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
+    }
+
+    public void onRowEdit(RowEditEvent event) {
+        salonFacade.mergeSalon(((Salon) event.getObject()));
+        FacesMessage msg = new FacesMessage("Salon Edited", ((Salon) event.getObject()).toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Salon) event.getObject()).toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void deleteMateria(Salon item) {
+        try {
+            salonFacade.deleteSalon(item);
+            salones.remove(item);
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }

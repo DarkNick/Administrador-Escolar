@@ -27,12 +27,22 @@
             <b:column>
                 <h:form id="form-tab-cours">
                     <b:panel id="panel-01" title="Cursos Registrados" collapsible="false">
-                        <p:dataTable id="tab-cours" var="varCurso" value="#{adminCursoBean.cursos}" rows="5" paginator="true" paginatorPosition="bottom">
+                        <p:dataTable id="tab-cours" var="varCurso" value="#{adminCursoBean.cursos}" paginator="true" rows="5" paginatorPosition="bottom" editable="true">
+
+                            <p:ajax event="rowEdit" listener="#{adminCursoBean.onRowEdit}" update=":form:msgs" />
+                            <p:ajax event="rowEditCancel" listener="#{adminCursoBean.onRowCancel}" update=":form:msgs" />
+
                             <p:column headerText="ID">
-                                <h:outputText value="#{varCurso.cursoId}" />
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{varCurso.cursoId}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{varCurso.cursoId}" style="width:100%"/></f:facet>
+                                </p:cellEditor> 
                             </p:column>
                             <p:column headerText="Observaciones">
-                                <h:outputText value="#{varCurso.observaciones}" />
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{varCurso.observaciones}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{varCurso.observaciones}" style="width:100%"/></f:facet>
+                                </p:cellEditor> 
                             </p:column>
                         </p:dataTable>
                         <p:spacer/>

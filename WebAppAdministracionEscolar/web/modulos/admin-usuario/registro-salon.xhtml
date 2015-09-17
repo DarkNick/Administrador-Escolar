@@ -29,12 +29,22 @@
             <b:column>
                 <h:form id="form-tab-salon">
                     <b:panel id="panel-01" title="Salones Registrados" collapsible="false">
-                        <p:dataTable id="tab-salon" var="varSalon" value="#{adminSalonBean.salones}" paginator="true" rows="5" paginatorPosition="bottom">
+                        <p:dataTable id="tab-salon" var="varSalon" value="#{adminSalonBean.salones}" paginator="true" rows="5" paginatorPosition="bottom" editable="true">
+
+                            <p:ajax event="rowEdit" listener="#{adminSalonBean.onRowEdit}" update=":form:msgs" />
+                            <p:ajax event="rowEditCancel" listener="#{adminSalonBean.onRowCancel}" update=":form:msgs" />
+
                             <p:column headerText="Ubicacion">
-                                <h:outputText value="#{varSalon.ubicacionSalon}" />
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{varSalon.ubicacionSalon}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{varSalon.ubicacionSalon}" style="width:100%"/></f:facet>
+                                </p:cellEditor> 
                             </p:column>
                             <p:column headerText="Capacidad">
-                                <h:outputText value="#{varSalon.capacidad}" />
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{varSalon.capacidad}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{varSalon.capacidad}" style="width:100%"/></f:facet>
+                                </p:cellEditor> 
                             </p:column>
                         </p:dataTable>
                         <p:spacer/>

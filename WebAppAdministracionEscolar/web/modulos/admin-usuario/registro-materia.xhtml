@@ -33,7 +33,7 @@
                         </b:selectOneMenu>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Materia" action="#{adminMateriaBean.createCourse()}"
+                                <b:commandButton icon="ui-icon-check" value="Registrar Materia" action="#{adminMateriaBean.createMateria()}"
                                                  update=":form-tab-cours:panel-01:tab-cours"/>
                             </b:column>
                         </b:row>
@@ -43,18 +43,38 @@
             <b:column>
                 <h:form>
                     <b:panel title="Materias Registradas" collapsible="false">
-                        <p:dataTable var="varMateria" value="#{adminMateriaBean.materias}" paginator="true" rows="5" paginatorPosition="bottom">
+                        <p:dataTable var="varMateria" value="#{adminMateriaBean.materias}" paginator="true" rows="5" paginatorPosition="bottom" editable="true">
+
+                            <p:ajax event="rowEdit" listener="#{adminMateriaBean.onRowEdit}" update=":form:msgs" />
+                            <p:ajax event="rowEditCancel" listener="#{adminMateriaBean.onRowCancel}" update=":form:msgs" />
+
                             <p:column headerText="Nombre">
-                                <h:outputText value="#{varMateria.nombreMateria}" />
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{varMateria.nombreMateria}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{varMateria.nombreMateria}" style="width:100%"/></f:facet>
+                                </p:cellEditor> 
                             </p:column>
-                            <p:column headerText="Horas">
-                                <h:outputText value="#{varMateria.horasSemana}" />
+                            <p:column headerText="Horas">                                
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{varMateria.horasSemana}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{varMateria.horasSemana}" style="width:100%"/></f:facet>
+                                </p:cellEditor> 
                             </p:column>
                             <p:column headerText="Observaciones">
-                                <h:outputText value="#{varMateria.observacion}" />
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{varMateria.observacion}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{varMateria.observacion}" style="width:100%"/></f:facet>
+                                </p:cellEditor> 
                             </p:column>
                             <p:column headerText="Nivel">
-                                <h:outputText value="#{varMateria.nivelAcademicoId.nombreNivel}" />
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{varMateria.nivelAcademicoId.nombreNivel}" /></f:facet>
+                                    <f:facet name="input"><p:inputText value="#{varMateria.nivelAcademicoId.nombreNivel}" style="width:100%"/></f:facet>
+                                </p:cellEditor> 
+                            </p:column>
+                            <p:column>
+                                <p:commandButton icon="ui-icon-close" title="Eliminar" actionListener="#{adminMateriaBean.deleteMateria(varMateria)}" 
+                                                 update=":form-tab-cours:panel-01:tab-cours"/> />
                             </p:column>
                         </p:dataTable>
                         <p:spacer/>

@@ -65,15 +65,17 @@ public class AdminHorarioBean {
         try {
             boolean ban = false;
             List<Horario> horarioAll = horarioFacade.findAll();
+            int x_2 = Integer.parseInt(horario.getHoraInicioClase());
+            int y_2 = Integer.parseInt(horario.getHoraFinClase());
             for (Horario varHorario : horarioAll) {
                 if (varHorario.getFuncionarioId().getFuncionarioId().equals(horario.getFuncionarioId().getFuncionarioId())) {
-                    int x_1 = Integer.parseInt(varHorario.getHoraInicioClase());
-                    int y_1 = Integer.parseInt(varHorario.getHoraFinClase());
-                    int x_2 = Integer.parseInt(horario.getHoraInicioClase());
-                    int y_2 = Integer.parseInt(horario.getHoraFinClase());
-                    if ((x_1 == x_2 && y_1 == y_2) || (x_1 > x_2 && x_1 < y_2) || (y_1 > x_2 && y_1 < y_2) || (x_1 < x_2 && y_1 > y_2)) {
-                        ban = true;
-                        break;
+                    if (varHorario.getDiaClase().equals(horario.getDiaClase())) {
+                        int x_1 = Integer.parseInt(varHorario.getHoraInicioClase());
+                        int y_1 = Integer.parseInt(varHorario.getHoraFinClase());
+                        if ((x_1 == x_2 && y_1 == y_2) || (x_1 > x_2 && x_1 < y_2) || (y_1 > x_2 && y_1 < y_2) || (x_1 < x_2 && y_1 > y_2)) {
+                            ban = true;
+                            break;
+                        }
                     }
                 }
             }

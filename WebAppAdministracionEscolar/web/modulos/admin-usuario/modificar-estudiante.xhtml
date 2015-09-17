@@ -58,15 +58,15 @@
                     </p:cellEditor>           
                 </p:column>
                 <p:column headerText="Parentesco" filterBy="#{estudiante.parentescoFamiliaId}" filterStyle="display:none;" filterMatchMode="contains">
-           <p:cellEditor>
-               <f:facet name="output"><h:outputText value="#{estudiante.parentescoFamiliaId}" /></f:facet>
-               <f:facet name="input">
-                   <h:selectOneMenu value="#{estudiante.parentescoFamiliaId}" style="width:100%">
-                       <f:selectItems value="#{adminEstudiantesModificar.parentescoFamilias.entrySet()}" var="entry" itemLabel="#{entry.value}" itemValue="#{entry.key}" />
-                   </h:selectOneMenu>
-               </f:facet>
-           </p:cellEditor>
-       </p:column>                
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{estudiante.parentescoFamiliaId}" /></f:facet>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{estudiante.parentescoFamiliaId}" style="width:100%">
+                                <f:selectItems value="#{adminEstudiantesModificar.parentescoFamilias.entrySet()}" var="entry" itemLabel="#{entry.value}" itemValue="#{entry.key}" />
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>                
                 <p:column style="width:32px">
                     <p:rowEditor />
                 </p:column>

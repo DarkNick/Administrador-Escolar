@@ -6,6 +6,8 @@
 package com.lusadi.dao;
 
 import com.lusadi.entities.Salon;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,7 +28,6 @@ public class SalonFacade extends AbstractFacade<Salon> {
     }
 
     public void createSalon(Salon salon) {
-        salon.setSalonId(2);
         em.persist(salon);
     }
 
@@ -34,4 +35,27 @@ public class SalonFacade extends AbstractFacade<Salon> {
         super(Salon.class);
     }
 
+    public void deleteSalon(Salon salon) {
+        try {
+            em.remove(salon);
+        } catch (Exception e) {
+            try {
+                throw new Exception(e + " Error al intentar eliminar el salon");
+            } catch (Exception ex) {
+                Logger.getLogger(FuncionarioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void mergeSalon(Salon salon) {
+        try {
+            em.merge(salon);
+        } catch (Exception e) {
+            try {
+                throw new Exception(e + " Error al intentar modificar el salon");
+            } catch (Exception ex) {
+                Logger.getLogger(FuncionarioFacade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
