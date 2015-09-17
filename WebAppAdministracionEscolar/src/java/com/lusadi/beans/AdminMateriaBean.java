@@ -91,9 +91,14 @@ public class AdminMateriaBean implements Serializable {
     }
 
     public void createMateria() {
-        materiaFacade.create(materia);
-        materias = new ArrayList<Materia>(materiaFacade.findAll());
-        materia = new Materia();
+        try {
+            materiaFacade.create(materia);
+            materias = new ArrayList<Materia>(materiaFacade.findAll());
+            materia = new Materia();
+            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
     }
 
     public void findAllMaterias() {

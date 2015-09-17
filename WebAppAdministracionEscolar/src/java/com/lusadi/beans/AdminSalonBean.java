@@ -43,9 +43,14 @@ public class AdminSalonBean implements Serializable {
     }
 
     public void createSalon() {
-        salonFacade.createSalon(salon);
-        salones = new ArrayList<Salon>(salonFacade.findAll());
-        salon = new Salon();
+        try {
+            salonFacade.createSalon(salon);
+            salones = new ArrayList<Salon>(salonFacade.findAll());
+            salon = new Salon();
+            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
     }
 
     public void findAllSalon() {

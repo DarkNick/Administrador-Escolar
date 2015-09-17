@@ -43,9 +43,14 @@ public class AdminCursoBean implements Serializable {
     }
 
     public void createCurso() {
-        cursoFacade.create(curso);
-        cursos = new ArrayList<Curso>(cursoFacade.findAll());
-        curso = new Curso();
+        try {
+            cursoFacade.create(curso);
+            cursos = new ArrayList<Curso>(cursoFacade.findAll());
+            curso = new Curso();
+            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+        } catch (Exception ex) {
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
+        }
     }
 
     public void findAllCursos() {

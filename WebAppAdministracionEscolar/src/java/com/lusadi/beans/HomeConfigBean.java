@@ -190,7 +190,7 @@ public class HomeConfigBean implements Serializable {
 
         TreeNode node02_01 = new DefaultTreeNode(new Funcion("Registro Matricula Estudiante", "/modulos/admin-usuario/registro-matricula.xhtml", "D"), node02);
 
-        TreeNode node03_01 = new DefaultTreeNode(new Funcion("Consulta Historial Academico", "/modulos/admin-usuario/", "D"), node03);
+        TreeNode node03_01 = new DefaultTreeNode(new Funcion("Consulta Historial Academico", "/modulos/admin-usuario/consultar-horario.xhtml", "D"), node03);
         TreeNode node03_02 = new DefaultTreeNode(new Funcion("Registro Notas", "/modulos/admin-usuario/registro-resultado.xhtml", "D"), node03);
 
         return root;
