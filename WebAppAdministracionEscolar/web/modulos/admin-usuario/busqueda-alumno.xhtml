@@ -4,32 +4,31 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:b="http://bootsfaces.net/ui"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    xmlns:p="http://primefaces.org/ui">
     <b:row>
         <h:form>
-            <b:panel title="Busqueda Alumno" collapsible="false" >
-                <p:dataTable id="alumno-table" value="#{adminAlumnoBusqueda.listBusquedaAlumno}" widgetVar="alumnoTable" var="obj" rows="8" paginator="true"
-                             paginatorPosition="bottom" filteredValue="#{adminAlumnoBusqueda.filteredListBusquedaAlumno}"  >
+            <b:panel title="Busqueda Alumnoooo" collapsible="false" >
+                <p:dataTable id="alumno-table" value="#{adminEstudiante.listBusquedaAlumno}" widgetVar="alumnoTable" var="obj" rows="8" paginator="true"
+                             paginatorPosition="bottom" filteredValue="#{adminEstudiante.filteredListBusquedaAlumno}"  >
                     <f:facet name="header">
                         <p:outputPanel>
                             <p:inputText id="globalFilter" onkeyup=" PF('alumnoTable').filter();"  style="width: 60%;"  placeholder="Ingrese un valor de busqueda"/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="Nombre" filterBy="#{obj.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.usuario.nombres}" />
-                    </p:column>
-                    <p:column headerText="Primer Apellido" filterBy="#{obj.usuario.primerApellido}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.usuario.primerApellido}" />
-                    </p:column>
-                    <p:column headerText="Segundo Apellido" filterBy="#{obj.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.usuario.segundoApellido}" />
-                    </p:column>              
                     <p:column headerText="Tipo Identificacion" filterBy="#{obj.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
                         <h:outputText value="#{obj.usuario.usuarioPK.tipoId}" />
                     </p:column>
                     <p:column headerText="Numero Identificacion" filterBy="#{obj.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
                         <h:outputText value="#{obj.usuario.usuarioPK.numeroId}" />
+                    </p:column>
+                    <p:column headerText="Segundo Apellido" filterBy="#{obj.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.usuario.segundoApellido}" />
+                    </p:column>
+                    <p:column headerText="Primer Apellido" filterBy="#{obj.usuario.primerApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.usuario.primerApellido}" />
+                    </p:column>
+                    <p:column headerText="Nombre" filterBy="#{obj.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.usuario.nombres}" />
                     </p:column>
                 </p:dataTable>
             </b:panel>

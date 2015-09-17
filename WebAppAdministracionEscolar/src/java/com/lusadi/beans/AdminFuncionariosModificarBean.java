@@ -24,14 +24,15 @@ import org.primefaces.event.RowEditEvent;
  *
  * @author Dark_Nick
  */
-@ManagedBean(name="adminFuncionariosModificar")
+@ManagedBean(name = "adminFuncionariosModificar")
 @ViewScoped
-public class adminFuncionariosModificarBean implements Serializable{
-    
+public class AdminFuncionariosModificarBean implements Serializable {
+
     @EJB
     private FuncionarioFacade funcionarioFacade;
     private String campoFuncionario = "";
     private List<Funcionario> listFuncionario = new ArrayList<Funcionario>();
+    private List<Funcionario> filteredListBusquedaFuncionario;
 
     public FuncionarioFacade getFuncionarioFacade() {
         return funcionarioFacade;
@@ -56,30 +57,40 @@ public class adminFuncionariosModificarBean implements Serializable{
     public void setListFuncionario(List<Funcionario> listFuncionario) {
         this.listFuncionario = listFuncionario;
     }
-    
+
+    public List<Funcionario> getFilteredListBusquedaFuncionario() {
+        return filteredListBusquedaFuncionario;
+    }
+
+    public void setFilteredListBusquedaFuncionario(List<Funcionario> filteredListBusquedaFuncionario) {
+        this.filteredListBusquedaFuncionario = filteredListBusquedaFuncionario;
+    }
+
     @PostConstruct
     public void init() {
         this.listFuncionario = funcionarioFacade.findAll();
     }
-    public adminFuncionariosModificarBean() {
+
+    public AdminFuncionariosModificarBean() {
     }
+
     public void onRowEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Car Edited", ((Funcionario) event.getObject()).toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     
+
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Funcionario) event.getObject()).toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-     
+
     public void onCellEdit(CellEditEvent event) {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
-         
-        if(newValue != null && !newValue.equals(oldValue)) {
+
+        if (newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-    }    
+    }
 }

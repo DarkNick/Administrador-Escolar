@@ -15,27 +15,28 @@
                             <p:inputText id="globalFilter" onkeyup=" PF('funcionarioTable').filter();"  style="width: 60%;"  placeholder="Ingrese un valor de busqueda"/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="Cargo" filterBy="#{obj.cargoId.nombreCargo}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.cargoId.nombreCargo}" />
-                    </p:column>
-                    <p:column headerText="Nombre" filterBy="#{obj.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.usuario.nombres}" />
-                    </p:column>
-                    <p:column headerText="Primer Apellido" filterBy="#{obj.usuario.primerApellido}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.usuario.primerApellido}" />
-                    </p:column>
-                    <p:column headerText="Segundo Apellido" filterBy="#{obj.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.usuario.segundoApellido}" />
-                    </p:column>
-                    <p:column headerText="Saldo" filterBy="#{obj.saldoNeto}" filterStyle="display:none;" filterMatchMode="contains">
-                        <h:outputText value="#{obj.saldoNeto}" />
-                    </p:column>                    
                     <p:column headerText="Tipo Identificacion" filterBy="#{obj.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
                         <h:outputText value="#{obj.usuario.usuarioPK.tipoId}" />
                     </p:column>
                     <p:column headerText="Numero Identificacion" filterBy="#{obj.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
                         <h:outputText value="#{obj.usuario.usuarioPK.numeroId}" />
                     </p:column>
+                    <p:column headerText="Segundo Apellido" filterBy="#{obj.usuario.segundoApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.usuario.segundoApellido}" />
+                    </p:column>
+                    <p:column headerText="Primer Apellido" filterBy="#{obj.usuario.primerApellido}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.usuario.primerApellido}" />
+                    </p:column>
+                    <p:column headerText="Nombre" filterBy="#{obj.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.usuario.nombres}" />
+                    </p:column>
+                    <p:column headerText="Cargo" filterBy="#{obj.cargoId.nombreCargo}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.cargoId.nombreCargo}" />
+                    </p:column>
+                    <p:column headerText="Salario" filterBy="#{obj.saldoNeto}" filterStyle="display:none;" filterMatchMode="contains">
+                        <h:outputText value="#{obj.saldoNeto}" />
+                    </p:column>                    
+
                 </p:dataTable>
             </b:panel>
         </h:form>

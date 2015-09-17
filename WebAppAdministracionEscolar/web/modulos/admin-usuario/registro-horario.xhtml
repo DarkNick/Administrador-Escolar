@@ -6,13 +6,14 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <b:row>
-        <b:panelGrid id="pgMaterias" colSpans="6,6">
-            <b:column>
-                <h:form>
-                    <b:panel title="Horario" collapsible="false">
-                        <p:messages autoUpdate="true" closable="true"/>   
+        <h:form>
+            <b:panel title="Horario" collapsible="false">
+                <b:row>
+                    <b:column style="text-align: center;">
+                        <p:messages autoUpdate="true" closable="true"/>
+
                         <h:outputLabel value="Dia de Clase"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.diaClase}" required="true" >
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.diaClase}" required="true" style="width: 50%;" >
                             <f:selectItem itemLabel="Seleccione un Día" itemValue="" />
                             <f:selectItem itemLabel="Lunes" itemValue="Lunes" />
                             <f:selectItem itemLabel="Martes" itemValue="Martes" />
@@ -21,7 +22,7 @@
                             <f:selectItem itemLabel="Viernes" itemValue="Viernes" />
                         </p:selectOneMenu>
                         <h:outputLabel value="Hora de Inicio"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.horaInicioClase}" required="true" >
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.horaInicioClase}" required="true" style="width: 50%;" >
                             <f:selectItem itemLabel="Seleccione una Hora" itemValue="" />
                             <f:selectItem itemLabel="6:00 am" itemValue="6" />
                             <f:selectItem itemLabel="7:00 am" itemValue="7" />
@@ -37,7 +38,7 @@
                             <f:selectItem itemLabel="5:00 am" itemValue="17" />
                         </p:selectOneMenu>
                         <h:outputLabel value="Hora de Fin"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.horaFinClase}" required="true" >
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.horaFinClase}" required="true" style="width: 50%;">
                             <f:selectItem itemLabel="Seleccione una Hora" itemValue="" />
                             <f:selectItem itemLabel="6:00 am" itemValue="6" />
                             <f:selectItem itemLabel="7:00 am" itemValue="7" />
@@ -53,40 +54,35 @@
                             <f:selectItem itemLabel="5:00 am" itemValue="17" />
                         </p:selectOneMenu>
                         <h:outputLabel value="Materia"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.materiaId}" effect="fold" editable="true">
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.materiaId}" effect="fold" editable="false" style="width: 50%;">
                             <f:selectItem itemLabel="Seleccione una Materia" itemValue="" />
                             <f:selectItems value="#{adminHorarioBean.materias.entrySet()}"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
                         </p:selectOneMenu>
                         <h:outputLabel value="Curso"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.cursoId}" effect="fold" editable="true">
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.cursoId}" effect="fold" editable="false" style="width: 50%;">
                             <f:selectItem itemLabel="Seleccione un Curso" itemValue="" />
                             <f:selectItems value="#{adminHorarioBean.cursos.entrySet()}"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
                         </p:selectOneMenu>
                         <h:outputLabel value="Funcionario"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.funcionarioId}" effect="fold" editable="true">
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.funcionarioId}" effect="fold" editable="false" style="width: 50%;">
                             <f:selectItem itemLabel="Seleccione un Funcionario" itemValue="" />
                             <f:selectItems value="#{adminHorarioBean.funcionarios.entrySet()}"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
                         </p:selectOneMenu>
                         <h:outputLabel value="Resultado Academico"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.resultadoAcademicoId}" effect="fold" editable="true">
+                        <p:selectOneMenu value="#{adminHorarioBean.horario.resultadoAcademicoId}" effect="fold" editable="false" style="width: 50%;">
                             <f:selectItem itemLabel="Seleccione un Resultado" itemValue="" />
                             <f:selectItems value="#{adminHorarioBean.resultados.entrySet()}"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
                         </p:selectOneMenu>
-                        <b:row>
-                            <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Horario" action="#{adminHorarioBean.createHorario()}"
-                                                 update=":form-tab-cours:panel-01:tab-cours"/>
-                            </b:column>
-                        </b:row>
-                    </b:panel>
-                </h:form>
-            </b:column>
-            <b:column>
-            </b:column>
-        </b:panelGrid>
+                        <br/><br/>
+                        <b:commandButton icon="ui-icon-check" value="Registrar Horario" action="#{adminHorarioBean.createHorario()}"
+                                         update=":form-tab-cours:panel-01:tab-cours"/>
+                    </b:column>
+                </b:row>
+            </b:panel>
+        </h:form>
     </b:row>
 </ui:composition>

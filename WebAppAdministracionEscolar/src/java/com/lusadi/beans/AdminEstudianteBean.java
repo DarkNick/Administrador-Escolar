@@ -49,6 +49,9 @@ public class AdminEstudianteBean {
     private Login login = new Login();
     private Estudiante estudiante = new Estudiante();
 
+    private List<Estudiante> listBusquedaAlumno;
+    private List<Estudiante> filteredListBusquedaAlumno;
+
     public ParentescoFamilia getParentescoFamilia() {
         return parentescoFamilia;
     }
@@ -71,6 +74,7 @@ public class AdminEstudianteBean {
         parentescoFamilias = parseParentescoFamiliasToMap(parentescoFamiliaFacade.findAll());
         estudiante.setUsuario(new Usuario());
         estudiante.getUsuario().setUsuarioPK(new UsuarioPK());
+        listBusquedaAlumno = estudianteFacade.findAll();
     }
 
     public EstudianteFacade getEstudianteFacade() {
@@ -127,6 +131,22 @@ public class AdminEstudianteBean {
 
     public void setEstudiante(Estudiante estudiante) {
         this.estudiante = estudiante;
+    }
+
+    public List<Estudiante> getListBusquedaAlumno() {
+        return listBusquedaAlumno;
+    }
+
+    public void setListBusquedaAlumno(List<Estudiante> listBusquedaAlumno) {
+        this.listBusquedaAlumno = listBusquedaAlumno;
+    }
+
+    public List<Estudiante> getFilteredListBusquedaAlumno() {
+        return filteredListBusquedaAlumno;
+    }
+
+    public void setFilteredListBusquedaAlumno(List<Estudiante> filteredListBusquedaAlumno) {
+        this.filteredListBusquedaAlumno = filteredListBusquedaAlumno;
     }
 
     public AdminEstudianteBean() {
