@@ -8,9 +8,9 @@
     <b:row>
         <b:panelGrid colSpans="6,6">
             <b:column>
-                <h:form>
+                <h:form id="form-tab-cours-02">
                     <b:panel title="Curso" collapsible="false">
-                        <p:messages autoUpdate="true" closable="true"/>
+                        <p:messages id="msgs01" autoUpdate="true" closable="true"/>
                         <h:outputLabel value="Numero Curso"/>
                         <b:inputText value="#{adminCursoBean.curso.cursoId}" title="Numero Curso" maxlength="20" required="true"/>
                         <h:outputLabel value="Observaciones"/>
@@ -29,8 +29,8 @@
                     <b:panel id="panel-01" title="Cursos Registrados" collapsible="false">
                         <p:dataTable id="tab-cours" var="varCurso" value="#{adminCursoBean.cursos}" paginator="true" rows="5" paginatorPosition="bottom" editable="true">
 
-                            <p:ajax event="rowEdit" listener="#{adminCursoBean.onRowEdit}" update=":form:msgs" />
-                            <p:ajax event="rowEditCancel" listener="#{adminCursoBean.onRowCancel}" update=":form:msgs" />
+                            <p:ajax event="rowEdit" listener="#{adminCursoBean.onRowEdit}" update=":form-tab-cours-02:msgs01" />
+                            <p:ajax event="rowEditCancel" listener="#{adminCursoBean.onRowCancel}" update=":form-tab-cours-02:msgs01" />
 
                             <p:column headerText="ID">
                                 <p:cellEditor>
@@ -43,6 +43,9 @@
                                     <f:facet name="output"><h:outputText value="#{varCurso.observaciones}" /></f:facet>
                                     <f:facet name="input"><p:inputText value="#{varCurso.observaciones}" style="width:100%"/></f:facet>
                                 </p:cellEditor> 
+                            </p:column>
+                            <p:column style="width:32px">
+                                <p:rowEditor />
                             </p:column>
                         </p:dataTable>
                         <p:spacer/>
