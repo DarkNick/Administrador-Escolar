@@ -9,7 +9,6 @@ import com.lusadi.dao.EstudianteFacade;
 import com.lusadi.dao.ParentescoFamiliaFacade;
 import com.lusadi.dao.UsuarioFacade;
 import com.lusadi.entities.Estudiante;
-import com.lusadi.entities.Funcionario;
 import com.lusadi.entities.ParentescoFamilia;
 import com.lusadi.entities.Usuario;
 import java.io.Serializable;
@@ -26,7 +25,6 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.event.RowEditEvent;
 
 /**
- *
  * @author Dark_Nick
  */
 @ManagedBean(name="adminEstudiantesModificar")
@@ -41,7 +39,6 @@ public class AdminEstudianteModificarBean implements Serializable{
     private ParentescoFamiliaFacade parentescoFamiliaFacade;    
     private List<Estudiante> listEstudiantes = new ArrayList<>();
     private List<Estudiante> filteredListBusquedaEstudiante;
-    
     private Map<String, ParentescoFamilia> parentescoFamilias;
 
     public ParentescoFamiliaFacade getParentescoFamiliaFacade() {
@@ -101,11 +98,14 @@ public class AdminEstudianteModificarBean implements Serializable{
     public AdminEstudianteModificarBean() {
     }
     public void onRowEdit(RowEditEvent event) {
+        System.err.println("*****entro a EDITAr************");
         usuarioFacade.modificar((Usuario)(((Estudiante) event.getObject()).getUsuario()));
+        System.err.println("*****actualizo usuario************");
+        System.err.println(((Estudiante) event.getObject()).getParentescoFamiliaId().getParentesco());
         estudianteFacade.modificar(((Estudiante) event.getObject()));
         System.err.println("*****EDITANDO************");
-        FacesMessage msg = new FacesMessage("Car Edited", ((Estudiante) event.getObject()).toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    //    FacesMessage msg = new FacesMessage("Car Edited", ((Estudiante) event.getObject()).toString());
+    //    FacesContext.getCurrentInstance().addMessage(null, msg);
     }
      
     public void onRowCancel(RowEditEvent event) {
