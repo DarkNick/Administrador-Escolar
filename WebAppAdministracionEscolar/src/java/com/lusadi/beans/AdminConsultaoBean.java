@@ -29,6 +29,7 @@ public class AdminConsultaoBean {
     private FuncionarioFacade funcionarioFacade;
 
     private ArrayList<Funcionario> funcionarios;
+    private ArrayList<Horario> horarios = new ArrayList<Horario>();
     private Funcionario funcionario = new Funcionario();
     private Horario horario = new Horario();
 
@@ -38,6 +39,15 @@ public class AdminConsultaoBean {
     @PostConstruct
     public void init() {
         funcionarios = new ArrayList<Funcionario>(funcionarioFacade.findAll());
+    }
+
+    public void cargarDatos() {
+        ArrayList<Horario> horarioAll = new ArrayList<Horario>(horarioFacade.findAll());
+        for (Horario var : horarioAll) {
+            if (var.getFuncionarioId().getFuncionarioId().equals(funcionario.getFuncionarioId())) {
+                horarios.add(var);
+            }
+        }
     }
 
     public ArrayList<Funcionario> getFuncionarios() {
@@ -54,6 +64,23 @@ public class AdminConsultaoBean {
 
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
+        cargarDatos();
+    }
+
+    public ArrayList<Horario> getHorarios() {
+        return horarios;
+    }
+
+    public void setHorarios(ArrayList<Horario> horarios) {
+        this.horarios = horarios;
+    }
+
+    public Horario getHorario() {
+        return horario;
+    }
+
+    public void setHorario(Horario horario) {
+        this.horario = horario;
     }
 
 }

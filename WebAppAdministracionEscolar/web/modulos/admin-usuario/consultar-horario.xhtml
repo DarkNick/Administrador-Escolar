@@ -25,31 +25,53 @@
                 <p:column headerText="Nombre">
                     <h:outputText value="#{varFuncionario.usuario.nombres}" />
                 </p:column>
-                <p:column style="width:32px;text-align: center">
-                    <p:commandButton update=":form:carDetail" oncomplete="PF('funcionarioDialog').show()" icon="ui-icon-search" title="View">
-                        <f:setPropertyActionListener value="#{varFuncionario}" target="#{adminConsultaoBean.funcionario}" />
-                    </p:commandButton>
-                </p:column>
+
+                <p:rowExpansion>
+                    <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
+                        <f:facet name="header">
+                            Materias y Cursos
+                        </f:facet>
+
+                        <h:outputText value="Materia:" />
+                        <h:outputText value="Curso" />
+
+                        <p:dataTable id="basicDT" var="varMaterias" value="#{adminConsultaoBean.horarios}">
+                            <p:column>
+                                <h:outputText value="#{varMaterias.materiaId.nombreMateria}" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{varMaterias.cursoId.cursoId}" />
+                            </p:column>
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton update=":form:carDetail" oncomplete="PF('funcionarioDialog').show()" icon="ui-icon-search" title="View">
+                                    <f:setPropertyActionListener value="#{varMaterias}" target="#{adminConsultaoBean.horario}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                    </p:panelGrid>
+                </p:rowExpansion>
             </p:dataTable>
 
             <p:dialog header="Funcionario Info" widgetVar="funcionarioDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                 <p:outputPanel id="carDetail" style="text-align:center;">
-                    <p:panelGrid  columns="2" rendered="#{not empty adminConsultaoBean.funcionario}" columnClasses="label,value">
+                    <p:panelGrid  columns="2" rendered="#{not empty adminConsultaoBean.horario}" columnClasses="label,value">
                         <f:facet name="header">
-                            Datos
+                            Notas
                         </f:facet>
 
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{adminConsultaoBean.funcionario.funcionarioId}" />
+                        <p:dataTable id="basicDT" var="varNotas" value="#{adminConsultaoBean.horario.resultadoAcademicoId.notaList}">
+                            <p:column headerText="Porcetaje">
+                                <h:outputText value="#{varNotas.porcentaje}" />
+                            </p:column>
+                            <p:column headerText="Nota">
+                                <h:outputText value="#{varNotas.nota}" />
+                            </p:column>
+                            <p:column headerText="Comentario">
+                                <h:outputText value="#{varNotas.comentario}" />
+                            </p:column>
+                        </p:dataTable>
 
-                        <h:outputText value="Primer Apellido" />
-                        <h:outputText value="#{adminConsultaoBean.funcionario.usuario.primerApellido}" />
-
-                        <h:outputText value="Segundo Apellido:" />
-                        <h:outputText value="#{adminConsultaoBean.funcionario.usuario.segundoApellido}"/>
-
-                        <h:outputText value="Nombre" />
-                        <h:outputText value="$#{adminConsultaoBean.funcionario.usuario.nombres}" />
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>
