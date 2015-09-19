@@ -34,8 +34,8 @@
                             <f:selectItem itemLabel="1:00 pm" itemValue="13" />
                             <f:selectItem itemLabel="2:00 pm" itemValue="14" />
                             <f:selectItem itemLabel="3:00 pm" itemValue="15" />
-                            <f:selectItem itemLabel="4:00 am" itemValue="16" />
-                            <f:selectItem itemLabel="5:00 am" itemValue="17" />
+                            <f:selectItem itemLabel="4:00 pm" itemValue="16" />
+                            <f:selectItem itemLabel="5:00 pm" itemValue="17" />
                         </p:selectOneMenu>
                         <h:outputLabel value="Hora de Fin"/>
                         <p:selectOneMenu value="#{adminHorarioBean.horario.horaFinClase}" required="true" style="width: 50%;">
@@ -50,35 +50,35 @@
                             <f:selectItem itemLabel="1:00 pm" itemValue="13" />
                             <f:selectItem itemLabel="2:00 pm" itemValue="14" />
                             <f:selectItem itemLabel="3:00 pm" itemValue="15" />
-                            <f:selectItem itemLabel="4:00 am" itemValue="16" />
-                            <f:selectItem itemLabel="5:00 am" itemValue="17" />
+                            <f:selectItem itemLabel="4:00 pm" itemValue="16" />
+                            <f:selectItem itemLabel="5:00 pm" itemValue="17" />
                         </p:selectOneMenu>
                         <h:outputLabel value="Materia"/>
                         <p:selectOneMenu value="#{adminHorarioBean.horario.materiaId}" effect="fold" editable="false" style="width: 50%;">
                             <f:selectItem itemLabel="Seleccione una Materia" itemValue="" />
-                            <f:selectItems value="#{adminHorarioBean.materias.entrySet()}"
+                            <f:selectItems value="#{adminHorarioBean.materias.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
                         </p:selectOneMenu>
                         <h:outputLabel value="Curso"/>
                         <p:selectOneMenu value="#{adminHorarioBean.horario.cursoId}" effect="fold" editable="false" style="width: 50%;">
                             <f:selectItem itemLabel="Seleccione un Curso" itemValue="" />
-                            <f:selectItems value="#{adminHorarioBean.cursos.entrySet()}"
+                            <f:selectItems value="#{adminHorarioBean.cursos.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
                         </p:selectOneMenu>
                         <h:outputLabel value="Funcionario"/>
                         <p:selectOneMenu value="#{adminHorarioBean.horario.funcionarioId}" effect="fold" editable="false" style="width: 50%;">
                             <f:selectItem itemLabel="Seleccione un Funcionario" itemValue="" />
-                            <f:selectItems value="#{adminHorarioBean.funcionarios.entrySet()}"
+                            <f:selectItems value="#{adminHorarioBean.funcionarios.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
                         </p:selectOneMenu>
-                        <h:outputLabel value="Resultado Academico"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.resultadoAcademicoId}" effect="fold" editable="false" style="width: 50%;">
+                        <!--<h:outputLabel value="Resultado Academico"/>
+                        <p:selectOneMenu value="#//{adminHorarioBean.horario.resultadoAcademicoId}" effect="fold" editable="false" style="width: 50%;">
                             <f:selectItem itemLabel="Seleccione un Resultado" itemValue="" />
-                            <f:selectItems value="#{adminHorarioBean.resultados.entrySet()}"
-                                           itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
-                        </p:selectOneMenu>
+                            <f:selectItems value="#//{adminHorarioBean.resultados.entrySet()}"
+                                           itemValue="#//{entry.value}" itemLabel="#//{entry.key}"/>
+                        </p:selectOneMenu> -->
                         <br/><br/>
-                        <b:commandButton icon="ui-icon-check" value="Registrar Horario" action="#{adminHorarioBean.createHorario()}"
+                        <b:commandButton icon="ui-icon-check" value="Registrar Horario" title="Registrar Horario" action="#{adminHorarioBean.createHorario()}"
                                          update=":form-tab-cours:panel-01:tab-cours"/>
                     </b:column>
                 </b:row>

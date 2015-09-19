@@ -22,7 +22,7 @@ import org.primefaces.event.RowEditEvent;
 
 /**
  *
- * @author Personal
+ * @author Sebastian Vega
  */
 @ManagedBean
 @RequestScoped
@@ -47,6 +47,7 @@ public class AdminSalonBean implements Serializable {
             salonFacade.createSalon(salon);
             salones = new ArrayList<Salon>(salonFacade.findAll());
             salon = new Salon();
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "El Registro Fue Realizado Correctamente");
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
@@ -71,19 +72,19 @@ public class AdminSalonBean implements Serializable {
     }
 
     public void onRowEdit(RowEditEvent event) {
-        salonFacade.mergeSalon(((Salon) event.getObject()));
-        FacesMessage msg = new FacesMessage("Salon Edited", ((Salon) event.getObject()).toString());
+        salonFacade.edit(((Salon) event.getObject()));
+        FacesMessage msg = new FacesMessage("Salon Actualizado", ((Salon) event.getObject()).toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Salon) event.getObject()).toString());
+        FacesMessage msg = new FacesMessage("Cancelado", ((Salon) event.getObject()).toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void deleteMateria(Salon item) {
         try {
-            salonFacade.deleteSalon(item);
+            salonFacade.remove(item);
             salones.remove(item);
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());

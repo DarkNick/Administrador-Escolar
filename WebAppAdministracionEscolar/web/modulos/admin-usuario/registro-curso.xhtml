@@ -12,12 +12,12 @@
                     <b:panel title="Curso" collapsible="false">
                         <p:messages id="msgs01" autoUpdate="true" closable="true"/>
                         <h:outputLabel value="Numero Curso"/>
-                        <b:inputText value="#{adminCursoBean.curso.cursoId}" title="Numero Curso" maxlength="20" required="true"/>
+                        <b:inputText value="#{adminCursoBean.curso.cursoId}" title="Numero Curso" placeholder="Numero" maxlength="10" required="true"/>
                         <h:outputLabel value="Observaciones"/>
                         <p:inputTextarea value="#{adminCursoBean.curso.observaciones}" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Curso" action="#{adminCursoBean.createCurso()}" 
+                                <b:commandButton icon="ui-icon-check" value="Registrar Curso" title="Registrar Curso" action="#{adminCursoBean.createCurso()}" 
                                                  update=":form-tab-cours:panel-01:tab-cours"/>
                             </b:column>
                         </b:row>
@@ -51,14 +51,13 @@
                         <p:spacer/>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Mostrar Cursos" action="#{adminCursoBean.findAllCursos()}" />
+                                <b:commandButton icon="ui-icon-check" value="Mostrar Cursos" title="Mostrar Cursos" action="#{adminCursoBean.findAllCursos()}" />
                             </b:column>
                         </b:row>
                     </b:panel>
                 </h:form>
             </b:column>
         </b:panelGrid>
-
     </b:row>
 </ui:composition>
 

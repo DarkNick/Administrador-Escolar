@@ -8,18 +8,18 @@
     <b:row>
         <b:panelGrid colSpans="6,6">
             <b:column>
-                <h:form id="registerSalon">
+                <h:form id="form-tab-salon-02">
                     <b:panel title="Salon" collapsible="false">
-                        <p:messages/>
+                        <p:messages id="msgs01" autoUpdate="true" closable="true"/>
                         <h:outputLabel value="Ubicacion del Salon"/>
-                        <b:inputText value="#{adminSalonBean.salon.ubicacionSalon}" title="Ubicacion" maxlength="50" required="true"/>
+                        <b:inputText value="#{adminSalonBean.salon.ubicacionSalon}" title="Ubicacion del Salon" placeholder="Ubicacion" maxlength="50" required="true"/>
                         <h:outputLabel value="Capacidad del Salon"/>
-                        <b:inputText value="#{adminSalonBean.salon.capacidad}" title="Capacidad" required="true">
+                        <b:inputText value="#{adminSalonBean.salon.capacidad}" title="Capacidad del Salon" placeholder="Capacidad" required="true">
                             <f:validateDoubleRange minimum="1" maximum="60" />
                         </b:inputText>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Salon" action="#{adminSalonBean.createSalon()}"
+                                <b:commandButton icon="ui-icon-check" value="Registrar Salon" title="Registrar Salon" action="#{adminSalonBean.createSalon()}"
                                                  update=":form-tab-salon:panel-01:tab-salon"/>
                             </b:column>
                         </b:row>
@@ -31,8 +31,8 @@
                     <b:panel id="panel-01" title="Salones Registrados" collapsible="false">
                         <p:dataTable id="tab-salon" var="varSalon" value="#{adminSalonBean.salones}" paginator="true" rows="5" paginatorPosition="bottom" editable="true">
 
-                            <p:ajax event="rowEdit" listener="#{adminSalonBean.onRowEdit}" update=":form:msgs" />
-                            <p:ajax event="rowEditCancel" listener="#{adminSalonBean.onRowCancel}" update=":form:msgs" />
+                            <p:ajax event="rowEdit" listener="#{adminSalonBean.onRowEdit}" update=":form-tab-salon-02:msgs01" />
+                            <p:ajax event="rowEditCancel" listener="#{adminSalonBean.onRowCancel}" update=":form-tab-salon-02:msgs01" />
 
                             <p:column headerText="Ubicacion">
                                 <p:cellEditor>
@@ -46,11 +46,14 @@
                                     <f:facet name="input"><p:inputText value="#{varSalon.capacidad}" style="width:100%"/></f:facet>
                                 </p:cellEditor> 
                             </p:column>
+                            <p:column style="width:32px">
+                                <p:rowEditor />
+                            </p:column>
                         </p:dataTable>
                         <p:spacer/>
                         <b:row>
                             <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Mostrar Salones" action="#{adminSalonBean.findAllSalon()}" update="pgSalones"/>
+                                <b:commandButton icon="ui-icon-check" value="Mostrar Salones" title="Mostrar Salon" action="#{adminSalonBean.findAllSalon()}" update="pgSalones"/>
                             </b:column>
                         </b:row>
                     </b:panel>

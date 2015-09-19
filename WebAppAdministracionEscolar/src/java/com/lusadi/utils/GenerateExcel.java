@@ -40,8 +40,7 @@ public class GenerateExcel {
         }
         return generateExcel;
     }
-
-    // el tipo de dato del array es variable tiene que traer a todas las personas registradas
+    
     public byte[] generarNomina(ArrayList<String> documento) throws IOException {
         Calendar calendar = new GregorianCalendar();
         String month = recognizeMonth((calendar.get(Calendar.MONTH) + 1));
@@ -165,19 +164,27 @@ public class GenerateExcel {
         my_style2.setBorderBottom(HSSFCellStyle.BORDER_DOUBLE);
         Font my_font = libro.createFont();
         my_font.setColor(Font.COLOR_RED);
-        
-        //------- 
-        for (int i = 0; i < documento.size(); i++) {
-            Row fila6 = hoja.createRow(5 + i);
-            for (int j = 0; j < 14; j++) {
-                celda = fila6.createCell(j + 1);
-                celda.setCellValue(documento.get(i));
-                my_style2.setFont(my_font);
-                celda.setCellStyle(my_style2);
-            }
+
+        for (int i = 0, j = 0; i < documento.size(); i += 7, j++) {
+            Row fila6 = hoja.createRow(5 + j);
+            celda = fila6.createCell(1);
+            celda.setCellValue(documento.get(i));
+            celda = fila6.createCell(2);
+            celda.setCellValue(documento.get(i + 1));
+            celda = fila6.createCell(3);
+            celda.setCellValue(documento.get(i + 2));
+            celda = fila6.createCell(4);
+            celda.setCellValue(documento.get(i + 3));
+            celda = fila6.createCell(5);
+            celda.setCellValue(documento.get(i + 4));
+            celda = fila6.createCell(6);
+            celda.setCellValue(documento.get(i + 5));
+            celda = fila6.createCell(7);
+            celda.setCellValue(documento.get(i + 6));
+            my_style2.setFont(my_font);
+            celda.setCellStyle(my_style2);
         }
-        
-        
+
         Row fila7 = hoja.createRow(documento.size() + 5);
         celda = fila7.createCell(8);
         celda.setCellValue("APORTE");

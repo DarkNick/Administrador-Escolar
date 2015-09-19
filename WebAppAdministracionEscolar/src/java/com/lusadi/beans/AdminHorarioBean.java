@@ -19,6 +19,7 @@ import com.lusadi.utils.UtilFaces;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -27,12 +28,12 @@ import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author Personal
+ * @author Sebastian Vega
  */
 @ManagedBean
 @RequestScoped
 public class AdminHorarioBean {
-
+    
     @EJB
     private MateriaFacade materiaFacade;
     @EJB
@@ -43,24 +44,27 @@ public class AdminHorarioBean {
     private FuncionarioFacade funcionarioFacade;
     @EJB
     private CursoFacade cursoFacade;
-
+    
     private Horario horario = new Horario();
     private Map<String, Curso> cursos;
     private Map<String, Funcionario> funcionarios;
     private Map<String, Materia> materias;
     private Map<String, ResultadoAcademico> resultados;
-
+    
     public AdminHorarioBean() {
     }
-
+    
     @PostConstruct
     public void init() {
         cursos = parseCursosToMap(cursoFacade.findAll());
         funcionarios = parseFuncionarioToMap(funcionarioFacade.findAll());
+        Map<String, Funcionario> treeMap = new TreeMap<String, Funcionario>(funcionarios);
+        funcionarios.clear();
+        funcionarios.putAll(treeMap);
         materias = parseMateriaToMap(materiaFacade.findAll());
         resultados = parseResultadoAcademicoToMap(resultadoAcademicoFacade.findAll());
     }
-
+    
     public void createHorario() {
         try {
             boolean ban = false;
@@ -81,6 +85,7 @@ public class AdminHorarioBean {
             }
             if (!ban) {
                 horarioFacade.createHorario(horario);
+                UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "El Registro Fue Realizado Correctamente");
             } else {
                 UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, "El Funcionario se encuentra ocupado en esta franja");
             }
@@ -89,25 +94,25 @@ public class AdminHorarioBean {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
-
+    
     private Map<String, Curso> parseCursosToMap(List<Curso> findAll) {
         Map<String, Curso> outcome = new LinkedHashMap<String, Curso>();
         for (Curso s : findAll) {
-            String key = Integer.toString(s.getCursoId());
+            String key = "Curso:  " + s.getCursoId();
             outcome.put(key.toUpperCase(), s);
         }
         return outcome;
     }
-
+    
     private Map<String, Funcionario> parseFuncionarioToMap(List<Funcionario> findAll) {
         Map<String, Funcionario> outcome = new LinkedHashMap<String, Funcionario>();
         for (Funcionario s : findAll) {
-            String key = s.getUsuario().getPrimerApellido() + " " + s.getUsuario().getSegundoApellido() + " " + s.getUsuario().getNombres();
+            String key = s.getUsuario().getPrimerApellido() + " " + s.getUsuario().getSegundoApellido() + ",  " + s.getUsuario().getNombres();
             outcome.put(key.toUpperCase(), s);
         }
         return outcome;
     }
-
+    
     private Map<String, Materia> parseMateriaToMap(List<Materia> findAll) {
         Map<String, Materia> outcome = new LinkedHashMap<String, Materia>();
         for (Materia s : findAll) {
@@ -116,7 +121,7 @@ public class AdminHorarioBean {
         }
         return outcome;
     }
-
+    
     private Map<String, ResultadoAcademico> parseResultadoAcademicoToMap(List<ResultadoAcademico> findAll) {
         Map<String, ResultadoAcademico> outcome = new LinkedHashMap<String, ResultadoAcademico>();
         for (ResultadoAcademico s : findAll) {
@@ -125,45 +130,45 @@ public class AdminHorarioBean {
         }
         return outcome;
     }
-
+    
     public Horario getHorario() {
         return horario;
     }
-
+    
     public void setHorario(Horario horario) {
         this.horario = horario;
     }
-
+    
     public Map<String, Curso> getCursos() {
         return cursos;
     }
-
+    
     public void setCursos(Map<String, Curso> cursos) {
         this.cursos = cursos;
     }
-
+    
     public Map<String, Funcionario> getFuncionarios() {
         return funcionarios;
     }
-
+    
     public void setFuncionarios(Map<String, Funcionario> funcionarios) {
         this.funcionarios = funcionarios;
     }
-
+    
     public Map<String, Materia> getMaterias() {
         return materias;
     }
-
+    
     public void setMaterias(Map<String, Materia> materias) {
         this.materias = materias;
     }
-
+    
     public Map<String, ResultadoAcademico> getResultados() {
         return resultados;
     }
-
+    
     public void setResultados(Map<String, ResultadoAcademico> resultados) {
         this.resultados = resultados;
     }
-
+    
 }

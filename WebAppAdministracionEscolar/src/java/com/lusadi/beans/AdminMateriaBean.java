@@ -29,7 +29,7 @@ import org.primefaces.event.RowEditEvent;
 
 /**
  *
- * @author Personal
+ * @author Sebastian Vega
  */
 @ManagedBean
 @RequestScoped
@@ -95,6 +95,7 @@ public class AdminMateriaBean implements Serializable {
             materiaFacade.create(materia);
             materias = new ArrayList<Materia>(materiaFacade.findAll());
             materia = new Materia();
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "El Registro Fue Realizado Correctamente");
             UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
@@ -119,19 +120,19 @@ public class AdminMateriaBean implements Serializable {
     }
 
     public void onRowEdit(RowEditEvent event) {
-        materiaFacade.mergeMateria(((Materia) event.getObject()));
-        FacesMessage msg = new FacesMessage("Materia Edited", ((Materia) event.getObject()).toString());
+        materiaFacade.edit(((Materia) event.getObject()));
+        FacesMessage msg = new FacesMessage("Materia Actualizada", ((Materia) event.getObject()).toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Materia) event.getObject()).toString());
+        FacesMessage msg = new FacesMessage("Cancelado", ((Materia) event.getObject()).toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void deleteMateria(Materia item) {
         try {
-            materiaFacade.deleteMateria(item);
+            materiaFacade.remove(item);
             materias.remove(item);
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());

@@ -8,7 +8,6 @@ package com.lusadi.beans;
 import com.lusadi.dao.CursoFacade;
 import com.lusadi.dao.EstudianteFacade;
 import com.lusadi.dao.MatriculaEstudianteFacade;
-import com.lusadi.dao.UsuarioFacade;
 import com.lusadi.entities.Curso;
 import com.lusadi.entities.Estudiante;
 import com.lusadi.entities.MatriculaEstudiante;
@@ -21,6 +20,7 @@ import java.util.GregorianCalendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -29,35 +29,36 @@ import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author Personal
+ * @author Sebastian Vega
  */
 @ManagedBean
 @RequestScoped
 public class AdminMatriculaBean {
-
+    
     @EJB
     private EstudianteFacade estudianteFacade;
-    @EJB
-    private UsuarioFacade usuarioFacade;
     @EJB
     private CursoFacade cursoFacade;
     @EJB
     private MatriculaEstudianteFacade matriculaEstudianteFacade;
-
+    
     private MatriculaEstudiante matricula = new MatriculaEstudiante();
     private ArrayList<MatriculaEstudiante> matriculas = new ArrayList<MatriculaEstudiante>();
     private Map<String, Curso> cursos;
     private Map<String, Estudiante> estudiantes;
-
+    
     public AdminMatriculaBean() {
     }
-
+    
     @PostConstruct
     public void init() {
         cursos = parseCursosToMap(cursoFacade.findAll());
         estudiantes = parseEstudianteToMap(estudianteFacade.findAll());
+        Map<String, Estudiante> treeMap = new TreeMap<String, Estudiante>(estudiantes);
+        estudiantes.clear();
+        estudiantes.putAll(treeMap);
     }
-
+    
     public void createMatricula() {
         try {
             Calendar fecha = new GregorianCalendar();
@@ -77,6 +78,7 @@ public class AdminMatriculaBean {
             if (!ban) {
                 matricula.setFechaMatricula(fechaMat);
                 matriculaEstudianteFacade.createMatricula(matricula);
+                UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "El Registro Fue Realizado Correctamente");
             } else {
                 UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, "Ya se Encuentra Matriculado");
             }
@@ -85,7 +87,7 @@ public class AdminMatriculaBean {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
-
+    
     public void findAllMatriculas() {
         try {
             ArrayList<MatriculaEstudiante> result = (ArrayList<MatriculaEstudiante>) matriculaEstudianteFacade.findAll();
@@ -102,77 +104,55 @@ public class AdminMatriculaBean {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
-
-    /*public void findAllEstudiantes() {
-     try {
-     ArrayList<Estudiante> estudiantesAdd = new ArrayList<Estudiante>();
-     estudiantesAdd = (ArrayList<Estudiante>) estudianteFacade.findAll();
-     if (estudiantesAdd != null) {
-     /*Collections.sort(estudiantesAdd, new Comparator<Estudiante>() {
-     @Override
-     public int compare(Estudiante p1, Estudiante p2) {
-     String aux1 = p1.getPrimerApellido() + " " + p1.getSegundoApellido() + " " + p1.getNombres();
-     String aux2 = p2.getPrimerApellido() + " " + p2.getSegundoApellido() + " " + p2.getNombres();
-     return new String(aux1).compareTo(aux2);
-     }
-     });
-     for (Estudiante varStudent : estudiantesAdd) {
-     String aux1 = varStudent.getUsuario().getPrimerApellido() + " " + varStudent.getUsuario().getSegundoApellido() + " " + varStudent.getUsuario().getNombres();
-     estudiantes.put(aux1, varStudent.getEstudiateId());
-     }
-     }
-     } catch (Exception ex) {
-     UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
-     }
-     } */
+    
     private Map<String, Curso> parseCursosToMap(List<Curso> findAll) {
         Map<String, Curso> outcome = new LinkedHashMap<String, Curso>();
         for (Curso s : findAll) {
-            String key = Integer.toString(s.getCursoId());
+            String key = "Curso:  " + s.getCursoId();
             outcome.put(key.toUpperCase(), s);
         }
         return outcome;
     }
-
+    
     private Map<String, Estudiante> parseEstudianteToMap(List<Estudiante> findAll) {
         Map<String, Estudiante> outcome = new LinkedHashMap<String, Estudiante>();
         for (Estudiante s : findAll) {
-            String key = s.getUsuario().getPrimerApellido() + " " + s.getUsuario().getSegundoApellido() + " " + s.getUsuario().getNombres();
+            String key = s.getUsuario().getPrimerApellido() + " " + s.getUsuario().getSegundoApellido() + ",  " + s.getUsuario().getNombres();
             outcome.put(key.toUpperCase(), s);
         }
         return outcome;
     }
-
+    
     public MatriculaEstudiante getMatricula() {
         return matricula;
     }
-
+    
     public void setMatricula(MatriculaEstudiante matricula) {
         this.matricula = matricula;
     }
-
+    
     public ArrayList<MatriculaEstudiante> getMatriculas() {
         return matriculas;
     }
-
+    
     public void setMatriculas(ArrayList<MatriculaEstudiante> matriculas) {
         this.matriculas = matriculas;
     }
-
+    
     public Map<String, Curso> getCursos() {
         return cursos;
     }
-
+    
     public void setCursos(Map<String, Curso> cursos) {
         this.cursos = cursos;
     }
-
+    
     public Map<String, Estudiante> getEstudiantes() {
         return estudiantes;
     }
-
+    
     public void setEstudiantes(Map<String, Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
     }
-
+    
 }
