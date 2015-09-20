@@ -25,7 +25,7 @@ import org.apache.poi.ss.util.CellUtil;
 
 /**
  *
- * @author Personal
+ * @author Sebastian Vega
  */
 public class GenerateExcel {
 
@@ -40,7 +40,7 @@ public class GenerateExcel {
         }
         return generateExcel;
     }
-    
+
     public byte[] generarNomina(ArrayList<String> documento) throws IOException {
         Calendar calendar = new GregorianCalendar();
         String month = recognizeMonth((calendar.get(Calendar.MONTH) + 1));
@@ -166,6 +166,19 @@ public class GenerateExcel {
         my_font.setColor(Font.COLOR_RED);
 
         for (int i = 0, j = 0; i < documento.size(); i += 7, j++) {
+
+            double salarioBasico = com.lusadi.utils.UtilidadesReteFuente.calcularSalarioBasico(Integer.parseInt(documento.get(i + 5)), Integer.parseInt(documento.get(i + 6)));
+            double totalValorDevengado = (salarioBasico);
+            double ibc = com.lusadi.utils.UtilidadesReteFuente.calcularValorIbc(totalValorDevengado);
+            double valorSalud = com.lusadi.utils.UtilidadesReteFuente.calcularValorSalud(ibc);
+            double valorPension = com.lusadi.utils.UtilidadesReteFuente.calcularValorPension(ibc);
+            double valorFondoSolidaridad = com.lusadi.utils.UtilidadesReteFuente.calcularFondoSolidaridad(totalValorDevengado);
+            double valorSalarioBase = (totalValorDevengado - valorPension - valorSalud - valorFondoSolidaridad);
+            double valorSalarioPorcentajeExento = com.lusadi.utils.UtilidadesReteFuente.calcularExentoPorcentaje(valorSalarioBase);
+            double valorTotalReteFuente = com.lusadi.utils.UtilidadesReteFuente.calcularRetencion(valorSalarioPorcentajeExento);
+            double totalDeducido = (valorPension + valorSalud + valorFondoSolidaridad + valorTotalReteFuente);
+            double valorTotalNeto = (totalValorDevengado - totalDeducido);
+
             Row fila6 = hoja.createRow(5 + j);
             celda = fila6.createCell(1);
             celda.setCellValue(documento.get(i));
@@ -181,6 +194,16 @@ public class GenerateExcel {
             celda.setCellValue(documento.get(i + 5));
             celda = fila6.createCell(7);
             celda.setCellValue(documento.get(i + 6));
+            celda = fila6.createCell(9);
+            celda.setCellValue(totalValorDevengado);
+            celda = fila6.createCell(10);
+            celda.setCellValue(valorSalud);
+            celda = fila6.createCell(11);
+            celda.setCellValue(valorPension);
+            celda = fila6.createCell(12);
+            celda.setCellValue(totalDeducido);
+            celda = fila6.createCell(13);
+            celda.setCellValue(valorTotalNeto);
             my_style2.setFont(my_font);
             celda.setCellStyle(my_style2);
         }
