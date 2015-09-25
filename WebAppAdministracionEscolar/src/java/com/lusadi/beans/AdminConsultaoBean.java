@@ -7,8 +7,10 @@ package com.lusadi.beans;
 
 import com.lusadi.dao.FuncionarioFacade;
 import com.lusadi.dao.HorarioFacade;
+import com.lusadi.entities.Estudiante;
 import com.lusadi.entities.Funcionario;
 import com.lusadi.entities.Horario;
+import com.lusadi.entities.MatriculaEstudiante;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -30,6 +32,8 @@ public class AdminConsultaoBean {
 
     private ArrayList<Funcionario> funcionarios;
     private ArrayList<Horario> horarios = new ArrayList<Horario>();
+    private ArrayList<Estudiante> estudiantes = new ArrayList<Estudiante>();
+    private ArrayList<MatriculaEstudiante> matriculas = new ArrayList<MatriculaEstudiante>();
     private Funcionario funcionario = new Funcionario();
     private Horario horario = new Horario();
 
@@ -48,6 +52,22 @@ public class AdminConsultaoBean {
                 horarios.add(var);
             }
         }
+    }
+
+    public boolean cargarMaterias(Funcionario fun) {
+        if (fun != null) {
+            horarios.addAll(fun.getHorarioList());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean cargarEstudiantes(Horario hor) {
+        if (hor != null) {
+            matriculas.addAll(hor.getCursoId().getMatriculaEstudianteList());
+            return true;
+        }
+        return false;
     }
 
     public ArrayList<Funcionario> getFuncionarios() {
@@ -81,6 +101,22 @@ public class AdminConsultaoBean {
 
     public void setHorario(Horario horario) {
         this.horario = horario;
+    }
+
+    public ArrayList<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
+    public void setEstudiantes(ArrayList<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
+    }
+
+    public ArrayList<MatriculaEstudiante> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(ArrayList<MatriculaEstudiante> matriculas) {
+        this.matriculas = matriculas;
     }
 
 }
