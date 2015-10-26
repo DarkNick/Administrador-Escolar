@@ -29,6 +29,21 @@ import org.apache.poi.ss.util.CellUtil;
  */
 public class GenerateExcel {
 
+    private int salario;
+    private int dias;
+    private double sub_trans;
+    private double totalDevengado;
+    private double salud;
+    private double pension;
+    private double totalDeducido;
+    private double netoPagar;
+    private double totalSumaSalario = 0;
+    private double totalSumaSub_trans = 0;
+    private double totalSumaDevengado = 0;
+    private double totalSumaNeto = 0;
+    private double totalSumaSalud = 0;
+    private double totalSumaPension = 0;
+    private double totalSumaDeducido = 0;
     private static GenerateExcel generateExcel;
 
     public GenerateExcel() {
@@ -167,48 +182,103 @@ public class GenerateExcel {
 
         for (int i = 0, j = 0; i < documento.size(); i += 7, j++) {
 
-            double salarioBasico = com.lusadi.utils.UtilidadesReteFuente.calcularSalarioBasico(Integer.parseInt(documento.get(i + 5)), Integer.parseInt(documento.get(i + 6)));
-            double totalValorDevengado = (salarioBasico);
-            double ibc = com.lusadi.utils.UtilidadesReteFuente.calcularValorIbc(totalValorDevengado);
-            double valorSalud = com.lusadi.utils.UtilidadesReteFuente.calcularValorSalud(ibc);
-            double valorPension = com.lusadi.utils.UtilidadesReteFuente.calcularValorPension(ibc);
-            double valorFondoSolidaridad = com.lusadi.utils.UtilidadesReteFuente.calcularFondoSolidaridad(totalValorDevengado);
-            double valorSalarioBase = (totalValorDevengado - valorPension - valorSalud - valorFondoSolidaridad);
-            double valorSalarioPorcentajeExento = com.lusadi.utils.UtilidadesReteFuente.calcularExentoPorcentaje(valorSalarioBase);
-            double valorTotalReteFuente = com.lusadi.utils.UtilidadesReteFuente.calcularRetencion(valorSalarioPorcentajeExento);
-            double totalDeducido = (valorPension + valorSalud + valorFondoSolidaridad + valorTotalReteFuente);
-            double valorTotalNeto = (totalValorDevengado - totalDeducido);
+            salario = Integer.parseInt(documento.get(i + 5));
+            dias = Integer.parseInt(documento.get(i + 6));
+            sub_trans = ((2466.666666666666667) * dias);
+            totalDevengado = (salario / 30) * dias + sub_trans;
+            salud = salario * 4 / 100;
+            pension = salario * 4 / 100;
+            totalDeducido = salud + pension;
+            netoPagar = totalDevengado - totalDeducido;
+
+            totalSumaSalario += salario;
+            totalSumaSub_trans += sub_trans;
+            totalSumaDevengado += totalDevengado;
+            totalSumaDeducido += totalDeducido;
+            totalSumaPension += pension;
+            totalSumaSalud += salud;
+            totalSumaNeto += netoPagar;
 
             Row fila6 = hoja.createRow(5 + j);
+            my_style2.setFont(my_font);
+
             celda = fila6.createCell(1);
             celda.setCellValue(documento.get(i));
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(2);
             celda.setCellValue(documento.get(i + 1));
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(3);
             celda.setCellValue(documento.get(i + 2));
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(4);
             celda.setCellValue(documento.get(i + 3));
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(5);
             celda.setCellValue(documento.get(i + 4));
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(6);
-            celda.setCellValue(documento.get(i + 5));
+            celda.setCellValue(salario);
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(7);
-            celda.setCellValue(documento.get(i + 6));
+            celda.setCellValue(dias);
+            celda.setCellStyle(my_style2);
+            celda = fila6.createCell(8);
+            celda.setCellValue(sub_trans);
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(9);
-            celda.setCellValue(totalValorDevengado);
+            celda.setCellValue(totalDevengado);
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(10);
-            celda.setCellValue(valorSalud);
+            celda.setCellValue(salud);
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(11);
-            celda.setCellValue(valorPension);
+            celda.setCellValue(pension);
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(12);
             celda.setCellValue(totalDeducido);
+            celda.setCellStyle(my_style2);
             celda = fila6.createCell(13);
-            celda.setCellValue(valorTotalNeto);
-            my_style2.setFont(my_font);
+            celda.setCellValue(netoPagar);
+            celda.setCellStyle(my_style2);
+            celda = fila6.createCell(14);
             celda.setCellStyle(my_style2);
         }
 
-        Row fila7 = hoja.createRow(documento.size() + 5);
+        Row fila9 = hoja.createRow(documento.size() / 7 + 5);
+        cs = libro.createCellStyle();
+        cs.setFillForegroundColor(HSSFColor.LIGHT_GREEN.index);
+        cs.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        celda = fila9.createCell(6);
+        celda.setCellValue(totalSumaSalario);
+        CellUtil.getCell(fila9, 6).setCellStyle(cs);
+        celda = fila9.createCell(8);
+        celda.setCellValue(totalSumaSub_trans);
+        CellUtil.getCell(fila9, 8).setCellStyle(cs);
+        celda = fila9.createCell(9);
+        celda.setCellValue(totalSumaDevengado);
+        CellUtil.getCell(fila9, 9).setCellStyle(cs);
+        celda = fila9.createCell(10);
+        celda.setCellValue(totalSumaSalud);
+        CellUtil.getCell(fila9, 10).setCellStyle(cs);
+        celda = fila9.createCell(11);
+        celda.setCellValue(totalSumaPension);
+        CellUtil.getCell(fila9, 11).setCellStyle(cs);
+        celda = fila9.createCell(12);
+        celda.setCellValue(totalSumaDeducido);
+        CellUtil.getCell(fila9, 12).setCellStyle(cs);
+        celda = fila9.createCell(13);
+        celda.setCellValue(totalSumaNeto);
+        CellUtil.getCell(fila9, 13).setCellStyle(cs);
+
+        Row fila7 = hoja.createRow(documento.size() / 7 + 5);
+        cs = libro.createCellStyle();
+        cs.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
+        cs.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        cs.setBorderBottom(HSSFCellStyle.BORDER_DOUBLE);
+        cs.setBorderLeft(HSSFCellStyle.BORDER_DOUBLE);
+        cs.setBorderRight(HSSFCellStyle.BORDER_DOUBLE);
+        cs.setBorderTop(HSSFCellStyle.BORDER_DOUBLE);
         celda = fila7.createCell(8);
         celda.setCellValue("APORTE");
         CellUtil.getCell(fila7, 8).setCellStyle(cs);
@@ -220,7 +290,7 @@ public class GenerateExcel {
         CellUtil.getCell(fila7, 10).setCellStyle(cs);
 
         for (int i = 0; i < documento.size(); i++) {
-            Row fila8 = hoja.createRow(documento.size() + 6);
+            Row fila8 = hoja.createRow(documento.size() / 7 + 6);
             for (int j = 0; j < 3; j++) {
                 celda = fila8.createCell(j + 8);
                 celda.setCellValue(documento.get(i));
