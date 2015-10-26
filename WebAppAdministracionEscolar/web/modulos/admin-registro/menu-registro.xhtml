@@ -3,15 +3,14 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
 
-    <b:row>
-        <b:panelGrid colSpans="5,7">
-            <b:column >
+    <p:row>
+        <p:panelGrid columns="2">
+            <p:column >
                 <p:graphicImage styleClass="imagenAux" value="img/estudiante-5.gif" />
-            </b:column>
-            <b:panel title="Bienvenido" collapsible="false" >
+            </p:column>
+            <p:panel header="Bienvenido">
                 <h:outputLabel >Seleccione la actividad que desea realizar. A continuacion encontrara las funciones asociadas a este modulo.</h:outputLabel>
                 <h:form>
                     <p:growl id="messages" showDetail="true" />
@@ -26,7 +25,7 @@
                         </p:treeNode>
                     </p:tree>
                 </h:form>
-            </b:panel>
-        </b:panelGrid>
-    </b:row>
+            </p:panel>
+        </p:panelGrid>
+    </p:row>
 </ui:composition>

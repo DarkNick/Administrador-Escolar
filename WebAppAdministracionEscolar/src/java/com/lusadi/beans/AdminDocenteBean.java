@@ -5,31 +5,35 @@ import com.lusadi.dao.CargoFacade;
 import com.lusadi.dao.FuncionarioFacade;
 import com.lusadi.dao.LoginFacade;
 import com.lusadi.dao.RolFacade;
+import com.lusadi.dao.TipoSangreFacade;
 import com.lusadi.dao.UsuarioFacade;
 import com.lusadi.entities.Cargo;
 import com.lusadi.entities.Funcionario;
 import com.lusadi.entities.Login;
 import com.lusadi.entities.Rol;
+import com.lusadi.entities.TipoSangre;
 import com.lusadi.entities.Usuario;
 import com.lusadi.entities.UsuarioPK;
 import com.lusadi.utils.UtilFaces;
 import java.io.Serializable;
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 
 /**
  * @author dark-nick
  */
 @ManagedBean(name = "adminDocente")
-@RequestScoped
+@ViewScoped
 public class AdminDocenteBean implements Serializable {
 
+    @EJB
+    private TipoSangreFacade tipoSangreFacade;
     @EJB
     private FuncionarioFacade funcionarioFacade;
     @EJB
@@ -41,46 +45,31 @@ public class AdminDocenteBean implements Serializable {
     @EJB
     private CargoFacade cargoFacade;
 
-    public FuncionarioFacade getFuncionarioFacade() {
-        return funcionarioFacade;
-    }
-
-    public void setFuncionarioFacade(FuncionarioFacade funcionarioFacade) {
-        this.funcionarioFacade = funcionarioFacade;
-    }
-
-    public RolFacade getRolFacade() {
-        return rolFacade;
-    }
-
-    public void setRolFacade(RolFacade rolFacade) {
-        this.rolFacade = rolFacade;
-    }
-
     private Login login = new Login();
     private Usuario usuario = new Usuario();
     private Cargo cargo = new Cargo();
+    private TipoSangre tipoSangre = new TipoSangre();
     private UsuarioPK usuarioPk = new UsuarioPK();
     private Funcionario funcionario = new Funcionario();
 
-    private Map<String, Cargo> cargos;
+    private List<SelectItem> cargosItems;
+    private List<SelectItem> tiposSangreItems;
 
     @PostConstruct
     public void init() {
-        cargos = parseCargosToMap(cargoFacade.findAll());
-        System.err.println(cargos.size());
-        System.err.println("*************");
-        System.err.println("*************");
-        System.err.println("*************");
-    }
-    public AdminDocenteBean() {
-    }
-    public CargoFacade getCargoFacade() {
-        return cargoFacade;
+        cargosItems = parseCargosToMap(cargoFacade.findAll());
+        tiposSangreItems = parseTipoSangreToMap(tipoSangreFacade.findAll());
     }
 
-    public void setCargoFacade(CargoFacade cargoFacade) {
-        this.cargoFacade = cargoFacade;
+    public AdminDocenteBean() {
+    }
+
+    public TipoSangre getTipoSangre() {
+        return tipoSangre;
+    }
+
+    public void setTipoSangre(TipoSangre tipoSangre) {
+        this.tipoSangre = tipoSangre;
     }
 
     public Cargo getCargo() {
@@ -115,14 +104,6 @@ public class AdminDocenteBean implements Serializable {
         this.login = login;
     }
 
-    public UsuarioFacade getUsuarioFacade() {
-        return usuarioFacade;
-    }
-
-    public void setUsuarioFacade(UsuarioFacade usuarioFacade) {
-        this.usuarioFacade = usuarioFacade;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -139,51 +120,52 @@ public class AdminDocenteBean implements Serializable {
         this.funcionario = funcionario;
     }
 
-    public Map<String, Cargo> getCargos() {
-        return cargos;
+    public List<SelectItem> getCargosItems() {
+        return cargosItems;
     }
 
-    public void setCargos(Map<String, Cargo> cargos) {
-        this.cargos = cargos;
+    public void setCargosItems(List<SelectItem> cargosItems) {
+        this.cargosItems = cargosItems;
+    }
+
+    public List<SelectItem> getTiposSangreItems() {
+        return tiposSangreItems;
+    }
+
+    public void setTiposSangreItems(List<SelectItem> tiposSangreItems) {
+        this.tiposSangreItems = tiposSangreItems;
     }
 
     public void createDocente() {
         try {
-            System.out.println("OK");
             Rol rol = rolFacade.find(CommonInterface.ROL_ID_DOCENTE);
             usuario.setUsuarioPK(usuarioPk);
             usuario.setRolId(rol);
-            System.out.println("Correo: "+usuario.getCorreoElectronico());
-            System.out.println("Nacimiento: "+usuario.getFechaNacimiento());
-            System.out.println("Nonbres: "+usuario.getNombres());
-            System.out.println("1 apellido: "+usuario.getPrimerApellido());
-            System.out.println("2 apellido: "+usuario.getSegundoApellido());
-            System.out.println("tipo sangre "+usuario.getTipoSangre());
-            System.out.println("tipo ID "+usuario.getUsuarioPK().getTipoId());
-            System.out.println("tipo ID "+usuario.getUsuarioPK().getNumeroId());
-            System.out.println("tipo ID "+usuario.getRolId().getRolId());
             usuarioFacade.create(usuario);
             funcionario.setUsuario(usuario);
             funcionario.setCargoId(cargoFacade.find(cargo.getCargoId()));
-            System.out.println("ID cargo "+funcionario.getCargoId().getCargoId());
-            System.out.println("ID funcionario "+funcionario.getFuncionarioId());
-            System.out.println("ID funcionario "+funcionario.getSaldoNeto());
             login.setUsuario(usuario);
             LoginFacade.create(login);
             funcionarioFacade.create(funcionario);
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-usuarios.xhtml");
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "REGISTRO EXITOSO");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 
-    private Map<String, Cargo> parseCargosToMap(List<Cargo> findAll) {
-        Map<String, Cargo> outcome = new LinkedHashMap<String, Cargo>();
+    private List<SelectItem> parseCargosToMap(List<Cargo> findAll) {
+        cargosItems = new ArrayList<SelectItem>();
         for (Cargo s : findAll) {
-            String key = s.getNombreCargo();
-            outcome.put(key.toUpperCase(), s);
+            cargosItems.add(new SelectItem(s, s.getNombreCargo()));
         }
-        return outcome;
+        return cargosItems;
+    }
+
+    private List<SelectItem> parseTipoSangreToMap(List<TipoSangre> findAll) {
+        tiposSangreItems = new ArrayList<SelectItem>();
+        for (TipoSangre s : findAll) {
+            tiposSangreItems.add(new SelectItem(s.getTipoSangre(), s.getTipoSangre()));
+        }
+        return tiposSangreItems;
     }
 }
-

@@ -8,6 +8,7 @@ package com.lusadi.beans;
 import com.lusadi.dao.FuncionarioFacade;
 import com.lusadi.entities.Funcionario;
 import com.lusadi.entities.UsuarioPK;
+import com.lusadi.utils.UtilFaces;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,22 +76,12 @@ public class AdminFuncionariosModificarBean implements Serializable {
     }
 
     public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Car Edited", ((Funcionario) event.getObject()).toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        Funcionario funcionario = (Funcionario) event.getObject();
+        funcionarioFacade.edit(funcionario);
+        UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "ACTULIZACION EXITOSA");
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Funcionario) event.getObject()).toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-
-        if (newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
 }

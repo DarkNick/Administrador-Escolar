@@ -89,7 +89,7 @@ public class AdminHorarioBean {
             } else {
                 UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, "El Funcionario se encuentra ocupado en esta franja");
             }
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+            UtilFaces.getFacesUtil().redirect("/edu/lusadi/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }

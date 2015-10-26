@@ -6,22 +6,22 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <b:row>
+    <p:row>
         <h:form>
-            <b:panel title="Consulta Asistencia" collapsible="false">
+            <p:panel header="Consulta Asistencia" collapsed="false">
                 <p:messages/>
-                <b:panelGrid colSpans="2,4,2,4">
-                    <b:selectBooleanCheckbox value="#{adminAsistenciaBean.filtroAllRegisters}" caption="Todos los registros" />
+                <p:panelGrid columns="2">
+                    <p:selectBooleanCheckbox value="#{adminAsistenciaBean.filtroAllRegisters}" />
                     <p:inputText  value="#{adminAsistenciaBean.campoBusquedaAsistencia}" placeholder="Numero documento">
                         <f:convertNumber integerOnly="true"/>
                     </p:inputText>
-                    <b:selectBooleanCheckbox value="#{adminAsistenciaBean.filtroFecha}" caption="Filtrar fecha" />
+                    <p:selectBooleanCheckbox value="#{adminAsistenciaBean.filtroFecha}" />
                     <p:calendar value="#{adminAsistenciaBean.fechaFiltroBusqueda}"/>
-                </b:panelGrid>
-                <b:commandButton icon="ui-icon-check" value="Buscar" action="#{adminAsistenciaBean.actionBusquedaAsistencia}" />
-            </b:panel>
+                </p:panelGrid>
+                <p:commandButton icon="ui-icon-check" value="Buscar" action="#{adminAsistenciaBean.actionBusquedaAsistencia}" />
+            </p:panel>
             <br/>
-            <b:panel title="Resultado busqueda." rendered="#{adminAsistenciaBean.listBusquedaAsistencia.size() != 0}">
+            <p:panel header="Resultado busqueda." rendered="#{adminAsistenciaBean.listBusquedaAsistencia.size() != 0}">
                 <p:dataTable id="asistencia-table" value="#{adminAsistenciaBean.listBusquedaAsistencia}" widgetVar="asistenciasTable" var="obj" rows="7" paginator="true"
                              paginatorPosition="bottom" filteredValue="#{adminAsistenciaBean.filteredListBusquedaAsistencia}">
                     <f:facet name="header">
@@ -42,8 +42,8 @@
                         <h:outputText value="#{obj.usuario.usuarioPK.numeroId}" />
                     </p:column>
                 </p:dataTable>
-            </b:panel>
+            </p:panel>
         </h:form>
-    </b:row>
+    </p:row>
 </ui:composition>
 

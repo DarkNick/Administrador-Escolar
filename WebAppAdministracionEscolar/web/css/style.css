@@ -125,4 +125,17 @@ textarea{
 .button-navbar{
     display: block !important;
     margin: 10px !important;
+    width: 170px !important;
+}
+
+.button-navbar-right{
+    padding-left: 100px !important; //refinar
+}
+
+.menu-bar{
+    font-weight: bold !important; 
+    color: #000000 !important;
+}
+.datos-row{
+    background: #ffffff !important;
 }

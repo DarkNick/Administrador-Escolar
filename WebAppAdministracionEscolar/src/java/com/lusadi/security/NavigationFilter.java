@@ -49,7 +49,7 @@ public class NavigationFilter implements Filter {
         int serverPort = httpRequest.getServerPort();        // 8080
         String contextPath = httpRequest.getContextPath();   // /mywebapp
         String indexURI = "/edu/index.xhtml";
-        String homeURI = "/edu/administracion-registro.xhtml";
+        String homeURI = "/edu/lusadi/administracion-registro.xhtml";
         String requestURI = httpRequest.getRequestURI();
         boolean sessionCreated = false;
 

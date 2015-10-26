@@ -44,8 +44,8 @@ public class HistorialNominaFacade extends AbstractFacade<HistorialNomina> {
 
     public List<HistorialNomina> findAllById(String tipoId, long numeroId) {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT * FROM colegio_lusadi.HISTORIAL_NOMINA WHERE FUNCIONARIO_ID IN ");
-        sb.append("(SELECT FUNCIONARIO_ID FROM colegio_lusadi.FUNCIONARIO WHERE NUMERO_ID = ? AND TIPO_ID = ?);");
+        sb.append("SELECT * FROM lusadi.HISTORIAL_NOMINA WHERE FUNCIONARIO_ID IN ");
+        sb.append("(SELECT FUNCIONARIO_ID FROM lusadi.FUNCIONARIO WHERE NUMERO_ID = ? AND TIPO_ID = ?);");
         Query query = em.createNativeQuery(sb.toString(), HistorialNomina.class).setParameter(1, numeroId).setParameter(2, tipoId);
         return query.getResultList();
     }
@@ -57,7 +57,7 @@ public class HistorialNominaFacade extends AbstractFacade<HistorialNomina> {
         fos.close();
         Connection connection = em.unwrap(Connection.class);
         StringBuilder sb = new StringBuilder();
-        sb.append("INSERT INTO colegio_lusadi.HISTORIAL_NOMINA (FECHA_REGISTRO,RESPONSABLE_PAGO,SOPORTE_ADJUNTO,FUNCIONARIO_ID)  VALUES (NOW(), ?, ?, ?)");
+        sb.append("INSERT INTO lusadi.HISTORIAL_NOMINA (FECHA_REGISTRO,RESPONSABLE_PAGO,SOPORTE_ADJUNTO,FUNCIONARIO_ID)  VALUES (NOW(), ?, ?, ?)");
         PreparedStatement prepareStatement = connection.prepareStatement(sb.toString());
         prepareStatement.setString(1, historialNomina.getResponsablePago());
         prepareStatement.setBinaryStream(2, new FileInputStream(outputFile));

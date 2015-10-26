@@ -3,32 +3,31 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
-        <b:panelGrid colSpans="6,6">
-            <b:column>
+    <p:row>
+        <p:panelGrid columns="2">
+            <p:column>
                 <h:form id="form-tab-salon-02">
-                    <b:panel title="Salon" collapsible="false">
+                    <p:panel header="Salon" closable="false">
                         <p:messages id="msgs01" autoUpdate="true" closable="true"/>
                         <h:outputLabel value="Ubicacion del Salon"/>
-                        <b:inputText value="#{adminSalonBean.salon.ubicacionSalon}" title="Ubicacion del Salon" placeholder="Ubicacion" maxlength="50" required="true"/>
+                        <p:inputText value="#{adminSalonBean.salon.ubicacionSalon}" title="Ubicacion del Salon" placeholder="Ubicacion" maxlength="50" required="true"/>
                         <h:outputLabel value="Capacidad del Salon"/>
-                        <b:inputText value="#{adminSalonBean.salon.capacidad}" title="Capacidad del Salon" placeholder="Capacidad" required="true">
+                        <p:inputText value="#{adminSalonBean.salon.capacidad}" title="Capacidad del Salon" placeholder="Capacidad" required="true">
                             <f:validateDoubleRange minimum="1" maximum="60" />
-                        </b:inputText>
-                        <b:row>
-                            <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Salon" title="Registrar Salon" action="#{adminSalonBean.createSalon()}"
-                                                 update=":form-tab-salon:panel-01:tab-salon"/>
-                            </b:column>
-                        </b:row>
-                    </b:panel>
+                        </p:inputText>
+                        <p:row>
+                            <p:column style="text-align: center;">
+                                <p:commandButton icon="ui-icon-check" value="Registrar Salon" title="Registrar Salon" action="#{adminSalonBean.createSalon()}"
+                                                 update=":form-tab-salon:tab-salon"/>
+                            </p:column>
+                        </p:row>
+                    </p:panel>
                 </h:form>
-            </b:column>
-            <b:column>
+            </p:column>
+            <p:column>
                 <h:form id="form-tab-salon">
-                    <b:panel id="panel-01" title="Salones Registrados" collapsible="false">
+                    <p:panel id="panel-01" header="Salones Registrados" closable="false">
                         <p:dataTable id="tab-salon" var="varSalon" value="#{adminSalonBean.salones}" paginator="true" rows="5" paginatorPosition="bottom" editable="true">
 
                             <p:ajax event="rowEdit" listener="#{adminSalonBean.onRowEdit}" update=":form-tab-salon-02:msgs01" />
@@ -51,15 +50,16 @@
                             </p:column>
                         </p:dataTable>
                         <p:spacer/>
-                        <b:row>
-                            <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Mostrar Salones" title="Mostrar Salon" action="#{adminSalonBean.findAllSalon()}" update="pgSalones"/>
-                            </b:column>
-                        </b:row>
-                    </b:panel>
+                        <p:row>
+                            <p:column style="text-align: center;">
+                                <p:commandButton icon="ui-icon-check" value="Mostrar Salones" title="Mostrar Salon" action="#{adminSalonBean.findAllSalon()}" 
+                                                 update=":form-tab-salon:tab-salon"/>
+                            </p:column>
+                        </p:row>
+                    </p:panel>
                 </h:form>
-            </b:column>
-        </b:panelGrid>
-    </b:row>
+            </p:column>
+        </p:panelGrid>
+    </p:row>
 </ui:composition>
 

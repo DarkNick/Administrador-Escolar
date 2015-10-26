@@ -3,31 +3,30 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
+    <p:row>
         <p:spacer height="50"/>
-    </b:row>
-    <b:row>
-        <b:panel title="Bienvenido" collapsible="false" style="width: 50%;" styleClass="container-login">
+    </p:row>
+    <p:row>
+        <p:panel header="Bienvenido" collapsed="false" style="width: 50%;" styleClass="container-login">
             <h:form id="iniSesion" >
                 <p:graphicImage styleClass="ovalo ovalo-center" value="img/logo-login.jpeg" />
                 <h:panelGrid id="pgSesion" style="border-style: hidden; width: 100%; color: #000000;" >
                     <h:outputLabel for="usuario" value="Usuario: "/>
-                    <b:inputText id="usuario"  required="true" value="#{loginBean.usuario.numero_id}">
+                    <p:inputText id="usuario"  required="true" value="#{loginBean.usuario.numero_id}">
                         <f:convertNumber integerOnly="true" type="number"/>
-                    </b:inputText>
+                    </p:inputText>
                     <h:outputLabel for="password" value="Contraseña: "/>
-                    <b:inputSecret  id="password"  required="true" value="#{loginBean.usuario.password}"/>
+                    <p:password  id="password"  required="true" value="#{loginBean.usuario.password}"/>
                 </h:panelGrid>
                 <p:messages id="msgs" closable="true" autoUpdate="true"/>
                 <div class="div-center">
-                    <b:row>
-                        <b:commandButton icon="ui-icon-key" value="Ingresar" action="#{loginBean.loginControl}" update="pgSesion"/>
-                    </b:row>
+                    <p:row>
+                        <p:commandButton icon="ui-icon-key" value="Ingresar" action="#{loginBean.loginControl}"/>
+                    </p:row>
                 </div>
             </h:form>
-        </b:panel>
-    </b:row>
+        </p:panel>
+    </p:row>
 </ui:composition>
 

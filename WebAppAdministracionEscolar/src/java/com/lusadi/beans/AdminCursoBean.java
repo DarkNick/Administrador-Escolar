@@ -48,7 +48,7 @@ public class AdminCursoBean implements Serializable {
             cursos = new ArrayList<Curso>(cursoFacade.findAll());
             curso = new Curso();
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "El Registro Fue Realizado Correctamente");
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+            UtilFaces.getFacesUtil().redirect("/edu/lusadi/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }

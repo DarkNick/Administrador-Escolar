@@ -38,7 +38,7 @@ public class AsistenciaFacade extends AbstractFacade<Asistencia> {
     public ArrayList<String> findAllNumebersIdStartWith(String param) {
         if (param.length() >= 2) {
             ArrayList<String> outcome = new ArrayList<String>();
-            String sql = "SELECT NUMERO_ID FROM colegio_lusadi.USUARIO WHERE NUMERO_ID LIKE ?";
+            String sql = "SELECT NUMERO_ID FROM lusadi.USUARIO WHERE NUMERO_ID LIKE ?";
             Query query = em.createNativeQuery(sql).setParameter(1, param + "%");
             outcome.addAll(query.getResultList());
             return outcome;
@@ -49,7 +49,7 @@ public class AsistenciaFacade extends AbstractFacade<Asistencia> {
     public List<Asistencia> findAsistenciaByUsuario(long numeroId, Date fecha) {
         System.out.println(numeroId + " " + fecha);
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT * FROM colegio_lusadi.ASISTENCIA");
+        sb.append("SELECT * FROM lusadi.ASISTENCIA");
         StringBuilder sbConditionals = new StringBuilder();
         if (fecha != null) {
             if (sbConditionals.length() != 0) {

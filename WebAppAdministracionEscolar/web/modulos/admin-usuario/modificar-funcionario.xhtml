@@ -3,9 +3,8 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
+    <p:row>
         <h:form id="form">
             <p:growl id="msgs" showDetail="true"/>
 
@@ -21,8 +20,21 @@
                 <p:ajax event="rowEdit" listener="#{adminFuncionariosModificar.onRowEdit}" update=":form:msgs" />
                 <p:ajax event="rowEditCancel" listener="#{adminFuncionariosModificar.onRowCancel}" update=":form:msgs" />
 
+                <p:column headerText="Tipo Identificacion" filterBy="#{funcionario.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{funcionario.usuario.usuarioPK.tipoId}" />
+                </p:column>
+                <p:column headerText="Numero Identificacion" filterBy="#{funcionario.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{funcionario.usuario.usuarioPK.numeroId}" />
+                </p:column> 
                 <p:column headerText="Cargo" filterBy="#{funcionario.cargoId.nombreCargo}" filterStyle="display:none;" filterMatchMode="contains">
-                    <h:outputText value="#{funcionario.cargoId.nombreCargo}" />
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{funcionario.cargoId.nombreCargo}" /></f:facet>
+                        <f:facet name="input">
+                            <p:selectOneMenu value="#{adminDocente.cargo}"  required="true" converter="cargoConverterJSF">
+                                <f:selectItems value="#{adminDocente.cargosItems}" />
+                            </p:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>                    
                 </p:column>
                 <p:column headerText="Nombre" filterBy="#{funcionario.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
                     <p:cellEditor>
@@ -48,16 +60,11 @@
                         <f:facet name="input"><p:inputText value="#{funcionario.saldoNeto}" style="width:100%"/></f:facet>
                     </p:cellEditor>  
                 </p:column>                    
-                <p:column headerText="Tipo Identificacion" filterBy="#{funcionario.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
-                    <h:outputText value="#{funcionario.usuario.usuarioPK.tipoId}" />
-                </p:column>
-                <p:column headerText="Numero Identificacion" filterBy="#{funcionario.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
-                    <h:outputText value="#{funcionario.usuario.usuarioPK.numeroId}" />
-                </p:column> 
+
                 <p:column style="width:32px">
                     <p:rowEditor />
                 </p:column>
             </p:dataTable>
         </h:form>
-    </b:row>
+    </p:row>
 </ui:composition>

@@ -5,11 +5,11 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
+    <p:row>
         <h:form>
-            <b:panel title="Horario" collapsible="false">
-                <b:row>
-                    <b:column style="text-align: center;">
+            <p:panel header="Horario" >
+                <p:row>
+                    <p:column style="text-align: center;">
                         <p:messages autoUpdate="true" closable="true"/>
 
                         <h:outputLabel value="Dia de Clase"/>
@@ -78,11 +78,10 @@
                                            itemValue="#//{entry.value}" itemLabel="#//{entry.key}"/>
                         </p:selectOneMenu> -->
                         <br/><br/>
-                        <b:commandButton icon="ui-icon-check" value="Registrar Horario" title="Registrar Horario" action="#{adminHorarioBean.createHorario()}"
-                                         update=":form-tab-cours:panel-01:tab-cours"/>
-                    </b:column>
-                </b:row>
-            </b:panel>
+                        <p:commandButton icon="ui-icon-check" value="Registrar Horario" title="Registrar Horario" action="#{adminHorarioBean.createHorario()}"/>
+                    </p:column>
+                </p:row>
+            </p:panel>
         </h:form>
-    </b:row>
+    </p:row>
 </ui:composition>

@@ -50,7 +50,7 @@ public class AdminNotaBean {
     public void createNota() {
         try {
             notaFacade.createNota(nota);
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+            UtilFaces.getFacesUtil().redirect("/edu/lusadi/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
@@ -60,7 +60,7 @@ public class AdminNotaBean {
         try {
             resultadoAcademico.setNotaDefinitiva(suma);
             resultadoAcademicoFacade.createResultadoAcademico(resultadoAcademico, notas);
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+            UtilFaces.getFacesUtil().redirect("/edu/lusadi/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }

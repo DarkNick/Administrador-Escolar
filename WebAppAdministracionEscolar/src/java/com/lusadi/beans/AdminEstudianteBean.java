@@ -10,13 +10,16 @@ import com.lusadi.dao.EstudianteFacade;
 import com.lusadi.dao.LoginFacade;
 import com.lusadi.dao.ParentescoFamiliaFacade;
 import com.lusadi.dao.RolFacade;
+import com.lusadi.dao.TipoSangreFacade;
 import com.lusadi.dao.UsuarioFacade;
 import com.lusadi.entities.Estudiante;
 import com.lusadi.entities.Login;
 import com.lusadi.entities.ParentescoFamilia;
+import com.lusadi.entities.TipoSangre;
 import com.lusadi.entities.Usuario;
 import com.lusadi.entities.UsuarioPK;
 import com.lusadi.utils.UtilFaces;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +28,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -33,6 +37,9 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean(name = "adminEstudiante")
 @RequestScoped
 public class AdminEstudianteBean {
+
+    @EJB
+    private TipoSangreFacade tipoSangreFacade;
 
     @EJB
     private EstudianteFacade estudianteFacade;
@@ -51,6 +58,17 @@ public class AdminEstudianteBean {
 
     private List<Estudiante> listBusquedaAlumno;
     private List<Estudiante> filteredListBusquedaAlumno;
+
+    private List<SelectItem> tiposSangreItems;
+    private List<SelectItem> parentescoItems;
+
+    public List<SelectItem> getTiposSangreItems() {
+        return tiposSangreItems;
+    }
+
+    public void setTiposSangreItems(List<SelectItem> tiposSangreItems) {
+        this.tiposSangreItems = tiposSangreItems;
+    }
 
     public ParentescoFamilia getParentescoFamilia() {
         return parentescoFamilia;
@@ -71,10 +89,12 @@ public class AdminEstudianteBean {
 
     @PostConstruct
     public void init() {
-        parentescoFamilias = parseParentescoFamiliasToMap(parentescoFamiliaFacade.findAll());
+        parentescoItems = parseParentescoFamiliasToMap(parentescoFamiliaFacade.findAll());
         estudiante.setUsuario(new Usuario());
         estudiante.getUsuario().setUsuarioPK(new UsuarioPK());
         listBusquedaAlumno = estudianteFacade.findAll();
+        tiposSangreItems = parseTipoSangreToMap(tipoSangreFacade.findAll());
+        
     }
 
     public EstudianteFacade getEstudianteFacade() {
@@ -149,40 +169,48 @@ public class AdminEstudianteBean {
         this.filteredListBusquedaAlumno = filteredListBusquedaAlumno;
     }
 
+    public List<SelectItem> getParentescoItems() {
+        return parentescoItems;
+    }
+
+    public void setParentescoItems(List<SelectItem> parentescoItems) {
+        this.parentescoItems = parentescoItems;
+    }
+
+    
     public AdminEstudianteBean() {
     }
 
     public void createStudent() {
         try {
-            System.out.println("EMPEZO LA CUESTION");
+
             com.lusadi.entities.Rol rol = rolFacade.find(CommonInterface.ROL_ID_ESTUDIANTE);
             estudiante.getUsuario().setRolId(rol);
             estudiante.setParentescoFamiliaId(parentescoFamilia);
             login.setUsuario(estudiante.getUsuario());
-            System.out.println("Correo: " + estudiante.getUsuario().getCorreoElectronico());
-            System.out.println("Nacimiento: " + estudiante.getUsuario().getFechaNacimiento());
-            System.out.println("Nonbres: " + estudiante.getUsuario().getNombres());
-            System.out.println("1 apellido: " + estudiante.getUsuario().getPrimerApellido());
-            System.out.println("2 apellido: " + estudiante.getUsuario().getSegundoApellido());
-            System.out.println("tipo sangre " + estudiante.getUsuario().getTipoSangre());
-            System.out.println("tipo ID " + estudiante.getUsuario().getUsuarioPK().getTipoId());
-            System.out.println("numeri ID " + estudiante.getUsuario().getUsuarioPK().getNumeroId());
-            System.out.println("ID rol" + estudiante.getUsuario().getRolId().getRolId());
             usuarioFacade.create(estudiante.getUsuario());
             estudianteFacade.create(estudiante);
             LoginFacade.create(login);
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+            UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "REGISTRO EXITOSO");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 
-    private Map<String, ParentescoFamilia> parseParentescoFamiliasToMap(List<ParentescoFamilia> findAll) {
-        Map<String, ParentescoFamilia> outcome = new LinkedHashMap<String, ParentescoFamilia>();
+    private List<SelectItem> parseParentescoFamiliasToMap(List<ParentescoFamilia> findAll) {
+          tiposSangreItems = new ArrayList<SelectItem>();
         for (ParentescoFamilia s : findAll) {
-            String key = s.getParentesco();
-            outcome.put(key.toUpperCase(), s);
+            tiposSangreItems.add(new SelectItem(s, s.getParentesco()));
         }
-        return outcome;
+        return tiposSangreItems;
     }
+
+    private List<SelectItem> parseTipoSangreToMap(List<TipoSangre> findAll) {
+        tiposSangreItems = new ArrayList<SelectItem>();
+        for (TipoSangre s : findAll) {
+            tiposSangreItems.add(new SelectItem(s.getTipoSangre(), s.getTipoSangre()));
+        }
+        return tiposSangreItems;
+    }
+
 }

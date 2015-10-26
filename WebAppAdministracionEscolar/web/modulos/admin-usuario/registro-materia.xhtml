@@ -3,47 +3,46 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
-        <b:panelGrid id="pgMaterias" colSpans="6,6">
-            <b:column>
+    <p:row>
+        <p:panelGrid id="pgMaterias" columns="2">
+            <p:column>
                 <h:form id="form-tab-materia-02">
-                    <b:panel title="Materia" collapsible="false">
+                    <p:panel header="Materia" collapsed="false">
                         <p:messages id="msgs01" autoUpdate="true" closable="true"/>
                         <h:outputLabel value="Nombre Materia"/>
-                        <b:inputText value="#{adminMateriaBean.materia.nombreMateria}" title="Nombre Materia" placeholder="Nombre" maxlength="20" required="true"/>
+                        <p:inputText value="#{adminMateriaBean.materia.nombreMateria}" title="Nombre Materia" placeholder="Nombre" maxlength="20" required="true"/>
                         <h:outputLabel value="Horas a la Semana"/>
-                        <b:inputText value="#{adminMateriaBean.materia.horasSemana}" title="Horas a la Semana" placeholder="Horas" required="true">
+                        <p:inputText value="#{adminMateriaBean.materia.horasSemana}" title="Horas a la Semana" placeholder="Horas" required="true">
                             <f:validateDoubleRange minimum="1" maximum="10" />
-                        </b:inputText>
+                        </p:inputText>
                         <h:outputLabel value="Observaciones"/>
                         <p:inputTextarea value="#{adminMateriaBean.materia.observacion}" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                         <h:outputLabel value="Nivel Academico"/>
-                        <b:selectOneMenu value="#{adminMateriaBean.materia.nivelAcademicoId}" title="Nivel Academico" required="true">
+                        <p:selectOneMenu value="#{adminMateriaBean.materia.nivelAcademicoId}"  required="true">
                             <f:selectItem  itemLabel="Seleccione un Nivel" itemValue="" />
                             <f:selectItems value="#{adminMateriaBean.nivelesAcademicos.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}" />
-                        </b:selectOneMenu>
+                        </p:selectOneMenu>
                         <p:outputLabel value="Salon: " />
-                        <b:selectOneMenu value="#{adminMateriaBean.materia.salonId}" required="true" title="Salon">
+                        <p:selectOneMenu value="#{adminMateriaBean.materia.salonId}" required="true">
                             <f:selectItem  itemLabel="Seleccione un Salon" itemValue="" />
                             <f:selectItems value="#{adminMateriaBean.salones.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}" />
-                        </b:selectOneMenu>
-                        <b:row>
-                            <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Materia" title="Registrar Materia" action="#{adminMateriaBean.createMateria()}"
-                                                 update=":form-tab-cours:panel-01:tab-cours"/>
-                            </b:column>
-                        </b:row>
-                    </b:panel>
+                        </p:selectOneMenu>
+                        <p:row>
+                            <p:column style="text-align: center;">
+                                <p:commandButton icon="ui-icon-check" value="Registrar Materia" title="Registrar Materia" action="#{adminMateriaBean.createMateria()}"
+                                                 update=":form-tab-materia-01"/>
+                            </p:column>
+                        </p:row>
+                    </p:panel>
                 </h:form>
-            </b:column>
-            <b:column>
-                <h:form>
-                    <b:panel title="Materias Registradas" collapsible="false">
-                        <p:dataTable var="varMateria" value="#{adminMateriaBean.materias}" paginator="true" rows="5" paginatorPosition="bottom" editable="true">
+            </p:column>
+            <p:column>
+                <h:form id="form-tab-materia-01">
+                    <p:panel header="Materias Registradas" collapsed="false">
+                        <p:dataTable id="tab-mat-act" var="varMateria" value="#{adminMateriaBean.materias}" paginator="true" rows="5" paginatorPosition="bottom" editable="true">
 
                             <p:ajax event="rowEdit" listener="#{adminMateriaBean.onRowEdit}" update=":form-tab-materia-02:msgs01" />
                             <p:ajax event="rowEditCancel" listener="#{adminMateriaBean.onRowCancel}" update=":form-tab-materia-02:msgs01" />
@@ -77,14 +76,15 @@
                             </p:column>
                         </p:dataTable>
                         <p:spacer/>
-                        <b:row>
-                            <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Mostrar Materias" title="Mostrar Materias" action="#{adminMateriaBean.findAllMaterias()}" update="pgMaterias"/>
-                            </b:column>
-                        </b:row>
-                    </b:panel>
+                        <p:row>
+                            <p:column style="text-align: center;">
+                                <p:commandButton icon="ui-icon-check" value="Mostrar Materias" title="Mostrar Materias" action="#{adminMateriaBean.findAllMaterias()}"
+                                                 update=":form-tab-materia-01:tab-mat-act"/>
+                            </p:column>
+                        </p:row>
+                    </p:panel>
                 </h:form>
-            </b:column>
-        </b:panelGrid>
-    </b:row>
+            </p:column>
+        </p:panelGrid>
+    </p:row>
 </ui:composition>

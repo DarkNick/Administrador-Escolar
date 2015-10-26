@@ -6,23 +6,23 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <b:row>
+    <p:row>
         <h:form>
-            <b:panel title="Busqueda Historico Nomina" collapsible="false">
+            <p:panel header="Busqueda Historico Nomina" collapsed="false">
                 <p:messages autoUpdate="true" closable="true"/>
-                <b:panelGrid colSpans="1,2,1,6,2">
+                <p:panelGrid columns="2">
                     <h:outputLabel value="Tipo documento"/>
-                    <b:selectOneMenu  value="#{adminNominaBean.usuarioPK.tipoId}" required="true" >
+                    <p:selectOneMenu  value="#{adminNominaBean.usuarioPK.tipoId}" required="true" >
                         <f:selectItem itemLabel="CC" itemValue="CC" />
                         <f:selectItem itemLabel="CE" itemValue="CE" />
-                    </b:selectOneMenu>
+                    </p:selectOneMenu>
                     <h:outputLabel value="Numero documento"/>
                     <p:autoComplete size="80" value="#{adminNominaBean.usuarioPK.numeroId}" completeMethod="#{adminNominaBean.obtenerNumerosIdSegun}" required="true" />
-                    <b:commandButton icon="ui-icon-check" value="Buscar" action="#{adminNominaBean.cargarHistorialFuncionario}" />
-                </b:panelGrid>
-            </b:panel>
+                    <p:commandButton icon="ui-icon-check" value="Buscar" action="#{adminNominaBean.cargarHistorialFuncionario}" />
+                </p:panelGrid>
+            </p:panel>
             <br/>
-            <b:panel title="Resultado Busqueda" collapsible="false" rendered="#{adminNominaBean.listPagosFuncionario.size() != 0}">
+            <p:panel header="Resultado Busqueda" collapsed="false" rendered="#{adminNominaBean.listPagosFuncionario.size() != 0}">
                 <p:dataTable id="historial-table" value="#{adminNominaBean.listPagosFuncionario}" widgetVar="historialFuncionariosTable" var="obj" rows="7" paginator="true"
                              paginatorPosition="bottom" filteredValue="#{adminNominaBean.filteredListHistorialFuncionarios}">
                     <f:facet name="header">
@@ -52,8 +52,8 @@
                         <h:commandButton value="Descargar Adjunto" action="#{adminNominaBean.descargarAdjunto(obj.historialNominaId)}"/>
                     </p:column>
                 </p:dataTable>
-            </b:panel>
+            </p:panel>
         </h:form>
-    </b:row>
+    </p:row>
 </ui:composition>
 

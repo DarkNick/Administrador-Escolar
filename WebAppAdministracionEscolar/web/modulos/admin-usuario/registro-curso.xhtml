@@ -3,30 +3,29 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
-        <b:panelGrid colSpans="6,6">
-            <b:column>
+    <p:row>
+        <p:panelGrid columns="2">
+            <p:column>
                 <h:form id="form-tab-cours-02">
-                    <b:panel title="Curso" collapsible="false">
+                    <p:panel header="Curso" collapsed="false">
                         <p:messages id="msgs01" autoUpdate="true" closable="true"/>
                         <h:outputLabel value="Numero Curso"/>
-                        <b:inputText value="#{adminCursoBean.curso.cursoId}" title="Numero Curso" placeholder="Numero" maxlength="10" required="true"/>
+                        <p:inputText value="#{adminCursoBean.curso.cursoId}" title="Numero Curso" placeholder="Numero" maxlength="10" required="true"/>
                         <h:outputLabel value="Observaciones"/>
                         <p:inputTextarea value="#{adminCursoBean.curso.observaciones}" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
-                        <b:row>
-                            <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Registrar Curso" title="Registrar Curso" action="#{adminCursoBean.createCurso()}" 
-                                                 update=":form-tab-cours:panel-01:tab-cours"/>
-                            </b:column>
-                        </b:row>
-                    </b:panel>
+                        <p:row>
+                            <p:column style="text-align: center;">
+                                <p:commandButton icon="ui-icon-check" value="Registrar Curso" title="Registrar Curso" action="#{adminCursoBean.createCurso()}" 
+                                                 update=":form-tab-cours:tab-cours"/>
+                            </p:column>
+                        </p:row>
+                    </p:panel>
                 </h:form>
-            </b:column>
-            <b:column>
+            </p:column>
+            <p:column>
                 <h:form id="form-tab-cours">
-                    <b:panel id="panel-01" title="Cursos Registrados" collapsible="false">
+                    <p:panel id="panel-01" header="Cursos Registrados" collapsed="false">
                         <p:dataTable id="tab-cours" var="varCurso" value="#{adminCursoBean.cursos}" paginator="true" rows="5" paginatorPosition="bottom" editable="true">
 
                             <p:ajax event="rowEdit" listener="#{adminCursoBean.onRowEdit}" update=":form-tab-cours-02:msgs01" />
@@ -49,15 +48,16 @@
                             </p:column>
                         </p:dataTable>
                         <p:spacer/>
-                        <b:row>
-                            <b:column style="text-align: center;">
-                                <b:commandButton icon="ui-icon-check" value="Mostrar Cursos" title="Mostrar Cursos" action="#{adminCursoBean.findAllCursos()}" />
-                            </b:column>
-                        </b:row>
-                    </b:panel>
+                        <p:row>
+                            <p:column style="text-align: center;">
+                                <p:commandButton icon="ui-icon-check" value="Mostrar Cursos" title="Mostrar Cursos" action="#{adminCursoBean.findAllCursos()}" 
+                                                 update=":form-tab-cours:tab-cours"/>
+                            </p:column>
+                        </p:row>
+                    </p:panel>
                 </h:form>
-            </b:column>
-        </b:panelGrid>
-    </b:row>
+            </p:column>
+        </p:panelGrid>
+    </p:row>
 </ui:composition>
 

@@ -3,14 +3,21 @@
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
+    <p:row>
         <p:spacer/>
-    </b:row>
-    <b:row style="background: #ffffff;">
-        <b:panelGrid colSpans="4,4,4" styleClass="datos" columnclasses="datos" >
-            <p:outputLabel style="text-align: center !important;">Usuario: #{loginBean.nombreUsuario}</p:outputLabel>
-            <p:outputLabel style="text-align: center !important;"><script> horaActual();</script></p:outputLabel>
-            <p:outputLabel style="text-align: center !important;">Perfil: #{loginBean.rolUsuario}</p:outputLabel>
-        </b:panelGrid>
-    </b:row>
+    </p:row>
+    <!-- style="" -->
+    <p:row>
+        <div class="row datos datos-row">
+            <div class="col-md-4">
+                <p:outputLabel style="text-align: center !important; font-weight: bold !important;">#{loginBean.nombreUsuario}</p:outputLabel>
+            </div>
+            <div class="col-md-4">
+                <p:outputLabel style="text-align: center !important;"><script> horaActual();</script></p:outputLabel>
+            </div>
+            <div class="col-md-4">
+                <p:outputLabel style="text-align: center !important; font-weight: bold !important;">#{loginBean.rolUsuario}</p:outputLabel>
+            </div>
+        </div>
+    </p:row>
 </ui:composition>

@@ -48,7 +48,7 @@ public class AdminSalonBean implements Serializable {
             salones = new ArrayList<Salon>(salonFacade.findAll());
             salon = new Salon();
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "El Registro Fue Realizado Correctamente");
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+            UtilFaces.getFacesUtil().redirect("/edu/lusadi/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }

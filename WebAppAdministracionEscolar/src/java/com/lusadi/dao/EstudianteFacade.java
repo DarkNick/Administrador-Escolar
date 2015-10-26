@@ -36,11 +36,11 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> {
     public List<Estudiante> findAlumnoByUsuario(long numeroId) {
         System.out.println(numeroId);
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT * FROM colegio_lusadi.ESTUDIANTE");
+        sb.append("SELECT * FROM lusadi.ESTUDIANTE");
         StringBuilder sbConditionals = new StringBuilder();
         System.out.println((numeroId != -1));
         if (numeroId != -1) 
-            sbConditionals.append("colegio_lusadi.ESTUDIANTE.USUARIO_NUMERO_ID = ").append(numeroId);
+            sbConditionals.append("lusadi.ESTUDIANTE.USUARIO_NUMERO_ID = ").append(numeroId);
         Query query = em.createNativeQuery(sb.toString() + ((sbConditionals.length() != 0) ? " WHERE " + sbConditionals.toString() : ""), Estudiante.class);
         return new ArrayList<Estudiante>(query.getResultList());
     }

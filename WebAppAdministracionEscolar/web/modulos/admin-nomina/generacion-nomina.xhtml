@@ -5,8 +5,8 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
-        <b:panel title="Generacion Recibo Nomina" collapsible="false">
+    <p:row>
+        <p:panel header="Generacion Recibo Nomina" collapsed="false">
             <h:form>
                 <p:messages/>
                 <p:dataTable value="#{adminNominaBean.listFuncionarios}" widgetVar="funcionariosTable" var="obj" rows="7" paginator="true" paginatorPosition="bottom"
@@ -40,12 +40,12 @@
                 </p:dataTable>
                 <p:spacer/>
                 <div class="div-center">
-                    <b:row>
+                    <p:row>
                         <h:commandButton value="Generar Excel Nomina Completa" action="#{adminNominaBean.generateExcelNominaCompleta}"/>
-                    </b:row>
+                    </p:row>
                 </div>
             </h:form>
-        </b:panel>
-    </b:row>
+        </p:panel>
+    </p:row>
 </ui:composition>
 

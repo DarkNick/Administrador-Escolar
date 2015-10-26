@@ -96,7 +96,7 @@ public class AdminMateriaBean implements Serializable {
             materias = new ArrayList<Materia>(materiaFacade.findAll());
             materia = new Materia();
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_INFO, "El Registro Fue Realizado Correctamente");
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-registro.xhtml");
+            UtilFaces.getFacesUtil().redirect("/edu/lusadi/administracion-registro.xhtml");
         } catch (Exception ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }

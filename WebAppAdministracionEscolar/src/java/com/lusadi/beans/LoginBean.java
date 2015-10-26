@@ -42,16 +42,16 @@ public class LoginBean implements Serializable {
             String fullName = find.getPrimerApellido() + " " + find.getSegundoApellido() + " " + find.getNombres();
             UtilFaces.getFacesUtil().getSession().setAttribute(SessionValuesEnum.FULLNAME_USER.name(), fullName);
             UtilFaces.getFacesUtil().getSession().setAttribute(SessionValuesEnum.ROL_USER.name(), find.getRolId().getNombreRol());
-            UtilFaces.getFacesUtil().redirect("/edu/administracion-usuarios.xhtml");
+            UtilFaces.getFacesUtil().redirect("/edu/lusadi/administracion-usuarios.xhtml");
         } catch (IOException ex) {
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         } catch (Exception ex) {
-            System.err.println(ex);
             UtilFaces.getFacesUtil().addMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage());
         }
     }
 
     public void loginOutControl() {
+        System.out.println("CHAO");
         try {
             HttpSession session = UtilFaces.getFacesUtil().getSession();
             session.invalidate();

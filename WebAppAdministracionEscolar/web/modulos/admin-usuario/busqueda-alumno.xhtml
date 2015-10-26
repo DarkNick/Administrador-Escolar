@@ -3,11 +3,10 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
+    <p:row>
         <h:form>
-            <b:panel title="Busqueda Alumnoooo" collapsible="false" >
+            <p:panel header="Busqueda Alumno" collapsed="false" >
                 <p:dataTable id="alumno-table" value="#{adminEstudiante.listBusquedaAlumno}" widgetVar="alumnoTable" var="obj" rows="8" paginator="true"
                              paginatorPosition="bottom" filteredValue="#{adminEstudiante.filteredListBusquedaAlumno}"  >
                     <f:facet name="header">
@@ -31,7 +30,7 @@
                         <h:outputText value="#{obj.usuario.nombres}" />
                     </p:column>
                 </p:dataTable>
-            </b:panel>
+            </p:panel>
         </h:form>
-    </b:row>
+    </p:row>
 </ui:composition>

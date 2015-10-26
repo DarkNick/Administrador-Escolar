@@ -3,11 +3,10 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
+    <p:row>
         <h:form>
-            <b:panel title="Busqueda Funcionario." collapsible="false" >
+            <p:panel header="Busqueda Funcionario." collapsed="false" >
                 <p:dataTable id="funcionario-table" value="#{adFuncionarioBusqueda.listBusquedaFuncionario}" widgetVar="funcionarioTable" var="obj" rows="8" paginator="true"
                              paginatorPosition="bottom" filteredValue="#{adFuncionarioBusqueda.filteredListBusquedaFuncionario}"  >
                     <f:facet name="header">
@@ -38,7 +37,7 @@
                     </p:column>                    
 
                 </p:dataTable>
-            </b:panel>
+            </p:panel>
         </h:form>
-    </b:row>
+    </p:row>
 </ui:composition>

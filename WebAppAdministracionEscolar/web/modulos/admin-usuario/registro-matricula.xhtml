@@ -3,37 +3,36 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
+    <p:row>
         <h:form>
-            <b:panel title="Matricula" collapsible="false">
+            <p:panel header="Matricula" >
                 <p:messages autoUpdate="true" closable="true"/>
                 <h:outputLabel value="Fecha de Matricula"/>
-                <b:datepicker value="#{adminMatriculaBean.matricula.fechaMatricula}" mode="popup-icon"/>
+                <p:calendar value="#{adminMatriculaBean.matricula.fechaMatricula}" mode="popup-icon"/>
                 <h:outputLabel value="Costo Matricula"/>
-                <b:inputText value="#{adminMatriculaBean.matricula.valorMatricula}" title="Costo Matricula" placeholder="Costo" required="true">
+                <p:inputText value="#{adminMatriculaBean.matricula.valorMatricula}" title="Costo Matricula" placeholder="Costo" required="true">
                     <f:validateDoubleRange minimum="5000" maximum="1000000" />
-                </b:inputText>
+                </p:inputText>
                 <p:outputLabel value="Estudiante: " />
-                <b:selectOneMenu value="#{adminMatriculaBean.matricula.estudianteId}" title="Estudiantes" required="true" >
+                <p:selectOneMenu value="#{adminMatriculaBean.matricula.estudianteId}"  required="true" >
                     <f:selectItem itemLabel="Seleccione un Estudiante" itemValue="" />
                     <f:selectItems value="#{adminMatriculaBean.estudiantes.entrySet()}" var="entry"
                                    itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
-                </b:selectOneMenu>
+                </p:selectOneMenu>
                 <p:outputLabel value="Curso: " />
-                <b:selectOneMenu value="#{adminMatriculaBean.matricula.cursoId}" title="Cursos" required="true">
+                <p:selectOneMenu value="#{adminMatriculaBean.matricula.cursoId}" required="true">
                     <f:selectItem itemLabel="Seleccione un Curso" itemValue="" />
                     <f:selectItems value="#{adminMatriculaBean.cursos.entrySet()}" var="entry"
                                    itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
-                </b:selectOneMenu>
-                <b:row>
-                    <b:column style="text-align: center;">
-                        <b:commandButton icon="ui-icon-check" value="Registrar Matricula" title="Registrar Matricula" action="#{adminMatriculaBean.createMatricula()}"
-                                         update=":form-tab-cours:panel-01:tab-cours"/>
-                    </b:column>
-                </b:row>
-            </b:panel>
+                </p:selectOneMenu>
+                <p:row>
+                    <p:column style="text-align: center;">
+                        <p:commandButton icon="ui-icon-check" value="Registrar Matricula" title="Registrar Matricula" action="#{adminMatriculaBean.createMatricula()}"
+                                         />
+                    </p:column>
+                </p:row>
+            </p:panel>
         </h:form>
-    </b:row>
+    </p:row>
 </ui:composition>

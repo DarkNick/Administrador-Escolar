@@ -3,9 +3,8 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
-    <b:row>
+    <p:row>
         <h:form id="form">
             <p:growl id="msgs" showDetail="true"/>
 
@@ -21,6 +20,12 @@
                 <p:ajax event="rowEdit" listener="#{adminEstudiantesModificar.onRowEdit}" update=":form:msgs" />
                 <p:ajax event="rowEditCancel" listener="#{adminEstudiantesModificar.onRowCancel}" update=":form:msgs" />
 
+                <p:column headerText="Tipo Identificacion" filterBy="#{estudiante.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{estudiante.usuario.usuarioPK.tipoId}" />
+                </p:column>
+                <p:column headerText="Numero Identificacion" filterBy="#{funcionario.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
+                    <h:outputText value="#{estudiante.usuario.usuarioPK.numeroId}" />
+                </p:column> 
                 <p:column headerText="Nombre" filterBy="#{estudiante.usuario.nombres}" filterStyle="display:none;" filterMatchMode="contains">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{estudiante.usuario.nombres}" /></f:facet>
@@ -38,13 +43,7 @@
                         <f:facet name="output"><h:outputText value="#{estudiante.usuario.segundoApellido}" /></f:facet>
                         <f:facet name="input"><p:inputText value="#{estudiante.usuario.segundoApellido}" style="width:100%"/></f:facet>
                     </p:cellEditor>           
-                </p:column>                  
-                <p:column headerText="Tipo Identificacion" filterBy="#{estudiante.usuario.usuarioPK.tipoId}" filterStyle="display:none;" filterMatchMode="contains">
-                    <h:outputText value="#{estudiante.usuario.usuarioPK.tipoId}" />
                 </p:column>
-                <p:column headerText="Numero Identificacion" filterBy="#{funcionario.usuario.usuarioPK.numeroId}" filterStyle="display:none;" filterMatchMode="contains">
-                    <h:outputText value="#{estudiante.usuario.usuarioPK.numeroId}" />
-                </p:column> 
                 <p:column headerText="Nombres Acudiente" filterBy="#{estudiante.nombresAcudiente}" filterStyle="display:none;" filterMatchMode="contains">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{estudiante.nombresAcudiente}" /></f:facet>
@@ -63,9 +62,9 @@
                             <h:outputText value="#{estudiante.parentescoFamiliaId.parentesco}" />
                         </f:facet>
                         <f:facet name="input">
-                            <h:selectOneMenu value="#{estudiante.parentescoFamiliaId}" style="width:100%">
-                                <f:selectItems value="#{adminEstudiantesModificar.parentescoFamilias.entrySet()}" var="entry" itemLabel="#{entry.key}" itemValue="#{entry.value}" />
-                            </h:selectOneMenu>
+                            <p:selectOneMenu value="#{estudiante.parentescoFamiliaId}" required="true" converter="parentescoFamiliarConvertJSF">
+                                <f:selectItems value="#{adminEstudiante.parentescoItems}" />
+                            </p:selectOneMenu>
                         </f:facet>
                     </p:cellEditor>
                 </p:column>                
@@ -74,5 +73,5 @@
                 </p:column>
             </p:dataTable>
         </h:form>
-    </b:row>
+    </p:row>
 </ui:composition>
