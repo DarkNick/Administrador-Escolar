@@ -3,83 +3,75 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:b="http://bootsfaces.net/ui"
     xmlns:p="http://primefaces.org/ui">
     <p:row>
         <h:form>
-            <p:panel header="Horario" >
+            <p:panel header="Horario">
                 <p:row>
-                    <p:column style="text-align: center;">
-                        <p:messages autoUpdate="true" closable="true"/>
+                    <p:panelGrid columns="2" styleClass="col-md-12">
+                        <p:column>
+                            <p:messages autoUpdate="true" closable="true"/>
+                            <h:outputLabel value="Dia de Clase"/>
+                            <p:selectOneMenu value="#{adminHorarioBean.horario.diaClase}" required="true" style="width: 50%;" >
+                                <f:selectItem itemLabel="Lunes" itemValue="Lunes" />
+                                <f:selectItem itemLabel="Martes" itemValue="Martes" />
+                                <f:selectItem itemLabel="Miercoles" itemValue="Miercoles" />
+                                <f:selectItem itemLabel="Jueves" itemValue="Jueves" />
+                                <f:selectItem itemLabel="Viernes" itemValue="Viernes" />
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Hora de Inicio"/>
+                            <p:selectOneMenu value="#{adminHorarioBean.horario.horaInicioClase}" required="true" style="width: 50%;" >
+                                <f:selectItem itemLabel="6:00 am" itemValue="6" />
+                                <f:selectItem itemLabel="7:00 am" itemValue="7" />
+                                <f:selectItem itemLabel="8:00 am" itemValue="8" />
+                                <f:selectItem itemLabel="9:00 am" itemValue="9" />
+                                <f:selectItem itemLabel="10:00 am" itemValue="10" />
+                                <f:selectItem itemLabel="11:00 am" itemValue="11" />
+                                <f:selectItem itemLabel="12:00 pm" itemValue="12" />
+                                <f:selectItem itemLabel="1:00 pm" itemValue="13" />
+                                <f:selectItem itemLabel="2:00 pm" itemValue="14" />
+                                <f:selectItem itemLabel="3:00 pm" itemValue="15" />
+                                <f:selectItem itemLabel="4:00 pm" itemValue="16" />
+                                <f:selectItem itemLabel="5:00 pm" itemValue="17" />
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Hora de Fin"/>
+                            <p:selectOneMenu value="#{adminHorarioBean.horario.horaFinClase}" required="true" style="width: 50%;">
+                                <f:selectItem itemLabel="6:00 am" itemValue="6" />
+                                <f:selectItem itemLabel="7:00 am" itemValue="7" />
+                                <f:selectItem itemLabel="8:00 am" itemValue="8" />
+                                <f:selectItem itemLabel="9:00 am" itemValue="9" />
+                                <f:selectItem itemLabel="10:00 am" itemValue="10" />
+                                <f:selectItem itemLabel="11:00 am" itemValue="11" />
+                                <f:selectItem itemLabel="12:00 pm" itemValue="12" />
+                                <f:selectItem itemLabel="1:00 pm" itemValue="13" />
+                                <f:selectItem itemLabel="2:00 pm" itemValue="14" />
+                                <f:selectItem itemLabel="3:00 pm" itemValue="15" />
+                                <f:selectItem itemLabel="4:00 pm" itemValue="16" />
+                                <f:selectItem itemLabel="5:00 pm" itemValue="17" />
+                            </p:selectOneMenu>
+                            <br/>
+                            <p:commandButton icon="ui-icon-check" value="Registrar Horario" title="Registrar Horario" action="#{adminHorarioBean.createHorario()}"
+                                             ajax="false"/>
+                        </p:column>
+                        <p:column>
+                            <h:outputLabel value="Materia"/>
+                            <p:selectOneMenu value="#{adminHorarioBean.horario.materiaId}" editable="false" style="width: 50%;">
+                                <f:selectItems value="#{adminHorarioBean.materias.entrySet()}" var="entry"
+                                               itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Curso"/>
+                            <p:selectOneMenu value="#{adminHorarioBean.horario.cursoId}"  editable="false" style="width: 50%;">
+                                <f:selectItems value="#{adminHorarioBean.cursos.entrySet()}" var="entry"
+                                               itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
+                            </p:selectOneMenu>
+                            <h:outputLabel value="Funcionario"/>
+                            <p:selectOneMenu value="#{adminHorarioBean.horario.funcionarioId}"  editable="false" style="width: 50%;">
+                                <f:selectItems value="#{adminHorarioBean.funcionarios.entrySet()}" var="entry"
+                                               itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:panelGrid>
 
-                        <h:outputLabel value="Dia de Clase"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.diaClase}" required="true" style="width: 50%;" >
-                            <f:selectItem itemLabel="Seleccione un Día" itemValue="" />
-                            <f:selectItem itemLabel="Lunes" itemValue="Lunes" />
-                            <f:selectItem itemLabel="Martes" itemValue="Martes" />
-                            <f:selectItem itemLabel="Miercoles" itemValue="Miercoles" />
-                            <f:selectItem itemLabel="Jueves" itemValue="Jueves" />
-                            <f:selectItem itemLabel="Viernes" itemValue="Viernes" />
-                        </p:selectOneMenu>
-                        <h:outputLabel value="Hora de Inicio"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.horaInicioClase}" required="true" style="width: 50%;" >
-                            <f:selectItem itemLabel="Seleccione una Hora" itemValue="" />
-                            <f:selectItem itemLabel="6:00 am" itemValue="6" />
-                            <f:selectItem itemLabel="7:00 am" itemValue="7" />
-                            <f:selectItem itemLabel="8:00 am" itemValue="8" />
-                            <f:selectItem itemLabel="9:00 am" itemValue="9" />
-                            <f:selectItem itemLabel="10:00 am" itemValue="10" />
-                            <f:selectItem itemLabel="11:00 am" itemValue="11" />
-                            <f:selectItem itemLabel="12:00 pm" itemValue="12" />
-                            <f:selectItem itemLabel="1:00 pm" itemValue="13" />
-                            <f:selectItem itemLabel="2:00 pm" itemValue="14" />
-                            <f:selectItem itemLabel="3:00 pm" itemValue="15" />
-                            <f:selectItem itemLabel="4:00 pm" itemValue="16" />
-                            <f:selectItem itemLabel="5:00 pm" itemValue="17" />
-                        </p:selectOneMenu>
-                        <h:outputLabel value="Hora de Fin"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.horaFinClase}" required="true" style="width: 50%;">
-                            <f:selectItem itemLabel="Seleccione una Hora" itemValue="" />
-                            <f:selectItem itemLabel="6:00 am" itemValue="6" />
-                            <f:selectItem itemLabel="7:00 am" itemValue="7" />
-                            <f:selectItem itemLabel="8:00 am" itemValue="8" />
-                            <f:selectItem itemLabel="9:00 am" itemValue="9" />
-                            <f:selectItem itemLabel="10:00 am" itemValue="10" />
-                            <f:selectItem itemLabel="11:00 am" itemValue="11" />
-                            <f:selectItem itemLabel="12:00 pm" itemValue="12" />
-                            <f:selectItem itemLabel="1:00 pm" itemValue="13" />
-                            <f:selectItem itemLabel="2:00 pm" itemValue="14" />
-                            <f:selectItem itemLabel="3:00 pm" itemValue="15" />
-                            <f:selectItem itemLabel="4:00 pm" itemValue="16" />
-                            <f:selectItem itemLabel="5:00 pm" itemValue="17" />
-                        </p:selectOneMenu>
-                        <h:outputLabel value="Materia"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.materiaId}" effect="fold" editable="false" style="width: 50%;">
-                            <f:selectItem itemLabel="Seleccione una Materia" itemValue="" />
-                            <f:selectItems value="#{adminHorarioBean.materias.entrySet()}" var="entry"
-                                           itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
-                        </p:selectOneMenu>
-                        <h:outputLabel value="Curso"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.cursoId}" effect="fold" editable="false" style="width: 50%;">
-                            <f:selectItem itemLabel="Seleccione un Curso" itemValue="" />
-                            <f:selectItems value="#{adminHorarioBean.cursos.entrySet()}" var="entry"
-                                           itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
-                        </p:selectOneMenu>
-                        <h:outputLabel value="Funcionario"/>
-                        <p:selectOneMenu value="#{adminHorarioBean.horario.funcionarioId}" effect="fold" editable="false" style="width: 50%;">
-                            <f:selectItem itemLabel="Seleccione un Funcionario" itemValue="" />
-                            <f:selectItems value="#{adminHorarioBean.funcionarios.entrySet()}" var="entry"
-                                           itemValue="#{entry.value}" itemLabel="#{entry.key}"/>
-                        </p:selectOneMenu>
-                        <!--<h:outputLabel value="Resultado Academico"/>
-                        <p:selectOneMenu value="#//{adminHorarioBean.horario.resultadoAcademicoId}" effect="fold" editable="false" style="width: 50%;">
-                            <f:selectItem itemLabel="Seleccione un Resultado" itemValue="" />
-                            <f:selectItems value="#//{adminHorarioBean.resultados.entrySet()}"
-                                           itemValue="#//{entry.value}" itemLabel="#//{entry.key}"/>
-                        </p:selectOneMenu> -->
-                        <br/><br/>
-                        <p:commandButton icon="ui-icon-check" value="Registrar Horario" title="Registrar Horario" action="#{adminHorarioBean.createHorario()}"/>
-                    </p:column>
                 </p:row>
             </p:panel>
         </h:form>

@@ -9,7 +9,7 @@
         <p:panel header="Registro Pago Nomina" collapsed="false">
             <h:form enctype="multipart/form-data">
                 <p:messages autoUpdate="true" closable="true"/>
-                <p:panelGrid columns="2" >
+                <p:panelGrid columns="2" styleClass="col-md-12">
                     <h:outputLabel value="Tipo documento."/>
                     <p:selectOneMenu  value="#{adminNominaBean.usuarioPK.tipoId}" required="true" >
                         <f:selectItem itemLabel="CC" itemValue="CC" />
@@ -24,7 +24,7 @@
                 </p:panelGrid>
                 <p:row>
                     <p:column style="text-align: center;">
-                        <p:commandButton icon="ui-icon-check" value="Registrar pago" action="#{adminNominaBean.registarPago}" />
+                        <p:commandButton icon="ui-icon-check" value="Registrar pago" action="#{adminNominaBean.registarPago}" ajax="false" />
                     </p:column>
                 </p:row>
             </h:form>

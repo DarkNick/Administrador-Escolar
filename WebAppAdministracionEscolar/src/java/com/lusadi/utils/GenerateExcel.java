@@ -8,6 +8,7 @@ package com.lusadi.utils;
 import java.io.ByteArrayOutputStream;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,7 +30,7 @@ import org.apache.poi.ss.util.CellUtil;
  */
 public class GenerateExcel {
 
-    private int salario;
+    private BigInteger salario;
     private int dias;
     private double sub_trans;
     private double totalDevengado;
@@ -179,19 +180,19 @@ public class GenerateExcel {
         my_style2.setBorderBottom(HSSFCellStyle.BORDER_DOUBLE);
         Font my_font = libro.createFont();
         my_font.setColor(Font.COLOR_RED);
-
-        for (int i = 0, j = 0; i < documento.size(); i += 7, j++) {
-
-            salario = Integer.parseInt(documento.get(i + 5));
-            dias = Integer.parseInt(documento.get(i + 6));
+        System.out.println(documento);
+        for (int i = 0, j = 0; i < documento.size(); i += 6, j++) {
+            salario = new BigInteger(documento.get(i + 4));
+            dias = Integer.parseInt(documento.get(i + 5));
+            System.out.println(salario + " " + dias);
             sub_trans = ((2466.666666666666667) * dias);
-            totalDevengado = (salario / 30) * dias + sub_trans;
-            salud = salario * 4 / 100;
-            pension = salario * 4 / 100;
+            totalDevengado = (salario.doubleValue() / 30) * dias + sub_trans;
+            salud = salario.doubleValue() * 4 / 100;
+            pension = salario.doubleValue() * 4 / 100;
             totalDeducido = salud + pension;
             netoPagar = totalDevengado - totalDeducido;
 
-            totalSumaSalario += salario;
+            totalSumaSalario += salario.doubleValue();
             totalSumaSub_trans += sub_trans;
             totalSumaDevengado += totalDevengado;
             totalSumaDeducido += totalDeducido;
@@ -218,7 +219,7 @@ public class GenerateExcel {
             celda.setCellValue(documento.get(i + 4));
             celda.setCellStyle(my_style2);
             celda = fila6.createCell(6);
-            celda.setCellValue(salario);
+            celda.setCellValue(salario.toString());
             celda.setCellStyle(my_style2);
             celda = fila6.createCell(7);
             celda.setCellValue(dias);

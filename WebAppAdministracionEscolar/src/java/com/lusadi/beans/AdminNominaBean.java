@@ -67,6 +67,7 @@ public class AdminNominaBean implements Serializable {
                 listParam.add(f.getUsuario().getPrimerApellido());
                 listParam.add(f.getUsuario().getNombres());
                 listParam.add(String.valueOf(f.getSaldoNeto()));
+                listParam.add(String.valueOf(new Integer("30")));
             }
             //Funcionario funcionario = funcionarioFacade.find(Integer.parseInt(funcionarioId));
             /*listParam.add(String.valueOf(funcionario.getUsuario().getUsuarioPK().getNumeroId()));

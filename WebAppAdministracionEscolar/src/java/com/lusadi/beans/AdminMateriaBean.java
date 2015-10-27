@@ -104,7 +104,7 @@ public class AdminMateriaBean implements Serializable {
 
     public void findAllMaterias() {
         try {
-            ArrayList<Materia> result = (ArrayList<Materia>) materiaFacade.findAll();
+            ArrayList<Materia> result = new ArrayList<Materia>(materiaFacade.findAll());
             if (result != null) {
                 materias = result;
                 Collections.sort(materias, new Comparator<Materia>() {

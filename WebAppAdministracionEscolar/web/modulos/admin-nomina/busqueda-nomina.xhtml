@@ -10,16 +10,16 @@
         <h:form>
             <p:panel header="Busqueda Historico Nomina" collapsed="false">
                 <p:messages autoUpdate="true" closable="true"/>
-                <p:panelGrid columns="2">
+                <p:panelGrid columns="2" styleClass="col-md-12">
                     <h:outputLabel value="Tipo documento"/>
                     <p:selectOneMenu  value="#{adminNominaBean.usuarioPK.tipoId}" required="true" >
                         <f:selectItem itemLabel="CC" itemValue="CC" />
                         <f:selectItem itemLabel="CE" itemValue="CE" />
                     </p:selectOneMenu>
                     <h:outputLabel value="Numero documento"/>
-                    <p:autoComplete size="80" value="#{adminNominaBean.usuarioPK.numeroId}" completeMethod="#{adminNominaBean.obtenerNumerosIdSegun}" required="true" />
-                    <p:commandButton icon="ui-icon-check" value="Buscar" action="#{adminNominaBean.cargarHistorialFuncionario}" />
+                    <p:autoComplete size="60" value="#{adminNominaBean.usuarioPK.numeroId}" completeMethod="#{adminNominaBean.obtenerNumerosIdSegun}" required="true" />
                 </p:panelGrid>
+                <p:commandButton icon="ui-icon-check" value="Buscar" action="#{adminNominaBean.cargarHistorialFuncionario}" ajax="false" />
             </p:panel>
             <br/>
             <p:panel header="Resultado Busqueda" collapsed="false" rendered="#{adminNominaBean.listPagosFuncionario.size() != 0}">

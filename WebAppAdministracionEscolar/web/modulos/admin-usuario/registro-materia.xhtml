@@ -20,13 +20,11 @@
                         <p:inputTextarea value="#{adminMateriaBean.materia.observacion}" title="Observaciones" rows="4" placeholder="N/A" style="width: 100%" autoResize="false"/>
                         <h:outputLabel value="Nivel Academico"/>
                         <p:selectOneMenu value="#{adminMateriaBean.materia.nivelAcademicoId}"  required="true">
-                            <f:selectItem  itemLabel="Seleccione un Nivel" itemValue="" />
                             <f:selectItems value="#{adminMateriaBean.nivelesAcademicos.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}" />
                         </p:selectOneMenu>
                         <p:outputLabel value="Salon: " />
                         <p:selectOneMenu value="#{adminMateriaBean.materia.salonId}" required="true">
-                            <f:selectItem  itemLabel="Seleccione un Salon" itemValue="" />
                             <f:selectItems value="#{adminMateriaBean.salones.entrySet()}" var="entry"
                                            itemValue="#{entry.value}" itemLabel="#{entry.key}" />
                         </p:selectOneMenu>

@@ -9,8 +9,8 @@
     <p:row>
         <h:form>
             <p:panel header="Consulta Asistencia" collapsed="false">
-                <p:messages/>
-                <p:panelGrid columns="2">
+                <p:messages autoUpdate="true" closable="true"/>
+                <p:panelGrid columns="4" styleClass="col-md-12">
                     <p:selectBooleanCheckbox value="#{adminAsistenciaBean.filtroAllRegisters}" />
                     <p:inputText  value="#{adminAsistenciaBean.campoBusquedaAsistencia}" placeholder="Numero documento">
                         <f:convertNumber integerOnly="true"/>
@@ -18,7 +18,7 @@
                     <p:selectBooleanCheckbox value="#{adminAsistenciaBean.filtroFecha}" />
                     <p:calendar value="#{adminAsistenciaBean.fechaFiltroBusqueda}"/>
                 </p:panelGrid>
-                <p:commandButton icon="ui-icon-check" value="Buscar" action="#{adminAsistenciaBean.actionBusquedaAsistencia}" />
+                <p:commandButton icon="ui-icon-check" value="Buscar" action="#{adminAsistenciaBean.actionBusquedaAsistencia}" ajax="false" />
             </p:panel>
             <br/>
             <p:panel header="Resultado busqueda." rendered="#{adminAsistenciaBean.listBusquedaAsistencia.size() != 0}">
